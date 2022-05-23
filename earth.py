@@ -22,8 +22,3 @@ class Earth:
 
     def convert_surface_area(self, change_to):
         return self.surface_area.to(change_to)
-
-    def __mass_radio_dict(self):
-        mass_radio_dict = {'g': ['g', 2],
-                           'kg': ['kg', 3],
-                           'Msun': ['Msun', 4]}
