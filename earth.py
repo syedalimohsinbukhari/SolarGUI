@@ -20,5 +20,11 @@ class Earth:
     def convert_radius(self, change_to):
         return self.radius.to(change_to)
 
+    def convert_volume(self, change_to):
+        return self.volume.to(change_to)
+
     def convert_surface_area(self, change_to):
         return self.surface_area.to(change_to)
+
+    def convert_surface_gravity(self, change_to):
+        return self.surface_gravity.to(change_to)

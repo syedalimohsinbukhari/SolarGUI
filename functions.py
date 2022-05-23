@@ -9,6 +9,8 @@ from earth import Earth
 _earth = Earth()
 
 
+# TODO: convert radio buttons to dropdown menus for easier selection
+
 def show_earth(window):
     earth_window = tk.Toplevel(window)
     earth_window.title('Earth')
@@ -18,32 +20,57 @@ def show_earth(window):
 
     _dict = Dictionaries()
 
-    property_value(window=earth_window, text='Mass of Earth', row=0, value=_earth.mass,
+    property_value(window=earth_window, text='Mass', row=0, value=_earth.mass,
                    radio_dict=_dict.mass, function=_earth.convert_mass)
 
-    property_value(window=earth_window, text='Radius of Earth', row=1,
+    property_value(window=earth_window, text='Radius', row=1,
                    value=_earth.radius, radio_dict=_dict.radius,
                    function=_earth.convert_radius)
 
-    property_value(window=earth_window, text='Surface area of Earth', row=2,
+    property_value(window=earth_window, text='Volume', row=2,
+                   value=_earth.volume, radio_dict=_dict.volume,
+                   function=_earth.convert_volume)
+
+    property_value(window=earth_window, text='Surface area', row=3,
                    value=_earth.surface_area, radio_dict=_dict.surface_area,
                    function=_earth.convert_surface_area)
+
+    property_value(window=earth_window, text='Surface gravity', row=4,
+                   value=_earth.surface_gravity, radio_dict=_dict.surface_gravity,
+                   function=_earth.convert_surface_gravity)
 
 
 class Dictionaries:
     mass = {'g': ['g', 2],
             'kg': ['kg', 3],
-            'Msun': ['Msun', 4]}
+            'MJupiter': ['Mjupiter', 4],
+            'MSun': ['Msun', 5]}
 
     radius = {'cm': ['cm', 2],
               'm': ['m', 3],
               'km': ['km', 4],
-              'Rsun': ['Rsun', 5]}
+              'RJupiter': ['Rjupiter', 5],
+              'RSun': ['Rsun', 6]}
+
+    volume = {'cm^3': ['cm3', 2],
+              'm^3': ['m3', 3],
+              'km^3': ['km3', 4],
+              'RJupiter^3': ['Rjupiter^3', 5],
+              'RSun^3': ['Rsun3', 6]}
 
     surface_area = {'cm^2': ['cm2', 2],
                     'm^2': ['m2', 3],
                     'km^2': ['km2', 4],
-                    'Rsun^2': ['Rsun2', 5]}
+                    'RJupiter^2': ['Rjupiter^2', 5],
+                    'RSun^2': ['Rsun2', 6]}
+
+    surface_gravity = {'cm/s^2': ['cm/s2', 2],
+                       'm/s^2': ['m/s^2', 3],
+                       'm/h^2': ['m/h^2', 4],
+                       'km/h^2': ['km/h2', 5],
+                       'km/s^2': ['km/s2', 6],
+                       'RJupiter/s^2': ['Rjupiter/s2', 7],
+                       'RSun/s^2': ['Rsun/s^2', 8]}
 
 
 def align_radio_buttons(window, string_var, radio_button_dict, function, row):
@@ -64,7 +91,7 @@ def label_placement(window, text, row):
 
 
 def entry_placement(window, value, row):
-    entry_widget = tk.Entry(master=window, width=30)
+    entry_widget = tk.Entry(master=window, width=40)
     entry_widget.insert(0, f'{value}')
     entry_widget.grid(row=row, column=1, padx=10, sticky='w')
 
