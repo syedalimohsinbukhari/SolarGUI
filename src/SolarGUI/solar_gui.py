@@ -4,10 +4,10 @@ Created on May 22 00:40:38 2022
 import sys
 import tkinter as tk
 
-from . import show_planet as sp
-from . import tk_functions as tk_f
-from .planets import (Sun, Mercury, Venus, Earth, Moon, Mars, Jupiter, Saturn, Uranus,
-                      Neptune, Pluto)
+from SolarGUI import show_planet as sp
+from SolarGUI import tk_functions as tk_f
+from SolarGUI.planets import (Sun, Mercury, Venus, Earth, Moon, Mars, Jupiter, Saturn,
+                              Uranus, Neptune, Pluto)
 
 
 # TODO: There's an issue when the planet window will crash the app, fix this
