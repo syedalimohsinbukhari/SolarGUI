@@ -7,10 +7,10 @@ from tkinter import ttk
 from typing import Callable
 
 
-def planet_button(window, text, function, column):
+def planet_button(window, text, function, column, row=1):
     tk.Button(master=window, text=text,
-              command=lambda: function(window)).grid(row=1, column=column, sticky='e',
-                                                     padx=10)
+              command=lambda: function()).grid(row=row, column=column, sticky='e',
+                                               padx=10, pady=5)
 
 
 def place_dropdown_menu(window, text, value, function, row, options, default):
