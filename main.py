@@ -14,7 +14,7 @@ def main():
     ###################################################################################
 
     # set the width and height of the original window
-    _w, _h = 960, 240
+    _w, _h = 800, 240
     # main is the master name in which all work is going to be done
     root_window = tk.Tk()
     # set the title of the GUI window

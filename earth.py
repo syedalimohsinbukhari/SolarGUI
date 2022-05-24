@@ -8,11 +8,15 @@ import astropy.units as u
 class Earth:
 
     def __init__(self):
+        self.age = 4.5682 * u.Gyr
         self.mass = (1 * u.Mearth).si.value * u.kg
         self.radius = (1 * u.Rearth).si.value * u.m
         self.volume = 1.08321e12 * u.km**3
         self.surface_area = 510072000 * u.km**2
         self.surface_gravity = 9.80665 * u.m * u.s**-2
+
+    def convert_age(self, change_to):
+        return self.age.to(change_to)
 
     def convert_mass(self, change_to):
         return self.mass.to(change_to)
