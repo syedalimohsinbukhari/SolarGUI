@@ -9,7 +9,7 @@ from typing import Callable
 
 def planet_button(window, text, function, column, row=1):
     tk.Button(master=window, text=text,
-              command=lambda: function()).grid(row=row, column=column, sticky='e',
+              command=lambda: function()).grid(row=row, column=column, sticky='w',
                                                padx=10, pady=5)
 
 
