@@ -4,7 +4,8 @@ Created on May 22 00:40:38 2022
 import sys
 import tkinter as tk
 
-from functions import show_earth
+from show.show_earth import show_earth
+from tk_functions import planet_button
 
 
 def main():
@@ -31,11 +32,26 @@ def main():
     welcome_label = tk.Label(master=root_window,
                              text='Welcome to Solar Explorer.\nPlease select a '
                                   'button.')
-    welcome_label.place(y=20, relx=.5, anchor=tk.CENTER)
+    welcome_label.grid(row=0, column=0, columnspan=9)
 
-    earth_button = tk.Button(master=root_window, text='Earth',
-                             command=lambda: show_earth(root_window))
-    earth_button.place(y=60, relx=.5, anchor=tk.CENTER)
+    planet_button(window=root_window, text='Sun', function=show_earth, column=0)
+
+    planet_button(window=root_window, text='Mercury', function=show_earth, column=1)
+
+    planet_button(window=root_window, text='Venus', function=show_earth, column=2)
+
+    planet_button(window=root_window, text='Earth', function=show_earth, column=3)
+
+    planet_button(window=root_window, text='Mars', function=show_earth, column=4)
+
+    planet_button(window=root_window, text='Jupiter', function=show_earth, column=5)
+
+    planet_button(window=root_window, text='Saturn', function=show_earth, column=6)
+
+    planet_button(window=root_window, text='Uranus', function=show_earth, column=7)
+
+    planet_button(window=root_window, text='Neptune', function=show_earth, column=8)
+
     ##################################################################################
     # Show it
     ##################################################################################
