@@ -5,7 +5,7 @@ with open('README.md', 'r') as f:
 
 setup(
         name='SolarGUI',
-        version='0.1.0',
+        version='0.1.1',
         packages=find_packages(where="src"),
         url='https://github.com/AstrophysicsAndPython/SolarGUI',
         license='MIT',

@@ -20,6 +20,7 @@ Each button will open a new window with  information regarding the particular ob
 6. surface area, and 
 7. surface gravity.
 ![img.png](src/SolarGUI/images/SolarGUI__planetView.png)
+
 The dropdown menus will show various other (standard and non-standard) units of measures.
 
 ## TODO
