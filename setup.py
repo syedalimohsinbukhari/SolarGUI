@@ -18,7 +18,7 @@ setup(
         python_requires=">=3.9",
         install_requires=["astropy~=5.0.4"],
         classifiers=[
-            "License :: OSI Approved :: CC License",
+            "License :: OSI Approved :: MIT License",
             "Programming Language :: Python :: 3.9"
             ],
         # https://chriswarrick.com/blog/2014/09/15/python-apps-the-right-way
