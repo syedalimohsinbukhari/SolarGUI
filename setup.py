@@ -15,10 +15,11 @@ setup(
                     'planets, moon, pluto, Sun, and more.',
         long_description=readme,
         long_description_content_type="text/markdown",
-        python_requires=">=3.7, <3.10.*",
-        install_requires=["astropy~=4.3.1"],
+        python_requires=">=3.6.*, <3.10.*",
+        install_requires=["astropy~=4.3.1, numpy~=1.21.6"],
         classifiers=[
             "License :: OSI Approved :: MIT License",
+            "Programming Language :: Python :: 3.6"
             "Programming Language :: Python :: 3.7"
             "Programming Language :: Python :: 3.8"
             "Programming Language :: Python :: 3.9"

@@ -7,14 +7,10 @@ import tkinter as tk
 # added try/except because pip bundle and main file do not work with same imports
 try:
     from . import tk_functions as tk_f
+    from .utilities import convert
 except ImportError:
     import tk_functions as tk_f
-
-
-def convert(parameter, change_to):
-    # Move the convert function to a separate file if more functions like this turn up in
-    # future
-    return parameter.to(change_to)
+    from utilities import convert
 
 
 def show_planet(window, text, planet_class):
