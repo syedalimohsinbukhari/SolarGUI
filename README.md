@@ -24,11 +24,9 @@ Each button will open a new window with  information regarding the particular ob
 The dropdown menus will show various other (standard and non-standard) units of measures.
 
 ## TODO
-1. Fix README.md more
-2. Add a fix to sudden planet window crashing the GUI.
-3. Add a comparison button/dropdown menu to check the values with respect to Earth/Jupiter/Sun.
-4. Segregate moons, dwarf planets, planets and other type of celestial objects.
-5. Design adjustments of the GUI
-6. Separate button/menu for physical/orbital and other parameters.
-7. Some interesting plots (optional).
-8. Random facts button.
+1. Add a comparison button/dropdown menu to check the values with respect to Earth/Jupiter/Sun.
+2. Segregate moons, dwarf planets, planets and other type of celestial objects.
+3. Design adjustments of the GUI
+4. Separate button/menu for physical/orbital and other parameters.
+5. Some interesting plots (optional).
+6. Random facts button.
