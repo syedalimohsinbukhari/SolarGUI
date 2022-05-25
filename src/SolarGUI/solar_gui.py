@@ -4,13 +4,17 @@ Created on May 22 00:40:38 2022
 import sys
 import tkinter as tk
 
-from SolarGUI import show_planet as sp
-from SolarGUI import tk_functions as tk_f
-from SolarGUI.planets import (Sun, Mercury, Venus, Earth, Moon, Mars, Jupiter, Saturn,
-                              Uranus, Neptune, Pluto)
+# added try/except because pip bundle and main file do not work with same imports
+try:
+    from . import planets as planets
+    from . import show_planet as sp
+    from . import tk_functions as tk_f
+except ImportError:
+    import planets as planets
+    import show_planet as sp
+    import tk_functions as tk_f
 
 
-# TODO: There's an issue when the planet window will crash the app, fix this
 # TODO: Get a good font
 # TODO: adjust/create designs in tkinter windows
 # TODO: make a planets vs Earth/Jupiter/Sun comparison dropdown menu as well
@@ -46,53 +50,65 @@ def main():
 
     tk_f.planet_button(window=root_window, text=' Sun  ',
                        function=lambda: sp.show_planet(window=root_window, text='Sun',
-                                                       planet_class=Sun()), column=0)
+                                                       planet_class=planets.Sun()),
+                       column=0)
 
     tk_f.planet_button(window=root_window, text='Mercury',
                        function=lambda: sp.show_planet(window=root_window,
                                                        text='Mercury',
-                                                       planet_class=Mercury()), column=1)
+                                                       planet_class=planets.Mercury()),
+                       column=1)
 
     tk_f.planet_button(window=root_window, text='Venus',
                        function=lambda: sp.show_planet(window=root_window, text='Venus',
-                                                       planet_class=Venus()), column=2)
+                                                       planet_class=planets.Venus()),
+                       column=2)
 
     tk_f.planet_button(window=root_window, text='Earth',
                        function=lambda: sp.show_planet(window=root_window, text='Earth',
-                                                       planet_class=Earth()), column=3)
+                                                       planet_class=planets.Earth()),
+                       column=3)
 
     tk_f.planet_button(window=root_window, text='Mars',
                        function=lambda: sp.show_planet(window=root_window, text='Mars',
-                                                       planet_class=Mars()), column=4)
+                                                       planet_class=planets.Mars()),
+                       column=4)
 
     tk_f.planet_button(window=root_window, text='Jupiter',
                        function=lambda: sp.show_planet(window=root_window,
                                                        text='Jupiter',
-                                                       planet_class=Jupiter()), column=5)
+                                                       planet_class=planets.Jupiter()),
+                       column=5)
 
     tk_f.planet_button(window=root_window, text='Saturn',
                        function=lambda: sp.show_planet(window=root_window,
                                                        text='Saturn',
-                                                       planet_class=Saturn()), column=6)
+                                                       planet_class=planets.Saturn()),
+                       column=6)
 
     tk_f.planet_button(window=root_window, text='Uranus',
                        function=lambda: sp.show_planet(window=root_window,
                                                        text='Uranus',
-                                                       planet_class=Uranus()), column=7)
+                                                       planet_class=planets.Uranus()),
+                       column=7)
 
     tk_f.planet_button(window=root_window, text='Neptune',
                        function=lambda: sp.show_planet(window=root_window,
                                                        text='Neptune',
-                                                       planet_class=Neptune()), column=8)
+                                                       planet_class=planets.Neptune()),
+                       column=8)
 
     tk_f.planet_button(window=root_window, text='Moon',
-                       function=lambda: sp.show_planet(window=root_window, text='Moon',
-                                                       planet_class=Moon()), column=0,
+                       function=lambda: sp.show_planet(window=root_window,
+                                                       text='Moon',
+                                                       planet_class=planets.Moon()),
+                       column=0,
                        row=2)
 
     tk_f.planet_button(window=root_window, text='  Pluto  ',
                        function=lambda: sp.show_planet(window=root_window, text='Pluto',
-                                                       planet_class=Pluto()), column=1,
+                                                       planet_class=planets.Pluto()),
+                       column=1,
                        row=2)
 
     ##################################################################################

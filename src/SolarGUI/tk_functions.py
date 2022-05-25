@@ -4,6 +4,7 @@ Created on May 24 22:08:46 2022
 
 import tkinter as tk
 from tkinter import ttk
+
 from typing import Callable
 
 
@@ -23,11 +24,11 @@ def place_dropdown_menu(window, text, value, function, row, options, default):
         if reset:
             dropdown.set('')
 
-        alter_value(entry=age_, function=function, change_to=change_to)
+        alter_value(entry=entry_, function=function, value=value, change_to=change_to)
 
     # dropdown idea taken from https://pythonguides.com/python-tkinter-optionmenu/
     label_placement(window=window, text=text, row=row)
-    age_ = entry_placement(window=window, row=row, value=value)
+    entry_ = entry_placement(window=window, row=row, value=value)
 
     get_var = tk.StringVar()
 
@@ -55,7 +56,7 @@ def entry_placement(window, value, row):
     return entry_widget
 
 
-def alter_value(entry: tk.Entry, function: Callable, change_to: str) -> None:
+def alter_value(entry: tk.Entry, function: Callable, value, change_to: str) -> None:
     """
     Change the value in a tkinter.Entry widget
 
@@ -65,9 +66,10 @@ def alter_value(entry: tk.Entry, function: Callable, change_to: str) -> None:
         The entry widget variable.
     function: Callable
         Function to apply in the entry widget.
+    value :
     change_to: str
         String containing the argument to which the unit is to be changed.
     """
 
     entry.delete(first=0, last='end')
-    entry.insert(index=0, string=function(change_to=change_to))
+    entry.insert(index=0, string=function(parameter=value, change_to=change_to))
