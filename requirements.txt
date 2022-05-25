@@ -2,4 +2,4 @@ astropy~=4.3.1
 
 numpy~=1.21.6
 
-setuptools==62.3.2
+setuptools==59.6.0
