@@ -16,7 +16,7 @@ setup(
         long_description=readme,
         long_description_content_type="text/markdown",
         python_requires=">=3.6.*, <3.10.*",
-        install_requires=["astropy~=4.3.1, numpy~=1.21.6"],
+        install_requires=["astropy~=4.3.1", "numpy~=1.21.6"],
         classifiers=[
             "License :: OSI Approved :: MIT License",
             "Programming Language :: Python :: 3.6"
