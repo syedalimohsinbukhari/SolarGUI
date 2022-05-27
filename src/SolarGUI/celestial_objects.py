@@ -5,9 +5,9 @@ Created on May 26 01:33:39 2022
 import astropy.units as u
 
 try:
-    from .utilities import PhysicalParameters
+    from . import utilities as utils
 except ImportError:
-    from utilities import PhysicalParameters
+    import utilities as utils
 
 
 class Sun:
@@ -19,7 +19,7 @@ class Sun:
         (self.volume,
          self.density,
          self.surface_area,
-         self.surface_gravity) = PhysicalParameters(self.mass, self.radius).get()
+         self.surface_gravity) = utils.PhysicalParameters(self.mass, self.radius).get()
 
 
 class Mercury:
@@ -31,7 +31,7 @@ class Mercury:
         (self.volume,
          self.density,
          self.surface_area,
-         self.surface_gravity) = PhysicalParameters(self.mass, self.radius).get()
+         self.surface_gravity) = utils.PhysicalParameters(self.mass, self.radius).get()
 
 
 class Venus:
@@ -43,7 +43,7 @@ class Venus:
         (self.volume,
          self.density,
          self.surface_area,
-         self.surface_gravity) = PhysicalParameters(self.mass, self.radius).get()
+         self.surface_gravity) = utils.PhysicalParameters(self.mass, self.radius).get()
 
 
 class Earth:
@@ -55,7 +55,7 @@ class Earth:
         (self.volume,
          self.density,
          self.surface_area,
-         self.surface_gravity) = PhysicalParameters(self.mass, self.radius).get()
+         self.surface_gravity) = utils.PhysicalParameters(self.mass, self.radius).get()
 
 
 class Moon:
@@ -67,7 +67,7 @@ class Moon:
         (self.volume,
          self.density,
          self.surface_area,
-         self.surface_gravity) = PhysicalParameters(self.mass, self.radius).get()
+         self.surface_gravity) = utils.PhysicalParameters(self.mass, self.radius).get()
 
 
 class Mars:
@@ -79,7 +79,7 @@ class Mars:
         (self.volume,
          self.density,
          self.surface_area,
-         self.surface_gravity) = PhysicalParameters(self.mass, self.radius).get()
+         self.surface_gravity) = utils.PhysicalParameters(self.mass, self.radius).get()
 
 
 class Jupiter:
@@ -91,7 +91,7 @@ class Jupiter:
         (self.volume,
          self.density,
          self.surface_area,
-         self.surface_gravity) = PhysicalParameters(self.mass, self.radius).get()
+         self.surface_gravity) = utils.PhysicalParameters(self.mass, self.radius).get()
 
 
 class Saturn:
@@ -103,7 +103,7 @@ class Saturn:
         (self.volume,
          self.density,
          self.surface_area,
-         self.surface_gravity) = PhysicalParameters(self.mass, self.radius).get()
+         self.surface_gravity) = utils.PhysicalParameters(self.mass, self.radius).get()
 
 
 class Uranus:
@@ -115,7 +115,7 @@ class Uranus:
         (self.volume,
          self.density,
          self.surface_area,
-         self.surface_gravity) = PhysicalParameters(self.mass, self.radius).get()
+         self.surface_gravity) = utils.PhysicalParameters(self.mass, self.radius).get()
 
 
 class Neptune:
@@ -127,7 +127,7 @@ class Neptune:
         (self.volume,
          self.density,
          self.surface_area,
-         self.surface_gravity) = PhysicalParameters(self.mass, self.radius).get()
+         self.surface_gravity) = utils.PhysicalParameters(self.mass, self.radius).get()
 
 
 class Pluto:
@@ -139,4 +139,4 @@ class Pluto:
         (self.volume,
          self.density,
          self.surface_area,
-         self.surface_gravity) = PhysicalParameters(self.mass, self.radius).get()
+         self.surface_gravity) = utils.PhysicalParameters(self.mass, self.radius).get()
