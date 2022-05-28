@@ -13,9 +13,19 @@ Currently, the SolarGUI application is tested with **Python** `v3.7`, `3.8` and 
 
 ## How to install?
 
+### pip
+
 The SolarGUI is available via `pip`. Simply use the command,
 
-`pip install SolarGUI`
+`pip install SolarGUI==0.1.3a0`
+
+### wheel file
+
+The wheel can also be downloaded from
+this [wheel](https://github.com/AstrophysicsAndPython/SolarGUI/releases/download/v0.1.3a0/SolarGUI-0.1.3a0-py3-none-any.whl)
+link and installed via
+
+`pip install [download_directory]/SolarGUI-0.1.3a0-py3-none-any.whl`
 
 Once the SolarGUI has been installed, you can simply launch it from the terminal/installation environment via,
 
@@ -43,8 +53,14 @@ see the equivalent values for other celestial objects.
 ## TODO
 
 - [x] Add Sun, Pluto and Moon with the Solar planets.
+- [ ] Calculate physical properties via formulae, e.g., volume, density, surface_area, surface_gravity.
+  - [x] volume
+  - [x] density
+  - [x] surface_area
+  - [x] surface_gravity
+  - [ ] others
 - [x] Add a comparison button/dropdown menu to check the values with respect to Earth/Jupiter/Sun.
-    - [x] Add planet level equivalencies.
+  - [x] Add planet level equivalencies.
 - [ ] Segregate moons, dwarf planets, planets and other type of celestial objects.
 - [x] Design adjustments of the GUI
     - [x] Adjust column widths in GUI.
