@@ -19,8 +19,8 @@ setup(
         install_requires=["astropy>=4.3.1", "numpy>=1.21.6", "setuptools>=59.6.0"],
         classifiers=[
             "License :: OSI Approved :: MIT License",
-            "Programming Language :: Python :: 3.7"
-            "Programming Language :: Python :: 3.8"
+            "Programming Language :: Python :: 3.7",
+            "Programming Language :: Python :: 3.8",
             "Programming Language :: Python :: 3.9"
             ],
         # https://chriswarrick.com/blog/2014/09/15/python-apps-the-right-way
