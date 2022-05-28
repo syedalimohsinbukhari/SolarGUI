@@ -30,6 +30,15 @@ except ImportError:
 # TODO: Add a section of papers that study different properties of the celestial objects.
 
 def main():
+    """
+    The main function.
+
+
+    Returns
+    -------
+    None.
+
+    """
 
     ###################################################################################
     # Initialization
@@ -47,68 +56,70 @@ def main():
     # do not let the window be resized
     root_window.minsize(_w, _h)
 
+    # column width adjustment
     [root_window.grid_columnconfigure(index=i, weight=1) for i in range(9)]
 
     ##################################################################################
     # Working
     ##################################################################################
 
-    welcome_label = tk.Label(master=root_window,
-                             text='Welcome to Solar Explorer. Please select a button.')
-    welcome_label.grid(row=0, column=0, columnspan=9, pady=10, ipady=10)
+    # put main label inside the tkinter window
+    tk.Label(master=root_window,
+             text='Welcome to Solar Explorer. Please select a button.').grid(row=0,
+                                                                             column=0,
+                                                                             columnspan=9,
+                                                                             pady=10,
+                                                                             ipady=10)
 
-    tk_f.planet_button(window=root_window, text='Sun',
-                       function=lambda: sp.show_planet(window=root_window, text='Sun',
-                                                       planet_class=Sun()), column=0)
+    # place the celestial body object buttons on the tkinter window
+    tk_f.object_button(window=root_window, text='Sun',
+                       function=lambda: sp.show_object(window=root_window, title='Sun',
+                                                       object_class=Sun()), column=0)
 
-    tk_f.planet_button(window=root_window, text='Mercury',
-                       function=lambda: sp.show_planet(window=root_window,
-                                                       text='Mercury',
-                                                       planet_class=Mercury()), column=1)
+    tk_f.object_button(window=root_window, text='Mercury',
+                       function=lambda: sp.show_object(window=root_window,
+                                                       title='Mercury',
+                                                       object_class=Mercury()), column=1)
 
-    tk_f.planet_button(window=root_window, text='Venus',
-                       function=lambda: sp.show_planet(window=root_window, text='Venus',
-                                                       planet_class=Venus()), column=2)
+    tk_f.object_button(window=root_window, text='Venus',
+                       function=lambda: sp.show_object(window=root_window, title='Venus',
+                                                       object_class=Venus()), column=2)
 
-    tk_f.planet_button(window=root_window, text='Earth',
-                       function=lambda: sp.show_planet(window=root_window, text='Earth',
-                                                       planet_class=Earth()), column=3)
+    tk_f.object_button(window=root_window, text='Earth',
+                       function=lambda: sp.show_object(window=root_window, title='Earth',
+                                                       object_class=Earth()), column=3)
 
-    tk_f.planet_button(window=root_window, text='Mars',
-                       function=lambda: sp.show_planet(window=root_window, text='Mars',
-                                                       planet_class=Mars()), column=4)
+    tk_f.object_button(window=root_window, text='Mars',
+                       function=lambda: sp.show_object(window=root_window, title='Mars',
+                                                       object_class=Mars()), column=4)
 
-    tk_f.planet_button(window=root_window, text='Jupiter',
-                       function=lambda: sp.show_planet(window=root_window,
-                                                       text='Jupiter',
-                                                       planet_class=Jupiter()), column=5)
+    tk_f.object_button(window=root_window, text='Jupiter',
+                       function=lambda: sp.show_object(window=root_window,
+                                                       title='Jupiter',
+                                                       object_class=Jupiter()), column=5)
 
-    tk_f.planet_button(window=root_window, text='Saturn',
-                       function=lambda: sp.show_planet(window=root_window,
-                                                       text='Saturn',
-                                                       planet_class=Saturn()), column=6)
+    tk_f.object_button(window=root_window, text='Saturn',
+                       function=lambda: sp.show_object(window=root_window, title='Saturn',
+                                                       object_class=Saturn()), column=6)
 
-    tk_f.planet_button(window=root_window, text='Uranus',
-                       function=lambda: sp.show_planet(window=root_window,
-                                                       text='Uranus',
-                                                       planet_class=Uranus()), column=7)
+    tk_f.object_button(window=root_window, text='Uranus',
+                       function=lambda: sp.show_object(window=root_window, title='Uranus',
+                                                       object_class=Uranus()), column=7)
 
-    tk_f.planet_button(window=root_window, text='Neptune',
-                       function=lambda: sp.show_planet(window=root_window,
-                                                       text='Neptune',
-                                                       planet_class=Neptune()), column=8)
+    tk_f.object_button(window=root_window, text='Neptune',
+                       function=lambda: sp.show_object(window=root_window,
+                                                       title='Neptune',
+                                                       object_class=Neptune()), column=8)
 
-    tk_f.planet_button(window=root_window, text='Moon',
-                       function=lambda: sp.show_planet(window=root_window,
-                                                       text='Moon',
-                                                       planet_class=Moon()),
-                       column=0, row=2)
+    tk_f.object_button(window=root_window, text='Moon',
+                       function=lambda: sp.show_object(window=root_window, title='Moon',
+                                                       object_class=Moon()), row=2,
+                       column=0)
 
-    tk_f.planet_button(window=root_window, text='Pluto',
-                       function=lambda: sp.show_planet(window=root_window,
-                                                       text='Pluto',
-                                                       planet_class=Pluto()),
-                       column=1, row=2)
+    tk_f.object_button(window=root_window, text='Pluto',
+                       function=lambda: sp.show_object(window=root_window, title='Pluto',
+                                                       object_class=Pluto()), row=2,
+                       column=1)
 
     ##################################################################################
     # Show it
