@@ -1,5 +1,5 @@
-astropy~=4.3.1
+astropy>=4.3.1
 
-numpy~=1.21.6
+numpy>=1.21.6
 
-setuptools==59.6.0
+setuptools>=59.6.0
