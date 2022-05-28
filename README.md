@@ -7,6 +7,10 @@ A program which contains information about the solar system planets, moon, pluto
 The SolarGUI is a fun little project aimed to gather planetary (and other) information. See the values of various
 physical parameters in standard (SI, CGS) units and celestial equivalencies.
 
+### Support
+
+Currently, the SolarGUI application is tested with **Python** `v3.7`, `3.8` and `3.9`.
+
 ## How to install?
 
 The SolarGUI is available via `pip`. Simply use the command,
