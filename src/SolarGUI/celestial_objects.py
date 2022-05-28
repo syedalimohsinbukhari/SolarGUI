@@ -140,3 +140,15 @@ class Pluto:
          self.density,
          self.surface_area,
          self.surface_gravity) = utils.PhysicalParameters(self.mass, self.radius).get()
+
+
+class Reset:
+
+    def __init__(self):
+        self.age = 1 * u.Gyr
+        self.mass = 1 * u.kg
+        self.radius = 1 * u.km
+        (self.volume,
+         self.density,
+         self.surface_area,
+         self.surface_gravity) = utils.PhysicalParameters(self.mass, self.radius).get()
