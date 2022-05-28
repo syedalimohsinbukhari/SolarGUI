@@ -42,9 +42,13 @@ see the equivalent values for other celestial objects.
 
 ## TODO
 
+- [x] Add Sun, Pluto and Moon with the Solar planets.
 - [x] Add a comparison button/dropdown menu to check the values with respect to Earth/Jupiter/Sun.
+    - [x] Add planet level equivalencies.
 - [ ] Segregate moons, dwarf planets, planets and other type of celestial objects.
 - [x] Design adjustments of the GUI
+    - [x] Adjust column widths in GUI.
+    - [x] Adjust the minimize/maximize window and widgets.
 - [ ] Separate button/menu for physical/orbital and other parameters.
 - [ ] Some interesting plots (optional).
 - [ ] Random facts button.
