@@ -23,7 +23,7 @@ Once the SolarGUI has been installed, you can simply launch it from the terminal
 
 The frontend of SolarGUI provides several buttons for different planets.
 
-![img.png](src/images/SolarGUI__frontend.png)
+![img.png](images/SolarGUI__frontend.png)
 
 Each button will open a new window with information regarding the particular objects,
 
@@ -35,7 +35,7 @@ Each button will open a new window with information regarding the particular obj
 6. surface area, and
 7. surface gravity.
 
-![img.png](src/images/SolarGUI__planetview__2.png)
+![img.png](images/SolarGUI__planetview__2.png)
 
 The dropdown menus will show various other units of measures. The equivalencies button on the top right can be used to
 see the equivalent values for other celestial objects.
