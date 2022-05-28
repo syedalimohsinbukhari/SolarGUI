@@ -5,7 +5,7 @@ A program which contains information about the solar system planets, moon, pluto
 ## What it is?
 
 The SolarGUI is a fun little project aimed to gather planetary (and other) information. See the values of various
-physical parameters in standard (SI, CGS) and some fun units as well.
+physical parameters in standard (SI, CGS) units and celestial equivalencies.
 
 ## How to install?
 
@@ -31,18 +31,18 @@ Each button will open a new window with information regarding the particular obj
 6. surface area, and
 7. surface gravity.
 
-![img.png](src/images/SolarGUI__planet_view.png)
+![img.png](src/images/SolarGUI__planetview__2.png)
 
-The dropdown menus will show various other (standard and non-standard) units of measures.
+The dropdown menus will show various other units of measures. The equivalencies button on the top right can be used to
+see the equivalent values for other celestial objects.
 
 ## TODO
 
-- [ ] Add a comparison button/dropdown menu to check the values with respect to Earth/Jupiter/Sun.
+- [x] Add a comparison button/dropdown menu to check the values with respect to Earth/Jupiter/Sun.
 - [ ] Segregate moons, dwarf planets, planets and other type of celestial objects.
-- [ ] Design adjustments of the GUI
+- [x] Design adjustments of the GUI
 - [ ] Separate button/menu for physical/orbital and other parameters.
 - [ ] Some interesting plots (optional).
 - [ ] Random facts button.
 - [ ] Add citations
 - [ ] Add a section of papers that study different properties of the celestial objects.
-- [ ] Add more sensible units
