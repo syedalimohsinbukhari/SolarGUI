@@ -35,7 +35,23 @@ def convert(parameter: Quantity, change_to: str) -> Quantity:
     return parameter.to(change_to)
 
 
-class PhysicalParameters:
+class GetOrbitalParameters:
+
+    def __init__(self, a_0: float, ecc: float):
+        self.semi_major_axis = a_0
+        self.eccentricity = ecc
+
+    def get_apo_distance(self):
+        return self.semi_major_axis * (1 - self.eccentricity)
+
+    def get_peri_distance(self):
+        return self.semi_major_axis * (1 + self.eccentricity)
+
+    def get(self):
+        return self.get_apo_distance(), self.get_peri_distance()
+
+
+class GetPhysicalParameters:
     """
     Class to determine the physical parameters for the celestial objects.
 
@@ -108,17 +124,30 @@ class PhysicalParameters:
         """
         return (c_2018.G * (self.mass / self.radius**2)).si
 
+    def escape_velocity(self):
+        """
+        Calculate the escape velocity of the celestial object.
+
+        Returns
+        -------
+        Quantity
+            Escape velocity of the celestial object.
+
+        """
+        return (np.sqrt(2 * c_2018.G * self.mass * self.radius**-1)).to('km/s')
+
     def get(self):
         """
         Get the values of volume, density, surface area, and surface gravity of the
         celestial object.
 
         """
-        return self.volume(), self.density(), self.surface_area(), self.surface_gravity()
+        return (self.volume(), self.density(), self.surface_area(),
+                self.surface_gravity(), self.escape_velocity())
 
 
 def comparison(c_win: Union[tk.Tk, tk.Toplevel], p_ojb: Any, c_obj: Any, c_lbl: str,
-               reset: bool = False):
+               c_type: str, column: float, reset: bool = False):
     """
     Compares the attributes of given celestial object (o_obj) with comparison celestial
     object (c_obj).
@@ -133,6 +162,10 @@ def comparison(c_win: Union[tk.Tk, tk.Toplevel], p_ojb: Any, c_obj: Any, c_lbl: 
         The object class with which the comparison is being done.
     c_lbl : str
         Text representing the comparison celestial object.
+    c_type: str
+        Whether the comparison should be of physical or orbital parameters.
+    column: float
+        Specify the column number where the equivalencies should be placed.
     reset : bool, optional
         Option to set the comparison entries to null. The default is False.
 
@@ -145,6 +178,11 @@ def comparison(c_win: Union[tk.Tk, tk.Toplevel], p_ojb: Any, c_obj: Any, c_lbl: 
     attributes = p_ojb.__dict__.keys()
     # get their number
     num_attributes = len(attributes)
+
+    if c_type == 'physical':
+        c_obj = c_obj.PhysicalParameters()
+    else:
+        c_obj = c_obj.OrbitalParameters()
 
     # divide the celestial object attribute values to that of comparison celestial
     # object attributes
@@ -159,6 +197,8 @@ def comparison(c_win: Union[tk.Tk, tk.Toplevel], p_ojb: Any, c_obj: Any, c_lbl: 
             value = f'{np.round(value, 5)} × {c_lbl}'
 
         if not reset:
-            tk_f.entry_placement(window=c_win, value=value, row=num, columns=4, width=20)
+            tk_f.entry_placement(window=c_win, value=value, row=num, columns=column,
+                                 width=20)
         else:
-            tk_f.entry_placement(window=c_win, value='', row=num, columns=4, width=20)
+            tk_f.entry_placement(window=c_win, value='', row=num, columns=column,
+                                 width=20)
