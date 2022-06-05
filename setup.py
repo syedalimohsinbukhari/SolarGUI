@@ -5,7 +5,7 @@ with open('README.md', 'r') as f:
 
 setup(
         name='SolarGUI',
-        version='0.1.3a',
+        version='0.1.4',
         packages=find_packages(where="src"),
         url='https://github.com/AstrophysicsAndPython/SolarGUI',
         license='MIT',
@@ -27,7 +27,7 @@ setup(
         # -entry_points-and-scripts/
         entry_points={
             "gui_scripts": [
-                "SolarGUI = SolarGUI.solar_gui:main"
+                "SolarGUI = SolarGUI.solar_gui:Main"
                 ]
             }
         )

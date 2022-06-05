@@ -3,7 +3,7 @@ Created on May 26 01:47:13 2022
 """
 
 import tkinter as tk
-from typing import Union, Any
+from typing import Any, Union
 
 import numpy as np
 from astropy.constants import codata2018 as c_2018
@@ -11,8 +11,10 @@ from astropy.units.quantity import Quantity
 
 try:
     from . import tk_functions as tk_f
+    from . import celestial_objects
 except ImportError:
     import tk_functions as tk_f
+    import celestial_objects
 
 
 def convert(parameter: Quantity, change_to: str) -> Quantity:
@@ -186,19 +188,24 @@ def comparison(c_win: Union[tk.Tk, tk.Toplevel], p_ojb: Any, c_obj: Any, c_lbl: 
 
     # divide the celestial object attribute values to that of comparison celestial
     # object attributes
-    out = [p_ojb.__getattribute__(attr) / c_obj.__getattribute__(attr) for attr
-           in attributes]
+
+    try:
+        out = [p_ojb.__getattribute__(attr) / c_obj.__getattribute__(attr) for attr
+               in attributes]
+    except (ZeroDivisionError, RuntimeWarning):
+        if type(c_obj) == celestial_objects.Sun.OrbitalParameters:
+            out = [1] * num_attributes
 
     # place the entries on the comparison window or reset them
     for value, num in zip(out, range(1, num_attributes + 1)):
-        if value < 0.001:
-            value = f'{value:.5e} × {c_lbl}'
+        if 0 < value <= 0.001:
+            value = f'{abs(value):.5e} × {c_lbl}'
         else:
-            value = f'{np.round(value, 5)} × {c_lbl}'
+            value = f'{np.round(abs(value), 5)} × {c_lbl}'
 
         if not reset:
             tk_f.entry_placement(window=c_win, value=value, row=num, columns=column,
-                                 width=20)
+                                 width=25)
         else:
             tk_f.entry_placement(window=c_win, value='', row=num, columns=column,
-                                 width=20)
+                                 width=25)

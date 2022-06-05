@@ -4,7 +4,7 @@ Created on May 24 22:08:46 2022
 
 import tkinter as tk
 from tkinter import ttk
-from typing import Callable, Union, Tuple, Optional
+from typing import Callable, Optional, Tuple, Union
 
 from astropy.units.quantity import Quantity
 
@@ -17,7 +17,7 @@ except ImportError:
 
 
 def object_button(window: Union[tk.Toplevel, tk.Tk], text: str, function: Callable,
-                  row: int = 1, column: int = 0, sticky: str = 'news'):
+                  row: int = 1, column: int = 0, width=None, sticky: str = 'news'):
     """
     Displays a button for a celestial object.
 
@@ -33,6 +33,8 @@ def object_button(window: Union[tk.Toplevel, tk.Tk], text: str, function: Callab
         The row number to place the object in a tkinter grid. The default is 1.
     column : int, optional
         The column number to place the object in a tkinter grid. The default is 0.
+    width : float, optional
+        To determine teh width of the button placed.
     sticky : str, optional
         Alignment of the text within the button. The default is 'news'.
 
@@ -42,11 +44,13 @@ def object_button(window: Union[tk.Toplevel, tk.Tk], text: str, function: Callab
 
     """
     tk.Button(master=window, text=text,
-              command=lambda: function()).grid(row=row, column=column, sticky=sticky,
-                                               padx=10, pady=5)
+              command=lambda: function(), width=width).grid(row=row, column=column,
+                                                            sticky=sticky, padx=10,
+                                                            pady=5)
 
 
-def place_object_properties(window: Union[tk.Tk, tk.Toplevel], text: str, value: str,
+def place_object_properties(window: Union[tk.Tk, tk.Toplevel, tk.Frame], text: str,
+                            value: str,
                             function: Callable, options: Tuple, row: float, column: float,
                             default: str):
     """
@@ -120,11 +124,11 @@ def place_object_properties(window: Union[tk.Tk, tk.Toplevel], text: str, value:
     dropdown = ttk.Combobox(master=window, textvariable=get_var, values=options,
                             state='readonly')
     dropdown.bind('<<ComboboxSelected>>', value_set)
-    dropdown.grid(row=row, column=column + 2, padx=10, sticky='news')
+    dropdown.grid(row=int(row), column=int(column + 2), padx=10, sticky='news')
 
     reset_button = tk.Button(master=window, text='Reset',
                              command=lambda: value_set(change_to=default, reset=True))
-    reset_button.grid(row=row, column=column + 3, padx=10, sticky='news')
+    reset_button.grid(row=int(row), column=int(column + 3), padx=10, sticky='news')
 
 
 def label_placement(window: Union[tk.Tk, tk.Toplevel], text: str, row: float,
@@ -153,7 +157,7 @@ def label_placement(window: Union[tk.Tk, tk.Toplevel], text: str, row: float,
 
     """
     label = tk.Label(master=window, text=text)
-    label.grid(row=row, column=column, padx=10, pady=pad_y, sticky=sticky)
+    label.grid(row=int(row), column=int(column), padx=10, pady=pad_y, sticky=sticky)
 
 
 def entry_placement(window: Union[tk.Tk, tk.Toplevel], value: str, row: float,
@@ -182,13 +186,13 @@ def entry_placement(window: Union[tk.Tk, tk.Toplevel], value: str, row: float,
     """
     entry_widget = tk.Entry(master=window, width=width)
     entry_widget.insert(index=0, string=f'{value}')
-    entry_widget.grid(row=row, column=columns, padx=10, sticky='news')
+    entry_widget.grid(row=int(row), column=int(columns), padx=10, sticky='news')
 
     return entry_widget
 
 
-def place_physical_equivalencies(window: Union[tk.Tk, tk.Toplevel], cel_object: Callable,
-                                 column: float, equiv_type='physical'):
+def place_equivalencies(window: Union[tk.Tk, tk.Toplevel], cel_object: Callable,
+                        column: float, equiv_type: str):
     """
     Put the equivalence values for selected celestial object in tkinter window.
 
@@ -222,14 +226,26 @@ def place_physical_equivalencies(window: Union[tk.Tk, tk.Toplevel], cel_object: 
 
     get_val = tk.StringVar()
 
-    equiv_radio_buttons(window=equiv_window, text='Sun', value='Sun', radio_val=get_val,
-                        function=lambda: utils.comparison(c_win=parent_window,
-                                                          p_ojb=cel_object,
-                                                          c_obj=c_objs.Sun,
-                                                          c_lbl='Sun',
-                                                          c_type=equiv_type,
-                                                          column=column),
-                        row=0, column=0)
+    if equiv_type == 'orbital':
+        equiv_radio_buttons(window=equiv_window, text='Sun', value='Sun',
+                            radio_val=get_val, state='disabled',
+                            function=lambda: utils.comparison(c_win=parent_window,
+                                                              p_ojb=cel_object,
+                                                              c_obj=c_objs.Sun,
+                                                              c_lbl='Sun',
+                                                              c_type=equiv_type,
+                                                              column=column),
+                            row=0, column=0)
+    else:
+        equiv_radio_buttons(window=equiv_window, text='Sun', value='Sun',
+                            radio_val=get_val,
+                            function=lambda: utils.comparison(c_win=parent_window,
+                                                              p_ojb=cel_object,
+                                                              c_obj=c_objs.Sun,
+                                                              c_lbl='Sun',
+                                                              c_type=equiv_type,
+                                                              column=column),
+                            row=0, column=0)
 
     equiv_radio_buttons(window=equiv_window, text='Mercury', value='Mercury',
                         radio_val=get_val,
@@ -261,14 +277,26 @@ def place_physical_equivalencies(window: Union[tk.Tk, tk.Toplevel], cel_object: 
                                                           column=column),
                         row=0, column=3)
 
-    equiv_radio_buttons(window=equiv_window, text='Moon', value='Moon', radio_val=get_val,
-                        function=lambda: utils.comparison(c_win=parent_window,
-                                                          p_ojb=cel_object,
-                                                          c_obj=c_objs.Moon,
-                                                          c_lbl='Moon',
-                                                          c_type=equiv_type,
-                                                          column=column),
-                        row=1, column=0)
+    if equiv_type is 'orbital':
+        equiv_radio_buttons(window=equiv_window, text='Moon', value='Moon',
+                            radio_val=get_val, state='disabled',
+                            function=lambda: utils.comparison(c_win=parent_window,
+                                                              p_ojb=cel_object,
+                                                              c_obj=c_objs.Moon,
+                                                              c_lbl='Moon',
+                                                              c_type=equiv_type,
+                                                              column=column),
+                            row=1, column=0)
+    else:
+        equiv_radio_buttons(window=equiv_window, text='Moon', value='Moon',
+                            radio_val=get_val,
+                            function=lambda: utils.comparison(c_win=parent_window,
+                                                              p_ojb=cel_object,
+                                                              c_obj=c_objs.Moon,
+                                                              c_lbl='Moon',
+                                                              c_type=equiv_type,
+                                                              column=column),
+                            row=1, column=0)
 
     equiv_radio_buttons(window=equiv_window, text='Mars', value='Mars', radio_val=get_val,
                         function=lambda: utils.comparison(c_win=parent_window,
@@ -335,7 +363,7 @@ def place_physical_equivalencies(window: Union[tk.Tk, tk.Toplevel], cel_object: 
                                                               c_obj=c_objs.Pluto,
                                                               c_lbl='Reset',
                                                               c_type=equiv_type,
-                                                              reset=True, column=5))
+                                                              reset=True, column=column))
     reset_button.grid(row=3, column=0, columnspan=4, padx=10, sticky='news')
 
     # taken from https://stackoverflow.com/a/69416040/3212945
@@ -346,7 +374,7 @@ def place_physical_equivalencies(window: Union[tk.Tk, tk.Toplevel], cel_object: 
 
 def equiv_radio_buttons(window: Union[tk.Tk, tk.Toplevel], text: str, value: str,
                         radio_val: tk.StringVar, function: Callable, row: int,
-                        column: int):
+                        column: int, state='normal'):
     """
     Add radio buttons to select equivalent values against the selected celestial object.
 
@@ -367,13 +395,15 @@ def equiv_radio_buttons(window: Union[tk.Tk, tk.Toplevel], text: str, value: str
         The row number to place the tk.Radiobutton in a tkinter grid.
     column : int
         The column number to place the tk.Radiobutton in a tkinter grid.
+    state : str
+        Determines the state of radiobutton.
 
     Returns
     -------
     None.
 
     """
-    tk.Radiobutton(master=window, text=text, value=value, variable=radio_val,
+    tk.Radiobutton(master=window, text=text, value=value, variable=radio_val, state=state,
                    command=function).grid(row=row, column=column, sticky='w', padx=5)
 
 
