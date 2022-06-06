@@ -168,10 +168,9 @@ def show_orbital_parameters(window: Union[tk.Tk, tk.Toplevel, tk.Frame],
     [planet_window.grid_columnconfigure(index=i, weight=1) for i in range(5)]
 
     # heading labels
-    tk_f.label_placement(window=planet_window, text="Orbital parameters", row=0,
-                         column=0, pad_y=5, sticky="e")
-    tk_f.label_placement(window=planet_window, text="Values", row=0, column=1,
-                         pad_y=5)
+    tk_f.label_placement(window=planet_window, text="Orbital parameters", row=0, column=0,
+                         pad_y=5, sticky="e")
+    tk_f.label_placement(window=planet_window, text="Values", row=0, column=1, pad_y=5)
     tk_f.label_placement(window=planet_window, text="Unit space", row=0, column=2,
                          pad_y=5)
     tk_f.label_placement(window=planet_window, text="Reset", row=0, column=3, pad_y=5)

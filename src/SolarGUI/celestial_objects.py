@@ -22,8 +22,8 @@ class Sun:
              self.density,
              self.surface_area,
              self.surface_gravity,
-             self.escape_velocity) = utils.GetPhysicalParameters(self.mass,
-                                                                 self.radius).get()
+             self.escape_velocity) = utils.GetPhysicalParameters(mass=self.mass,
+                                                                 radius=self.radius).get()
 
     class OrbitalParameters:
         def __init__(self):
