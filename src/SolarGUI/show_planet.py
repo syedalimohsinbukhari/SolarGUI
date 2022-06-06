@@ -41,9 +41,8 @@ class GetParameterSelection:
         if title is not 'Sun':
             self.orb = tk.Button(master=self.button_frame, text='Orbital Parameters',
                                  command=lambda: show_orbital_parameters(
-                                         window=self.parameter_frame,
-                                         object_class=object_class
-                                         ))
+                                         window=self.parameter_frame, object_name=title,
+                                         object_class=object_class))
             self.orb.grid(row=0, column=1, sticky='news')
 
 
@@ -135,7 +134,7 @@ def show_physical_parameters(window: Union[tk.Tk, tk.Toplevel, tk.Frame],
                                  column=0, default='km/s')
 
 
-def show_orbital_parameters(window: Union[tk.Tk, tk.Toplevel, tk.Frame],
+def show_orbital_parameters(window: Union[tk.Tk, tk.Toplevel, tk.Frame], object_name: str,
                             object_class: Any):
     """
     Display the orbital parameters of the celestial object.
@@ -143,6 +142,8 @@ def show_orbital_parameters(window: Union[tk.Tk, tk.Toplevel, tk.Frame],
     ----------
     window : Union[tk.Tk, tk.Toplevel, tk.Frame]
         tk.Tk or tk.Toplevel window or a tk.Frame to build the object inside.
+    object_name: str
+        The name of the object in consideration.
     object_class : Any
         The object clas from which the attributes are to be read.
 
@@ -168,8 +169,17 @@ def show_orbital_parameters(window: Union[tk.Tk, tk.Toplevel, tk.Frame],
     [planet_window.grid_columnconfigure(index=i, weight=1) for i in range(5)]
 
     # heading labels
-    tk_f.label_placement(window=planet_window, text="Orbital parameters", row=0, column=0,
-                         pad_y=5, sticky="e")
+    tk_f.label_placement(window=planet_window, text="Orbital parameters", row=0,
+                         column=0, pad_y=5, sticky="e")
+
+    planet_moon = {'Moon': 'Earth'}
+
+    if object_name in planet_moon.keys():
+        tk_f.label_placement(window=planet_window,
+                             text='The orbital parameters are given with respect to '
+                                  f'the planet {planet_moon[object_name]}.',
+                             row=20, column=0, pad_y=10, sticky='news', columnspan=10)
+
     tk_f.label_placement(window=planet_window, text="Values", row=0, column=1, pad_y=5)
     tk_f.label_placement(window=planet_window, text="Unit space", row=0, column=2,
                          pad_y=5)
