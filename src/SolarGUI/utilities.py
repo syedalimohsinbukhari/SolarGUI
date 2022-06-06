@@ -148,16 +148,16 @@ class GetPhysicalParameters:
                 self.surface_gravity(), self.escape_velocity())
 
 
-def comparison(c_win: Union[tk.Tk, tk.Toplevel], p_ojb: Any, c_obj: Any, c_lbl: str,
-               c_type: str, column: float, reset: bool = False):
+def comparison(c_win: Union[tk.Tk, tk.Toplevel, tk.Frame], p_ojb: Any, c_obj: Any,
+               c_lbl: str, c_type: str, column: float, reset: bool = False):
     """
     Compares the attributes of given celestial object (o_obj) with comparison celestial
     object (c_obj).
 
     Parameters
     ----------
-    c_win : Union[tk.Tk, tk.Toplevel]
-        tk.Tk or tk.Toplevel window to build the object inside.
+    c_win : Union[tk.Tk, tk.Toplevel, tk.Frame]
+        tk.Tk, tk.Toplevel window or tk.Frame to build the object inside.
     p_ojb : Any
         The object clas to which the comparison is being done.
     c_obj : Any

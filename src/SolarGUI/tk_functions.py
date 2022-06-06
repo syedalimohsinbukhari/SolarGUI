@@ -16,15 +16,16 @@ except ImportError:
     import utilities as utils
 
 
-def object_button(window: Union[tk.Toplevel, tk.Tk], text: str, function: Callable,
-                  row: int = 1, column: int = 0, width=None, sticky: str = 'news'):
+def object_button(window: Union[tk.Tk, tk.Toplevel, tk.Frame], text: str,
+                  function: Callable, row: int = 1, column: int = 0, width=None,
+                  sticky: str = 'news'):
     """
     Displays a button for a celestial object.
 
     Parameters
     ----------
-    window : Union[tk.Toplevel, tk.Tk]
-        tk.Tk or tk.Toplevel window to build the object inside.
+    window : Union[tk.Tk, tk.Toplevel, tk.Frame]
+        tk.Tk, tk.Toplevel window or tk.Frame to build the object inside.
     text : str
         Text to display on the button.
     function : Callable
@@ -50,16 +51,15 @@ def object_button(window: Union[tk.Toplevel, tk.Tk], text: str, function: Callab
 
 
 def place_object_properties(window: Union[tk.Tk, tk.Toplevel, tk.Frame], text: str,
-                            value: str,
-                            function: Callable, options: Tuple, row: float, column: float,
-                            default: str):
+                            value: str, function: Callable, options: Tuple, row: float,
+                            column: float, default: str):
     """
     Place the dropdown menu in the tkinter window grid.
 
     Parameters
     ----------
     window : Union[tk.Tk, tk.Toplevel]
-        tk.Tk or tk.Toplevel window to build the object inside.
+        tk.Tk, tk.Toplevel window or tk.Frame to build the object inside.
     text : str
         Value name for the celestial object property.
     value : str
@@ -131,15 +131,16 @@ def place_object_properties(window: Union[tk.Tk, tk.Toplevel, tk.Frame], text: s
     reset_button.grid(row=int(row), column=int(column + 3), padx=10, sticky='news')
 
 
-def label_placement(window: Union[tk.Tk, tk.Toplevel], text: str, row: float,
-                    column: float = 0, sticky: str = 'news', pad_y: Optional[int] = None):
+def label_placement(window: Union[tk.Tk, tk.Toplevel, tk.Frame], text: str, row: float,
+                    column: float = 0, pad_y: Optional[int] = None, sticky: str = 'news',
+                    columnspan: Optional[int] = None):
     """
     Places a label on specified tkinter window.
 
     Parameters
     ----------
-    window : Union[tk.Tk, tk.Toplevel]
-        tk.Tk or tk.Toplevel window to build the object inside.
+    window : Union[tk.Tk, tk.Toplevel, tk.Frame]
+        tk.Tk, tk.Toplevel window or tk.Frame to build the object inside.
     text : str
         Label to place on the tkinter window.
     row : int
@@ -150,6 +151,8 @@ def label_placement(window: Union[tk.Tk, tk.Toplevel], text: str, row: float,
         Alignment of the text within the button. The default is 'news'.
     pad_y : Optional[int], optional
         Padding for the label in y direction. The default is None.
+    columnspan : int, optional
+        The number of columns to adjust the width of label.
 
     Returns
     -------
@@ -157,18 +160,19 @@ def label_placement(window: Union[tk.Tk, tk.Toplevel], text: str, row: float,
 
     """
     label = tk.Label(master=window, text=text)
-    label.grid(row=int(row), column=int(column), padx=10, pady=pad_y, sticky=sticky)
+    label.grid(row=int(row), column=int(column), padx=10, pady=pad_y, sticky=sticky,
+               columnspan=columnspan)
 
 
-def entry_placement(window: Union[tk.Tk, tk.Toplevel], value: str, row: float,
+def entry_placement(window: Union[tk.Tk, tk.Toplevel, tk.Frame], value: str, row: float,
                     columns: float, width: Optional[int] = None) -> tk.Entry:
     """
     Places the `tk.Entry` widget in the tkinter window.
 
     Parameters
     ----------
-    window : Union[tk.Tk, tk.Toplevel]
-        tk.Tk or tk.Toplevel window to build the object inside.
+    window : Union[tk.Tk, tk.Toplevel, tk.Frame]
+        tk.Tk, tk.Toplevel window or tk.Frame to build the object inside.
     value : str
         The value for given celestial object's property.
     row : float
@@ -191,15 +195,15 @@ def entry_placement(window: Union[tk.Tk, tk.Toplevel], value: str, row: float,
     return entry_widget
 
 
-def place_equivalencies(window: Union[tk.Tk, tk.Toplevel], cel_object: Callable,
+def place_equivalencies(window: Union[tk.Tk, tk.Toplevel, tk.Frame], cel_object: Callable,
                         column: float, equiv_type: str):
     """
     Put the equivalence values for selected celestial object in tkinter window.
 
     Parameters
     ----------
-    window : Union[tk.Tk, tk.Toplevel]
-        tk.Tk or tk.Toplevel window to build the object inside.
+    window : Union[tk.Tk, tk.Toplevel, tk.Frame]
+        tk.Tk, tk.Toplevel window or tk.Frame to build the object inside.
     cel_object : Callable
         Celestial object class for which the equivalencies are to be found.
     column: float
@@ -372,8 +376,8 @@ def place_equivalencies(window: Union[tk.Tk, tk.Toplevel], cel_object: Callable,
         equiv_window.grid_rowconfigure(index=i, weight=1)
 
 
-def equiv_radio_buttons(window: Union[tk.Tk, tk.Toplevel], text: str, value: str,
-                        radio_val: tk.StringVar, function: Callable, row: int,
+def equiv_radio_buttons(window: Union[tk.Tk, tk.Toplevel, tk.Frame], text: str,
+                        value: str, radio_val: tk.StringVar, function: Callable, row: int,
                         column: int, state='normal'):
     """
     Add radio buttons to select equivalent values against the selected celestial object.
@@ -381,8 +385,8 @@ def equiv_radio_buttons(window: Union[tk.Tk, tk.Toplevel], text: str, value: str
 
     Parameters
     ----------
-    window : Union[tk.Tk, tk.Toplevel]
-        tk.Tk or tk.Toplevel window to build the object inside.
+    window : Union[tk.Tk, tk.Toplevel, tk.Frame]
+        tk.Tk, tk.Toplevel window or tk.Frame to build the object inside.
     text : str
         Text to display by the radiobutton.
     value : str
