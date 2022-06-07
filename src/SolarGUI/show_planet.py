@@ -202,7 +202,7 @@ def show_orbital_parameters(window: Union[tk.Tk, tk.Toplevel, tk.Frame], object_
 
     tk_f.place_object_properties(window=planet_window, text='Eccentricity',
                                  value=object_class.eccentricity,
-                                 function=convert, options=('', ''),
+                                 function=convert, options=tuple(),
                                  row=2, default='', column=0)
 
     tk_f.place_object_properties(window=planet_window, text='Closest approach',

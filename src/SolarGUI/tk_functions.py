@@ -114,15 +114,20 @@ def place_object_properties(window: Union[tk.Tk, tk.Toplevel, tk.Frame], text: s
         if reset:
             dropdown.set('')
 
-        if change_to != '':
-            change_value(entry=val_entry, function=function, value=value,
-                         change_to=change_to)
+        change_value(entry=val_entry, function=function, value=value, change_to=change_to)
 
     get_var = tk.StringVar()
 
-    # taken from https://stackoverflow.com/a/68128312/3212945
-    dropdown = ttk.Combobox(master=window, textvariable=get_var, values=options,
-                            state='readonly')
+    # taken from
+    # https://stackoverflow.com/a/68128312/3212945
+
+    if text.lower() != 'eccentricity':
+        dropdown = ttk.Combobox(master=window, textvariable=get_var, values=options,
+                                state='readonly')
+    else:
+        dropdown = ttk.Combobox(master=window, textvariable=get_var, values=options,
+                                state='disabled')
+
     dropdown.bind('<<ComboboxSelected>>', value_set)
     dropdown.grid(row=int(row), column=int(column + 2), padx=10, sticky='news')
 
