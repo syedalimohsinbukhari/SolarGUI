@@ -3,6 +3,7 @@ Created on May 26 01:33:39 2022
 """
 
 import astropy.units as u
+import numpy as np
 
 try:
     from . import utilities as utils
@@ -25,21 +26,17 @@ class Sun:
              self.escape_velocity) = utils.GetPhysicalParameters(mass=self.mass,
                                                                  radius=self.radius).get()
 
-    class OrbitalParameters:
+    class ObservationalParameters:
+
         def __init__(self):
-            self.semi_major_axis = 0 * u.AU
-            self.eccentricity = 0
+            self.apparent_magnitude = -26.74
+            self.geom_albedo = 0.0001
+            self.absolute_magnitude = 4.83
 
-            self.apo, self.peri = utils.GetOrbitalParameters(a_0=self.semi_major_axis,
-                                                             ecc=self.eccentricity).get()
+            ang_min, ang_max = 0.527 * u.deg, 0.545 * u.deg
 
-            self.orbital_period = 0 * u.day
-            self.av_orbital_speed = 0 * u.km * u.s**-1
-            self.mean_anomaly = 0 * u.deg
-            self.inclination = 0 * u.deg
-            self.longitude_of_ascending_node = 0 * u.deg
-            self.argument_of_perihelion = 0 * u.deg
-            self.axial_tilt = 0 * u.deg
+            self.average_angular_size = utils.get_av_angular_size(min_size=ang_min,
+                                                                  max_size=ang_max)
 
 
 class Mercury:
@@ -74,6 +71,24 @@ class Mercury:
             self.argument_of_perihelion = 29.124 * u.deg
             self.axial_tilt = (2 * u.arcmin).to(u.deg)
 
+    class ObservationalParameters:
+
+        def __init__(self):
+            _diameter = 2 * Mercury.PhysicalParameters().radius
+
+            ap_mag_min, ap_mag_max = 7.25, -2.48
+            ang_min, ang_max = 4.5 * u.arcmin, 13 * u.arcmin
+
+            self.apparent_magnitude = np.mean([ap_mag_min, ap_mag_max])
+
+            self.geom_albedo = 0.138
+
+            self.absolute_magnitude = utils.get_absolute_magnitude(diameter=_diameter,
+                                                                   geom_albedo=self.geom_albedo)
+
+            self.average_angular_size = utils.get_av_angular_size(min_size=ang_min,
+                                                                  max_size=ang_max)
+
 
 class Venus:
 
@@ -106,6 +121,24 @@ class Venus:
             self.longitude_of_ascending_node = 76.680 * u.deg
             self.argument_of_perihelion = 54.884 * u.deg
             self.axial_tilt = 177.36 * u.deg
+
+    class ObservationalParameters:
+
+        def __init__(self):
+            _diameter = 2 * Venus.PhysicalParameters().radius
+
+            ap_mag_min, ap_mag_max = -2.98, -4.92
+            ang_min, ang_max = 0 * u.arcmin + 9.7 * u.arcsec, 1 * u.arcmin + 6 * u.arcsec
+
+            self.apparent_magnitude = np.mean([ap_mag_min, ap_mag_max])
+
+            self.geom_albedo = 0.689
+
+            self.absolute_magnitude = utils.get_absolute_magnitude(diameter=_diameter,
+                                                                   geom_albedo=self.geom_albedo)
+
+            self.average_angular_size = utils.get_av_angular_size(min_size=ang_min,
+                                                                  max_size=ang_max)
 
 
 class Earth:
@@ -152,9 +185,9 @@ class Moon:
             (self.volume,
              self.density,
              self.surface_area,
-             self.surface_gravity, self.escape_velocity) = utils.GetPhysicalParameters(
-                    mass=self.mass,
-                    radius=self.radius).get()
+             self.surface_gravity,
+             self.escape_velocity) = utils.GetPhysicalParameters(mass=self.mass,
+                                                                 radius=self.radius).get()
 
     class OrbitalParameters:
 
@@ -172,6 +205,25 @@ class Moon:
             self.longitude_of_ascending_node = 125.08 * u.deg
             self.argument_of_perihelion = 318.15 * u.deg
             self.axial_tilt = 1.5427 * u.deg
+
+    class ObservationalParameters:
+
+        def __init__(self):
+            _diameter = 2 * Moon.PhysicalParameters().radius
+
+            ap_mag_min, ap_mag_max = -2.5, -12.9
+            ang_min, ang_max = 29.3 * u.arcmin, 34.1 * u.arcmin
+
+            self.apparent_magnitude = np.mean([ap_mag_min, ap_mag_max])
+
+            self.geom_albedo = 0.136
+
+            self.absolute_magnitude = utils.get_absolute_magnitude(diameter=_diameter,
+                                                                   geom_albedo=self
+                                                                   .geom_albedo)
+
+            self.average_angular_size = utils.get_av_angular_size(min_size=ang_min,
+                                                                  max_size=ang_max)
 
 
 class Mars:
@@ -206,6 +258,23 @@ class Mars:
             self.argument_of_perihelion = 286.5 * u.deg
             self.axial_tilt = 25.19 * u.deg
 
+    class ObservationalParameters:
+
+        def __init__(self):
+            _diameter = 2 * Mars.PhysicalParameters().radius
+            ap_mag_min, ap_mag_max = 1.86, -2.94
+            ang_min, ang_max = 3.5 * u.arcsec, 25.1 * u.arcsec
+
+            self.apparent_magnitude = np.mean([ap_mag_min, ap_mag_max])
+
+            self.geom_albedo = 0.17
+
+            self.absolute_magnitude = utils.get_absolute_magnitude(diameter=_diameter,
+                                                                   geom_albedo=self.geom_albedo)
+
+            self.average_angular_size = utils.get_av_angular_size(min_size=ang_min,
+                                                                  max_size=ang_max)
+
 
 class Jupiter:
 
@@ -218,9 +287,9 @@ class Jupiter:
             (self.volume,
              self.density,
              self.surface_area,
-             self.surface_gravity, self.escape_velocity) = utils.GetPhysicalParameters(
-                    mass=self.mass,
-                    radius=self.radius).get()
+             self.surface_gravity,
+             self.escape_velocity) = utils.GetPhysicalParameters(mass=self.mass,
+                                                                 radius=self.radius).get()
 
     class OrbitalParameters:
 
@@ -239,10 +308,28 @@ class Jupiter:
             self.argument_of_perihelion = 273.867 * u.deg
             self.axial_tilt = 3.13 * u.deg
 
+    class ObservationalParameters:
+
+        def __init__(self):
+            _diameter = 2 * Jupiter.PhysicalParameters().radius
+            ap_mag_min, ap_mag_max = -1.66, -2.94
+            ang_min, ang_max = 29.8 * u.arcsec, 50.1 * u.arcsec
+
+            self.apparent_magnitude = np.mean([ap_mag_min, ap_mag_max])
+
+            self.geom_albedo = 0.538
+
+            self.absolute_magnitude = utils.get_absolute_magnitude(diameter=_diameter,
+                                                                   geom_albedo=self.geom_albedo)
+
+            self.average_angular_size = utils.get_av_angular_size(min_size=ang_min,
+                                                                  max_size=ang_max)
+
 
 class Saturn:
 
     class PhysicalParameters:
+
         def __init__(self):
             self.age = 4.503 * u.Gyr
             self.mass = 5.6834e26 * u.kg
@@ -271,10 +358,28 @@ class Saturn:
             self.argument_of_perihelion = 339.392 * u.deg
             self.axial_tilt = 26.73 * u.deg
 
+    class ObservationalParameters:
+
+        def __init__(self):
+            _diameter = 2 * Saturn.PhysicalParameters().radius
+            ap_mag_min, ap_mag_max = 1.17, -0.55
+            ang_min, ang_max = 14.5 * u.arcsec, 20.1 * u.arcsec
+
+            self.apparent_magnitude = np.mean([ap_mag_min, ap_mag_max])
+
+            self.geom_albedo = 0.499
+
+            self.absolute_magnitude = utils.get_absolute_magnitude(diameter=_diameter,
+                                                                   geom_albedo=self.geom_albedo)
+
+            self.average_angular_size = utils.get_av_angular_size(min_size=ang_min,
+                                                                  max_size=ang_max)
+
 
 class Uranus:
 
     class PhysicalParameters:
+
         def __init__(self):
             self.age = 4.503 * u.Gyr
             self.mass = 8.6810e25 * u.kg
@@ -282,9 +387,9 @@ class Uranus:
             (self.volume,
              self.density,
              self.surface_area,
-             self.surface_gravity, self.escape_velocity) = utils.GetPhysicalParameters(
-                    mass=self.mass,
-                    radius=self.radius).get()
+             self.surface_gravity,
+             self.escape_velocity) = utils.GetPhysicalParameters(mass=self.mass,
+                                                                 radius=self.radius).get()
 
     class OrbitalParameters:
 
@@ -302,6 +407,23 @@ class Uranus:
             self.longitude_of_ascending_node = 74.006 * u.deg
             self.argument_of_perihelion = 96.998857 * u.deg
             self.axial_tilt = 97.77 * u.deg
+
+    class ObservationalParameters:
+
+        def __init__(self):
+            _diameter = 2 * Uranus.PhysicalParameters().radius
+            ap_mag_min, ap_mag_max = 6.03, 5.38
+            ang_min, ang_max = 3.3 * u.arcsec, 4.1 * u.arcsec
+
+            self.apparent_magnitude = np.mean([ap_mag_min, ap_mag_max])
+
+            self.geom_albedo = 0.488
+
+            self.absolute_magnitude = utils.get_absolute_magnitude(diameter=_diameter,
+                                                                   geom_albedo=self.geom_albedo)
+
+            self.average_angular_size = utils.get_av_angular_size(min_size=ang_min,
+                                                                  max_size=ang_max)
 
 
 class Neptune:
@@ -336,6 +458,23 @@ class Neptune:
             self.argument_of_perihelion = 273.187 * u.deg
             self.axial_tilt = 28.32 * u.deg
 
+    class ObservationalParameters:
+
+        def __init__(self):
+            _diameter = 2 * Neptune.PhysicalParameters().radius
+            ap_mag_min, ap_mag_max = 8, 7.67
+            ang_min, ang_max = 2.2 * u.arcsec, 2.4 * u.arcsec
+
+            self.apparent_magnitude = np.mean([ap_mag_min, ap_mag_max])
+
+            self.geom_albedo = 0.442
+
+            self.absolute_magnitude = utils.get_absolute_magnitude(diameter=_diameter,
+                                                                   geom_albedo=self.geom_albedo)
+
+            self.average_angular_size = utils.get_av_angular_size(min_size=ang_min,
+                                                                  max_size=ang_max)
+
 
 class Pluto:
 
@@ -368,3 +507,20 @@ class Pluto:
             self.longitude_of_ascending_node = 110.299 * u.deg
             self.argument_of_perihelion = 113.834 * u.deg
             self.axial_tilt = 122.53 * u.deg
+
+    class ObservationalParameters:
+
+        def __init__(self):
+            _diameter = 2 * Pluto.PhysicalParameters().radius
+            ap_mag_min, ap_mag_max = 16.3, 13.65
+            ang_min, ang_max = 0.06 * u.arcsec, 0.11 * u.arcsec
+
+            self.apparent_magnitude = np.mean([ap_mag_min, ap_mag_max])
+
+            self.geom_albedo = 0.52
+
+            self.absolute_magnitude = utils.get_absolute_magnitude(diameter=_diameter,
+                                                                   geom_albedo=self.geom_albedo)
+
+            self.average_angular_size = utils.get_av_angular_size(min_size=ang_min,
+                                                                  max_size=ang_max)
