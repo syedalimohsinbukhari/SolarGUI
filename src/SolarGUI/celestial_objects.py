@@ -37,11 +37,11 @@ class Sun:
             self.geom_albedo = 0.0001
             self.distance_from_earth = earth_dist
 
-            self.absolute_magnitude = utils.get_abs_mag(ap_mag=self.apparent_magnitude,
-                                                        distance=self.distance_from_earth)
-
-            self.average_angular_size = utils.get_av_angular_size(min_size=ang_min,
-                                                                  max_size=ang_max)
+            (self.absolute_magnitude,
+             self.average_angular_size) = utils.GetObservationalParameters(
+                    angular_size=tuple([ang_min, ang_max]),
+                    apparent_magnitude=self.apparent_magnitude,
+                    distance=self.distance_from_earth).get()
 
 
 class Mercury:
@@ -86,11 +86,11 @@ class Mercury:
             self.geom_albedo = 0.138
             self.distance_from_earth = earth_dist - (0.387 * earth_dist)
 
-            self.absolute_magnitude = utils.get_abs_mag(ap_mag=self.apparent_magnitude,
-                                                        distance=self.distance_from_earth)
-
-            self.average_angular_size = utils.get_av_angular_size(min_size=ang_min,
-                                                                  max_size=ang_max)
+            (self.absolute_magnitude,
+             self.average_angular_size) = utils.GetObservationalParameters(
+                    angular_size=tuple([ang_min, ang_max]),
+                    apparent_magnitude=self.apparent_magnitude,
+                    distance=self.distance_from_earth).get()
 
 
 class Venus:
@@ -135,11 +135,11 @@ class Venus:
             self.geom_albedo = 0.689
             self.distance_from_earth = earth_dist - (0.723 * earth_dist)
 
-            self.absolute_magnitude = utils.get_abs_mag(ap_mag=self.apparent_magnitude,
-                                                        distance=self.distance_from_earth)
-
-            self.average_angular_size = utils.get_av_angular_size(min_size=ang_min,
-                                                                  max_size=ang_max)
+            (self.absolute_magnitude,
+             self.average_angular_size) = utils.GetObservationalParameters(
+                    angular_size=tuple([ang_min, ang_max]),
+                    apparent_magnitude=self.apparent_magnitude,
+                    distance=self.distance_from_earth).get()
 
 
 class Earth:
@@ -217,11 +217,11 @@ class Moon:
             self.geom_albedo = 0.136
             self.distance_from_earth = 0.00256955529 * earth_dist
 
-            self.absolute_magnitude = utils.get_abs_mag(ap_mag=self.apparent_magnitude,
-                                                        distance=self.distance_from_earth)
-
-            self.average_angular_size = utils.get_av_angular_size(min_size=ang_min,
-                                                                  max_size=ang_max)
+            (self.absolute_magnitude,
+             self.average_angular_size) = utils.GetObservationalParameters(
+                    angular_size=tuple([ang_min, ang_max]),
+                    apparent_magnitude=self.apparent_magnitude,
+                    distance=self.distance_from_earth).get()
 
 
 class Mars:
@@ -266,11 +266,11 @@ class Mars:
             self.geom_albedo = 0.17
             self.distance_from_earth = (1.52 * earth_dist) - earth_dist
 
-            self.absolute_magnitude = utils.get_abs_mag(ap_mag=self.apparent_magnitude,
-                                                        distance=self.distance_from_earth)
-
-            self.average_angular_size = utils.get_av_angular_size(min_size=ang_min,
-                                                                  max_size=ang_max)
+            (self.absolute_magnitude,
+             self.average_angular_size) = utils.GetObservationalParameters(
+                    angular_size=tuple([ang_min, ang_max]),
+                    apparent_magnitude=self.apparent_magnitude,
+                    distance=self.distance_from_earth).get()
 
 
 class Jupiter:
@@ -315,11 +315,11 @@ class Jupiter:
             self.geom_albedo = 0.538
             self.distance_from_earth = (5.20 * earth_dist) - earth_dist
 
-            self.absolute_magnitude = utils.get_abs_mag(ap_mag=self.apparent_magnitude,
-                                                        distance=self.distance_from_earth)
-
-            self.average_angular_size = utils.get_av_angular_size(min_size=ang_min,
-                                                                  max_size=ang_max)
+            (self.absolute_magnitude,
+             self.average_angular_size) = utils.GetObservationalParameters(
+                    angular_size=tuple([ang_min, ang_max]),
+                    apparent_magnitude=self.apparent_magnitude,
+                    distance=self.distance_from_earth).get()
 
 
 class Saturn:
@@ -364,11 +364,11 @@ class Saturn:
             self.geom_albedo = 0.499
             self.distance_from_earth = (9.57 * earth_dist) - earth_dist
 
-            self.absolute_magnitude = utils.get_abs_mag(ap_mag=self.apparent_magnitude,
-                                                        distance=self.distance_from_earth)
-
-            self.average_angular_size = utils.get_av_angular_size(min_size=ang_min,
-                                                                  max_size=ang_max)
+            (self.absolute_magnitude,
+             self.average_angular_size) = utils.GetObservationalParameters(
+                    angular_size=tuple([ang_min, ang_max]),
+                    apparent_magnitude=self.apparent_magnitude,
+                    distance=self.distance_from_earth).get()
 
 
 class Uranus:
@@ -413,11 +413,11 @@ class Uranus:
             self.geom_albedo = 0.488
             self.distance_from_earth = (19.17 * earth_dist) - earth_dist
 
-            self.absolute_magnitude = utils.get_abs_mag(ap_mag=self.apparent_magnitude,
-                                                        distance=self.distance_from_earth)
-
-            self.average_angular_size = utils.get_av_angular_size(min_size=ang_min,
-                                                                  max_size=ang_max)
+            (self.absolute_magnitude,
+             self.average_angular_size) = utils.GetObservationalParameters(
+                    angular_size=tuple([ang_min, ang_max]),
+                    apparent_magnitude=self.apparent_magnitude,
+                    distance=self.distance_from_earth).get()
 
 
 class Neptune:
@@ -462,11 +462,11 @@ class Neptune:
             self.geom_albedo = 0.442
             self.distance_from_earth = (30.18 * earth_dist) - earth_dist
 
-            self.absolute_magnitude = utils.get_abs_mag(ap_mag=self.apparent_magnitude,
-                                                        distance=self.distance_from_earth)
-
-            self.average_angular_size = utils.get_av_angular_size(min_size=ang_min,
-                                                                  max_size=ang_max)
+            (self.absolute_magnitude,
+             self.average_angular_size) = utils.GetObservationalParameters(
+                    angular_size=tuple([ang_min, ang_max]),
+                    apparent_magnitude=self.apparent_magnitude,
+                    distance=self.distance_from_earth).get()
 
 
 class Pluto:
@@ -511,8 +511,8 @@ class Pluto:
             self.geom_albedo = 0.52
             self.distance_from_earth = (39.48 * earth_dist) - earth_dist
 
-            self.absolute_magnitude = utils.get_abs_mag(ap_mag=self.apparent_magnitude,
-                                                        distance=self.distance_from_earth)
-
-            self.average_angular_size = utils.get_av_angular_size(min_size=ang_min,
-                                                                  max_size=ang_max)
+            (self.absolute_magnitude,
+             self.average_angular_size) = utils.GetObservationalParameters(
+                    angular_size=tuple([ang_min, ang_max]),
+                    apparent_magnitude=self.apparent_magnitude,
+                    distance=self.distance_from_earth).get()

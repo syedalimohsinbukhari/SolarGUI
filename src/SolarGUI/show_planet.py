@@ -48,7 +48,7 @@ class GetParameterSelection:
         self.obs = tk.Button(master=self.button_frame,
                              text='Observational Parameters',
                              command=lambda: show_observational_parameters(
-                                     window=self.parameter_frame, object_name=title,
+                                     window=self.parameter_frame,
                                      object_class=object_class))
         self.obs.grid(row=0, column=2, sticky='news')
 
@@ -100,8 +100,7 @@ def show_physical_parameters(window: Union[tk.Tk, tk.Toplevel, tk.Frame],
                        row=0, column=4, width=25, sticky="nsew")
 
     # placing the details of celestial objects one by one
-    tk_f.place_object_properties(window=planet_window, text="Age",
-                                 value=object_class.age,
+    tk_f.place_object_properties(window=planet_window, text="Age", value=object_class.age,
                                  function=convert, options=("s", "yr", "Myr", "Gyr"),
                                  row=1, column=0, default="Gyr")
 
@@ -202,15 +201,13 @@ def show_orbital_parameters(window: Union[tk.Tk, tk.Toplevel, tk.Frame], object_
 
     # placing the details of celestial objects one by one
     tk_f.place_object_properties(window=planet_window, text='Semi Major Axis',
-                                 value=object_class.semi_major_axis,
-                                 function=convert,
+                                 value=object_class.semi_major_axis, function=convert,
                                  options=('cm', 'm', 'km', 'Gm', 'AU', 'lyr', 'pc'),
                                  row=1, default='AU', column=0)
 
     tk_f.place_object_properties(window=planet_window, text='Eccentricity',
-                                 value=object_class.eccentricity,
-                                 function=convert, options=tuple(),
-                                 row=2, default='', column=0)
+                                 value=object_class.eccentricity, function=convert,
+                                 options=tuple(), row=2, default='', column=0)
 
     tk_f.place_object_properties(window=planet_window, text='Closest approach',
                                  value=object_class.apo, function=convert,
@@ -223,14 +220,12 @@ def show_orbital_parameters(window: Union[tk.Tk, tk.Toplevel, tk.Frame], object_
                                  row=4, default='AU', column=0)
 
     tk_f.place_object_properties(window=planet_window, text='Orbital Period',
-                                 value=object_class.orbital_period,
-                                 function=convert, options=('s', 'hr', 'day', 'yr',
-                                                            'Myr'),
-                                 row=5, default='day', column=0)
+                                 value=object_class.orbital_period, function=convert,
+                                 options=('s', 'hr', 'day', 'yr', 'Myr'), row=5,
+                                 default='day', column=0)
 
     tk_f.place_object_properties(window=planet_window, text='Av. Orbital Speed',
-                                 value=object_class.av_orbital_speed,
-                                 function=convert,
+                                 value=object_class.av_orbital_speed, function=convert,
                                  options=('cm/s', 'm/s', 'km/s', 'km/h'), row=6,
                                  default='km/s', column=0)
 
@@ -258,15 +253,13 @@ def show_orbital_parameters(window: Union[tk.Tk, tk.Toplevel, tk.Frame], object_
 
 
 def show_observational_parameters(window: Union[tk.Tk, tk.Toplevel, tk.Frame],
-                                  object_name: str, object_class: Any):
+                                  object_class: Any):
     """
     Display the orbital parameters of the celestial object.
     Parameters
     ----------
     window : Union[tk.Tk, tk.Toplevel, tk.Frame]
         tk.Tk or tk.Toplevel window or a tk.Frame to build the object inside.
-    object_name: str
-        The name of the object in consideration.
     object_class : Any
         The object clas from which the attributes are to be read.
 
@@ -302,35 +295,32 @@ def show_observational_parameters(window: Union[tk.Tk, tk.Toplevel, tk.Frame],
 
     # placing the equivalency button
     tk_f.object_button(window=planet_window, text="Equivalences",
-                       function=lambda: tk_f.place_equivalencies(window=planet_window,
-                                                                 cel_object=object_class,
-                                                                 column=4,
-                                                                 equiv_type='observation'),
-                       row=0, column=4, width=25, sticky="nsew")
+                       function=lambda: tk_f.place_equivalencies(
+                               window=planet_window,
+                               cel_object=object_class,
+                               column=4,
+                               equiv_type='observation'
+                               ), row=0, column=4, width=25, sticky="nsew")
 
     tk_f.place_object_properties(window=planet_window, text='Apparent Magnitude',
-                                 value=object_class.apparent_magnitude,
-                                 function=convert, options=tuple(),
-                                 row=1, default='', column=0)
+                                 value=object_class.apparent_magnitude, function=convert,
+                                 options=tuple(), row=1, default='', column=0)
 
     tk_f.place_object_properties(window=planet_window, text='Geometric Albedo',
-                                 value=object_class.geom_albedo,
-                                 function=convert, options=tuple(),
-                                 row=2, default='', column=0)
+                                 value=object_class.geom_albedo, function=convert,
+                                 options=tuple(), row=2, default='', column=0)
 
     tk_f.place_object_properties(window=planet_window, text='Distance from Earth',
-                                 value=object_class.distance_from_earth,
-                                 function=convert,
+                                 value=object_class.distance_from_earth, function=convert,
                                  options=('cm', 'm', 'km', 'Gm', 'AU', 'lyr', 'pc'),
                                  row=3, default='km', column=0)
 
     tk_f.place_object_properties(window=planet_window, text='Absolute Magnitude',
-                                 value=object_class.absolute_magnitude,
-                                 function=convert, options=tuple(),
-                                 row=4, default='', column=0)
+                                 value=object_class.absolute_magnitude, function=convert,
+                                 options=tuple(), row=4, default='', column=0)
 
     tk_f.place_object_properties(window=planet_window, text='Average angular size',
                                  value=object_class.average_angular_size,
                                  function=convert,
-                                 options=('arcsec', 'arcmin', 'deg', 'rad'),
-                                 row=5, default='arcsec', column=0)
+                                 options=('arcsec', 'arcmin', 'deg', 'rad'), row=5,
+                                 default='arcsec', column=0)
