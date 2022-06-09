@@ -10,6 +10,8 @@ try:
 except ImportError:
     import utilities as utils
 
+earth_dist = (1 * u.AU).to(u.km)
+
 
 class Sun:
 
@@ -29,11 +31,14 @@ class Sun:
     class ObservationalParameters:
 
         def __init__(self):
+            ang_min, ang_max = 0.527 * u.deg, 0.545 * u.deg
+
             self.apparent_magnitude = -26.74
             self.geom_albedo = 0.0001
-            self.absolute_magnitude = 4.83
+            self.distance_from_earth = earth_dist
 
-            ang_min, ang_max = 0.527 * u.deg, 0.545 * u.deg
+            self.absolute_magnitude = utils.get_abs_mag(ap_mag=self.apparent_magnitude,
+                                                        distance=self.distance_from_earth)
 
             self.average_angular_size = utils.get_av_angular_size(min_size=ang_min,
                                                                   max_size=ang_max)
@@ -74,17 +79,15 @@ class Mercury:
     class ObservationalParameters:
 
         def __init__(self):
-            _diameter = 2 * Mercury.PhysicalParameters().radius
-
             ap_mag_min, ap_mag_max = 7.25, -2.48
             ang_min, ang_max = 4.5 * u.arcmin, 13 * u.arcmin
 
             self.apparent_magnitude = np.mean([ap_mag_min, ap_mag_max])
-
             self.geom_albedo = 0.138
+            self.distance_from_earth = earth_dist - (0.387 * earth_dist)
 
-            self.absolute_magnitude = utils.get_absolute_magnitude(diameter=_diameter,
-                                                                   geom_albedo=self.geom_albedo)
+            self.absolute_magnitude = utils.get_abs_mag(ap_mag=self.apparent_magnitude,
+                                                        distance=self.distance_from_earth)
 
             self.average_angular_size = utils.get_av_angular_size(min_size=ang_min,
                                                                   max_size=ang_max)
@@ -125,17 +128,15 @@ class Venus:
     class ObservationalParameters:
 
         def __init__(self):
-            _diameter = 2 * Venus.PhysicalParameters().radius
-
             ap_mag_min, ap_mag_max = -2.98, -4.92
             ang_min, ang_max = 0 * u.arcmin + 9.7 * u.arcsec, 1 * u.arcmin + 6 * u.arcsec
 
             self.apparent_magnitude = np.mean([ap_mag_min, ap_mag_max])
-
             self.geom_albedo = 0.689
+            self.distance_from_earth = earth_dist - (0.723 * earth_dist)
 
-            self.absolute_magnitude = utils.get_absolute_magnitude(diameter=_diameter,
-                                                                   geom_albedo=self.geom_albedo)
+            self.absolute_magnitude = utils.get_abs_mag(ap_mag=self.apparent_magnitude,
+                                                        distance=self.distance_from_earth)
 
             self.average_angular_size = utils.get_av_angular_size(min_size=ang_min,
                                                                   max_size=ang_max)
@@ -209,18 +210,15 @@ class Moon:
     class ObservationalParameters:
 
         def __init__(self):
-            _diameter = 2 * Moon.PhysicalParameters().radius
-
             ap_mag_min, ap_mag_max = -2.5, -12.9
             ang_min, ang_max = 29.3 * u.arcmin, 34.1 * u.arcmin
 
             self.apparent_magnitude = np.mean([ap_mag_min, ap_mag_max])
-
             self.geom_albedo = 0.136
+            self.distance_from_earth = 0.00256955529 * earth_dist
 
-            self.absolute_magnitude = utils.get_absolute_magnitude(diameter=_diameter,
-                                                                   geom_albedo=self
-                                                                   .geom_albedo)
+            self.absolute_magnitude = utils.get_abs_mag(ap_mag=self.apparent_magnitude,
+                                                        distance=self.distance_from_earth)
 
             self.average_angular_size = utils.get_av_angular_size(min_size=ang_min,
                                                                   max_size=ang_max)
@@ -261,16 +259,15 @@ class Mars:
     class ObservationalParameters:
 
         def __init__(self):
-            _diameter = 2 * Mars.PhysicalParameters().radius
             ap_mag_min, ap_mag_max = 1.86, -2.94
             ang_min, ang_max = 3.5 * u.arcsec, 25.1 * u.arcsec
 
             self.apparent_magnitude = np.mean([ap_mag_min, ap_mag_max])
-
             self.geom_albedo = 0.17
+            self.distance_from_earth = (1.52 * earth_dist) - earth_dist
 
-            self.absolute_magnitude = utils.get_absolute_magnitude(diameter=_diameter,
-                                                                   geom_albedo=self.geom_albedo)
+            self.absolute_magnitude = utils.get_abs_mag(ap_mag=self.apparent_magnitude,
+                                                        distance=self.distance_from_earth)
 
             self.average_angular_size = utils.get_av_angular_size(min_size=ang_min,
                                                                   max_size=ang_max)
@@ -311,16 +308,15 @@ class Jupiter:
     class ObservationalParameters:
 
         def __init__(self):
-            _diameter = 2 * Jupiter.PhysicalParameters().radius
             ap_mag_min, ap_mag_max = -1.66, -2.94
             ang_min, ang_max = 29.8 * u.arcsec, 50.1 * u.arcsec
 
             self.apparent_magnitude = np.mean([ap_mag_min, ap_mag_max])
-
             self.geom_albedo = 0.538
+            self.distance_from_earth = (5.20 * earth_dist) - earth_dist
 
-            self.absolute_magnitude = utils.get_absolute_magnitude(diameter=_diameter,
-                                                                   geom_albedo=self.geom_albedo)
+            self.absolute_magnitude = utils.get_abs_mag(ap_mag=self.apparent_magnitude,
+                                                        distance=self.distance_from_earth)
 
             self.average_angular_size = utils.get_av_angular_size(min_size=ang_min,
                                                                   max_size=ang_max)
@@ -361,16 +357,15 @@ class Saturn:
     class ObservationalParameters:
 
         def __init__(self):
-            _diameter = 2 * Saturn.PhysicalParameters().radius
             ap_mag_min, ap_mag_max = 1.17, -0.55
             ang_min, ang_max = 14.5 * u.arcsec, 20.1 * u.arcsec
 
             self.apparent_magnitude = np.mean([ap_mag_min, ap_mag_max])
-
             self.geom_albedo = 0.499
+            self.distance_from_earth = (9.57 * earth_dist) - earth_dist
 
-            self.absolute_magnitude = utils.get_absolute_magnitude(diameter=_diameter,
-                                                                   geom_albedo=self.geom_albedo)
+            self.absolute_magnitude = utils.get_abs_mag(ap_mag=self.apparent_magnitude,
+                                                        distance=self.distance_from_earth)
 
             self.average_angular_size = utils.get_av_angular_size(min_size=ang_min,
                                                                   max_size=ang_max)
@@ -411,16 +406,15 @@ class Uranus:
     class ObservationalParameters:
 
         def __init__(self):
-            _diameter = 2 * Uranus.PhysicalParameters().radius
             ap_mag_min, ap_mag_max = 6.03, 5.38
             ang_min, ang_max = 3.3 * u.arcsec, 4.1 * u.arcsec
 
             self.apparent_magnitude = np.mean([ap_mag_min, ap_mag_max])
-
             self.geom_albedo = 0.488
+            self.distance_from_earth = (19.17 * earth_dist) - earth_dist
 
-            self.absolute_magnitude = utils.get_absolute_magnitude(diameter=_diameter,
-                                                                   geom_albedo=self.geom_albedo)
+            self.absolute_magnitude = utils.get_abs_mag(ap_mag=self.apparent_magnitude,
+                                                        distance=self.distance_from_earth)
 
             self.average_angular_size = utils.get_av_angular_size(min_size=ang_min,
                                                                   max_size=ang_max)
@@ -461,16 +455,15 @@ class Neptune:
     class ObservationalParameters:
 
         def __init__(self):
-            _diameter = 2 * Neptune.PhysicalParameters().radius
             ap_mag_min, ap_mag_max = 8, 7.67
             ang_min, ang_max = 2.2 * u.arcsec, 2.4 * u.arcsec
 
             self.apparent_magnitude = np.mean([ap_mag_min, ap_mag_max])
-
             self.geom_albedo = 0.442
+            self.distance_from_earth = (30.18 * earth_dist) - earth_dist
 
-            self.absolute_magnitude = utils.get_absolute_magnitude(diameter=_diameter,
-                                                                   geom_albedo=self.geom_albedo)
+            self.absolute_magnitude = utils.get_abs_mag(ap_mag=self.apparent_magnitude,
+                                                        distance=self.distance_from_earth)
 
             self.average_angular_size = utils.get_av_angular_size(min_size=ang_min,
                                                                   max_size=ang_max)
@@ -511,16 +504,15 @@ class Pluto:
     class ObservationalParameters:
 
         def __init__(self):
-            _diameter = 2 * Pluto.PhysicalParameters().radius
             ap_mag_min, ap_mag_max = 16.3, 13.65
             ang_min, ang_max = 0.06 * u.arcsec, 0.11 * u.arcsec
 
             self.apparent_magnitude = np.mean([ap_mag_min, ap_mag_max])
-
             self.geom_albedo = 0.52
+            self.distance_from_earth = (39.48 * earth_dist) - earth_dist
 
-            self.absolute_magnitude = utils.get_absolute_magnitude(diameter=_diameter,
-                                                                   geom_albedo=self.geom_albedo)
+            self.absolute_magnitude = utils.get_abs_mag(ap_mag=self.apparent_magnitude,
+                                                        distance=self.distance_from_earth)
 
             self.average_angular_size = utils.get_av_angular_size(min_size=ang_min,
                                                                   max_size=ang_max)

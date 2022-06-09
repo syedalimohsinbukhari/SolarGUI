@@ -236,7 +236,7 @@ def place_equivalencies(window: Union[tk.Tk, tk.Toplevel, tk.Frame], cel_object:
 
     get_val = tk.StringVar()
 
-    state = 'disabled' if equiv_type in ['orbital', 'observation'] else 'active'
+    state = 'disabled' if equiv_type in ['orbital'] else 'active'
 
     equiv_radio_buttons(window=equiv_window, text='Sun', value='Sun', radio_val=get_val,
                         state=state,
@@ -276,7 +276,7 @@ def place_equivalencies(window: Union[tk.Tk, tk.Toplevel, tk.Frame], cel_object:
                                                           c_type=equiv_type,
                                                           column=column), row=0, column=3)
 
-    state = 'disabled' if equiv_type is 'orbital' else 'active'
+    state = 'disabled' if equiv_type in ['orbital', 'observation'] else 'active'
 
     equiv_radio_buttons(window=equiv_window, text='Moon', value='Moon',
                         radio_val=get_val, state=state,

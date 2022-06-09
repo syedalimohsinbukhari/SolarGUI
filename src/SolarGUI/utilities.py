@@ -166,7 +166,7 @@ def comparison(c_win: Union[tk.Tk, tk.Toplevel, tk.Frame], p_ojb: Any, c_obj: An
     c_lbl : str
         Text representing the comparison celestial object.
     c_type: str
-        Whether the comparison should be of physical or orbital parameters.
+        Whether the comparison should be of physical, orbital or observational parameters.
     column: float
         Specify the column number where the equivalencies should be placed.
     reset : bool, optional
@@ -193,8 +193,13 @@ def comparison(c_win: Union[tk.Tk, tk.Toplevel, tk.Frame], p_ojb: Any, c_obj: An
     # object attributes
 
     try:
-        out = [p_ojb.__getattribute__(attr) / c_obj.__getattribute__(attr) for attr
-               in attributes]
+        out = []
+        for attr in attributes:
+            ratio = p_ojb.__getattribute__(attr) / c_obj.__getattribute__(attr)
+            if attr in ['apparent_magnitude', 'absolute_magnitude']:
+                ratio = c_obj.__getattribute__(attr) - p_ojb.__getattribute__(attr)
+                ratio = 100**(ratio / 5)
+            out.append(ratio)
     except (ZeroDivisionError, RuntimeWarning):
         if type(c_obj) == celestial_objects.Sun.OrbitalParameters:
             out = [1] * num_attributes
@@ -203,6 +208,8 @@ def comparison(c_win: Union[tk.Tk, tk.Toplevel, tk.Frame], p_ojb: Any, c_obj: An
     for value, num in zip(out, range(1, num_attributes + 1)):
         if 0 < value <= 0.001:
             value = f'{abs(value):.5e} × {c_lbl}'
+        elif value > int(1e9):
+            value = f'{np.round(abs(value), 5):.3E} × {c_lbl}'
         else:
             value = f'{np.round(abs(value), 5)} × {c_lbl}'
 
@@ -216,6 +223,6 @@ def get_av_angular_size(min_size, max_size):
     return (np.mean([ang_min, ang_max]) * u.rad).to(u.arcsec)
 
 
-def get_absolute_magnitude(diameter, geom_albedo):
-    f1 = diameter * np.sqrt(geom_albedo)
-    return 5 * np.log10(1329 / f1.value)
+def get_abs_mag(ap_mag, distance):
+    distance = distance.to(u.pc)
+    return ap_mag - 5 * np.log10(distance.value) + 5
