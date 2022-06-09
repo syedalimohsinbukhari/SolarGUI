@@ -12,10 +12,10 @@ from astropy.units.quantity import Quantity
 
 try:
     from . import tk_functions as tk_f
-    from . import celestial_objects
 except ImportError:
     import tk_functions as tk_f
-    import celestial_objects
+
+N_float = Union[float, np.float_, np.ndarray]
 
 
 def convert(parameter: Quantity, change_to: str) -> Quantity:
@@ -38,19 +38,123 @@ def convert(parameter: Quantity, change_to: str) -> Quantity:
     return parameter.to(change_to) if not change_to == '' else parameter
 
 
-class GetOrbitalParameters:
+class GetObservationalParameters:
+    """
+    Class to determine the observational parameters for the celestial object.
+    """
 
-    def __init__(self, a_0: float, ecc: float):
+    def __init__(self, angular_size: tuple, apparent_magnitude: N_float,
+                 distance: Quantity):
+        """
+        Initialization function for GetObservationalParameters class
+
+        Parameters
+        ----------
+        angular_size: tuple
+            A pair of angular sizes for calculation of average angular size for the
+            celestial object.
+        apparent_magnitude : N_float
+            Apparent magnitude of the celestial object.
+        distance : Quantity
+            Distance between Earth and the celestial object.
+
+        Returns
+        ----------
+        None.
+
+        """
+        self.angular_size = angular_size
+        self.apparent_magnitude = apparent_magnitude
+        self.distance = distance
+
+    def get_average_angular_size(self) -> Quantity:
+        """
+        Calculates the average angular size for the celestial object.
+
+        Returns
+        -------
+        Quantity:
+            Average angular size of the celestial object.
+
+        """
+        ang_min, ang_max = [i.si.value for i in self.angular_size]
+        return (np.mean([ang_min, ang_max]) * u.rad).to(u.arcsec)
+
+    def get_absolute_magnitude(self):
+        """
+        Calculates the absolute magnitude for the celestial object.
+
+        Returns
+        -------
+        float:
+            Absolute magnitude of the celestial object.
+
+        """
+        distance = self.distance.to(u.pc)
+        return self.apparent_magnitude - 5 * np.log10(distance.value) + 5
+
+    def get(self):
+        """
+        Get the values for average angular size and absolute magnitude for the
+        celestial object.
+
+        """
+        return self.get_absolute_magnitude(), self.get_average_angular_size()
+
+
+class GetOrbitalParameters:
+    """
+    Class to determine the orbital parameters for the celestial objects.
+    """
+
+    def __init__(self, a_0: Quantity, ecc: float):
+        """
+        Initialization function for GetOrbitalParameter class
+
+        Parameters
+        ----------
+        a_0 : Quantity
+            Semi-major axis of the celestial object.
+        ecc : float
+            Eccentricity of the celestial object.
+
+        Returns
+        -------
+        None.
+
+        """
         self.semi_major_axis = a_0
         self.eccentricity = ecc
 
-    def get_apo_distance(self):
+    def get_apo_distance(self) -> Quantity:
+        """
+        Calculates the farthest approach of a celestial object in orbit.
+
+        Returns
+        -------
+        Quantity
+            Apo-distance of a celestial object.
+
+        """
         return self.semi_major_axis * (1 - self.eccentricity)
 
-    def get_peri_distance(self):
+    def get_peri_distance(self) -> Quantity:
+        """
+        Calculates the closest approach of a celestial object in orbit.
+
+        Returns
+        -------
+        Quantity
+            Peri-distance of a celestial object.
+
+        """
         return self.semi_major_axis * (1 + self.eccentricity)
 
     def get(self):
+        """
+        Get the values of apo and peri distances for the celestial objects.
+
+        """
         return self.get_apo_distance(), self.get_peri_distance()
 
 
@@ -62,7 +166,7 @@ class GetPhysicalParameters:
 
     def __init__(self, mass: float, radius: float):
         """
-        Initialization function for PhysicalParameter class.
+        Initialization function for GetPhysicalParameter class.
 
         Parameters
         ----------
@@ -192,17 +296,13 @@ def comparison(c_win: Union[tk.Tk, tk.Toplevel, tk.Frame], p_ojb: Any, c_obj: An
     # divide the celestial object attribute values to that of comparison celestial
     # object attributes
 
-    try:
-        out = []
-        for attr in attributes:
-            ratio = p_ojb.__getattribute__(attr) / c_obj.__getattribute__(attr)
-            if attr in ['apparent_magnitude', 'absolute_magnitude']:
-                ratio = c_obj.__getattribute__(attr) - p_ojb.__getattribute__(attr)
-                ratio = 100**(ratio / 5)
-            out.append(ratio)
-    except (ZeroDivisionError, RuntimeWarning):
-        if type(c_obj) == celestial_objects.Sun.OrbitalParameters:
-            out = [1] * num_attributes
+    out = []
+    for attr in attributes:
+        ratio = p_ojb.__getattribute__(attr) / c_obj.__getattribute__(attr)
+        if attr in ['apparent_magnitude', 'absolute_magnitude']:
+            ratio = c_obj.__getattribute__(attr) - p_ojb.__getattribute__(attr)
+            ratio = 100**(ratio / 5)
+        out.append(ratio)
 
     # place the entries on the comparison window or reset them
     for value, num in zip(out, range(1, num_attributes + 1)):
@@ -216,13 +316,3 @@ def comparison(c_win: Union[tk.Tk, tk.Toplevel, tk.Frame], p_ojb: Any, c_obj: An
         value = value if not reset else ''
 
         tk_f.entry_placement(window=c_win, value=value, row=num, columns=column, width=25)
-
-
-def get_av_angular_size(min_size, max_size):
-    ang_min, ang_max = min_size.si.value, max_size.si.value
-    return (np.mean([ang_min, ang_max]) * u.rad).to(u.arcsec)
-
-
-def get_abs_mag(ap_mag, distance):
-    distance = distance.to(u.pc)
-    return ap_mag - 5 * np.log10(distance.value) + 5
