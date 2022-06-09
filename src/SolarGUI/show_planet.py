@@ -45,12 +45,12 @@ class GetParameterSelection:
                                          object_class=object_class))
             self.orb.grid(row=0, column=1, sticky='news')
 
-            self.obs = tk.Button(master=self.button_frame,
-                                 text='Observational Parameters',
-                                 command=lambda: show_observational_parameters(
-                                         window=self.parameter_frame, object_name=title,
-                                         object_class=object_class))
-            self.obs.grid(row=0, column=2, sticky='news')
+        self.obs = tk.Button(master=self.button_frame,
+                             text='Observational Parameters',
+                             command=lambda: show_observational_parameters(
+                                     window=self.parameter_frame, object_name=title,
+                                     object_class=object_class))
+        self.obs.grid(row=0, column=2, sticky='news')
 
 
 def show_physical_parameters(window: Union[tk.Tk, tk.Toplevel, tk.Frame],
@@ -203,8 +203,8 @@ def show_orbital_parameters(window: Union[tk.Tk, tk.Toplevel, tk.Frame], object_
     # placing the details of celestial objects one by one
     tk_f.place_object_properties(window=planet_window, text='Semi Major Axis',
                                  value=object_class.semi_major_axis,
-                                 function=convert, options=('cm', 'm', 'km', 'Mm', 'Gm',
-                                                            'AU'),
+                                 function=convert,
+                                 options=('cm', 'm', 'km', 'Gm', 'AU', 'lyr', 'pc'),
                                  row=1, default='AU', column=0)
 
     tk_f.place_object_properties(window=planet_window, text='Eccentricity',
@@ -214,13 +214,13 @@ def show_orbital_parameters(window: Union[tk.Tk, tk.Toplevel, tk.Frame], object_
 
     tk_f.place_object_properties(window=planet_window, text='Closest approach',
                                  value=object_class.apo, function=convert,
-                                 options=('cm', 'm', 'km', 'Mm', 'Gm', 'AU'), row=3,
-                                 default='AU', column=0)
+                                 options=('cm', 'm', 'km', 'Gm', 'AU', 'lyr', 'pc'),
+                                 row=3, default='AU', column=0)
 
     tk_f.place_object_properties(window=planet_window, text='Farthest approach',
                                  value=object_class.peri, function=convert,
-                                 options=('cm', 'm', 'km', 'Mm', 'Gm', 'AU'), row=4,
-                                 default='AU', column=0)
+                                 options=('cm', 'm', 'km', 'Gm', 'AU', 'lyr', 'pc'),
+                                 row=4, default='AU', column=0)
 
     tk_f.place_object_properties(window=planet_window, text='Orbital Period',
                                  value=object_class.orbital_period,
@@ -318,13 +318,19 @@ def show_observational_parameters(window: Union[tk.Tk, tk.Toplevel, tk.Frame],
                                  function=convert, options=tuple(),
                                  row=2, default='', column=0)
 
+    tk_f.place_object_properties(window=planet_window, text='Distance from Earth',
+                                 value=object_class.distance_from_earth,
+                                 function=convert,
+                                 options=('cm', 'm', 'km', 'Gm', 'AU', 'lyr', 'pc'),
+                                 row=3, default='km', column=0)
+
     tk_f.place_object_properties(window=planet_window, text='Absolute Magnitude',
                                  value=object_class.absolute_magnitude,
                                  function=convert, options=tuple(),
-                                 row=3, default='', column=0)
+                                 row=4, default='', column=0)
 
     tk_f.place_object_properties(window=planet_window, text='Average angular size',
                                  value=object_class.average_angular_size,
                                  function=convert,
                                  options=('arcsec', 'arcmin', 'deg', 'rad'),
-                                 row=4, default='arcsec', column=0)
+                                 row=5, default='arcsec', column=0)
