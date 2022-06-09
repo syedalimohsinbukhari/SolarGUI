@@ -6,6 +6,7 @@ import tkinter as tk
 from typing import Any, Union
 
 import numpy as np
+from astropy import units as u
 from astropy.constants import codata2018 as c_2018
 from astropy.units.quantity import Quantity
 
@@ -34,7 +35,7 @@ def convert(parameter: Quantity, change_to: str) -> Quantity:
         The celestial object parameter with changed unit.
 
     """
-    return parameter.to(change_to)
+    return parameter.to(change_to) if not change_to == '' else parameter
 
 
 class GetOrbitalParameters:
@@ -65,9 +66,9 @@ class GetPhysicalParameters:
 
         Parameters
         ----------
-        mass : TYPE
+        mass : float
             Mass of the celestial object.
-        radius : TYPE
+        radius : float
             Radius of the celestial object.
 
         Returns
@@ -183,8 +184,10 @@ def comparison(c_win: Union[tk.Tk, tk.Toplevel, tk.Frame], p_ojb: Any, c_obj: An
 
     if c_type == 'physical':
         c_obj = c_obj.PhysicalParameters()
-    else:
+    elif c_type == 'orbital':
         c_obj = c_obj.OrbitalParameters()
+    else:
+        c_obj = c_obj.ObservationalParameters()
 
     # divide the celestial object attribute values to that of comparison celestial
     # object attributes
@@ -203,9 +206,16 @@ def comparison(c_win: Union[tk.Tk, tk.Toplevel, tk.Frame], p_ojb: Any, c_obj: An
         else:
             value = f'{np.round(abs(value), 5)} × {c_lbl}'
 
-        if not reset:
-            tk_f.entry_placement(window=c_win, value=value, row=num, columns=column,
-                                 width=25)
-        else:
-            tk_f.entry_placement(window=c_win, value='', row=num, columns=column,
-                                 width=25)
+        value = value if not reset else ''
+
+        tk_f.entry_placement(window=c_win, value=value, row=num, columns=column, width=25)
+
+
+def get_av_angular_size(min_size, max_size):
+    ang_min, ang_max = min_size.si.value, max_size.si.value
+    return (np.mean([ang_min, ang_max]) * u.rad).to(u.arcsec)
+
+
+def get_absolute_magnitude(diameter, geom_albedo):
+    f1 = diameter * np.sqrt(geom_albedo)
+    return 5 * np.log10(1329 / f1.value)

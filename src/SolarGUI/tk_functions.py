@@ -118,20 +118,21 @@ def place_object_properties(window: Union[tk.Tk, tk.Toplevel, tk.Frame], text: s
 
     get_var = tk.StringVar()
 
-    # taken from
-    # https://stackoverflow.com/a/68128312/3212945
+    # taken from https://stackoverflow.com/a/68128312/3212945
 
-    if text.lower() != 'eccentricity':
-        dropdown = ttk.Combobox(master=window, textvariable=get_var, values=options,
-                                state='readonly')
-    else:
-        dropdown = ttk.Combobox(master=window, textvariable=get_var, values=options,
-                                state='disabled')
+    state = 'readonly' if text.lower() not in ['eccentricity', 'geometric albedo',
+                                               'apparent magnitude',
+                                               'absolute magnitude'] else 'disabled'
+
+    dropdown = ttk.Combobox(master=window, textvariable=get_var, values=options,
+                            state=state)
 
     dropdown.bind('<<ComboboxSelected>>', value_set)
     dropdown.grid(row=int(row), column=int(column + 2), padx=10, sticky='news')
 
-    reset_button = tk.Button(master=window, text='Reset',
+    state = 'disabled' if default is '' else 'normal'
+
+    reset_button = tk.Button(master=window, text='Reset', state=state,
                              command=lambda: value_set(change_to=default, reset=True))
     reset_button.grid(row=int(row), column=int(column + 3), padx=10, sticky='news')
 
@@ -235,26 +236,16 @@ def place_equivalencies(window: Union[tk.Tk, tk.Toplevel, tk.Frame], cel_object:
 
     get_val = tk.StringVar()
 
-    if equiv_type == 'orbital':
-        equiv_radio_buttons(window=equiv_window, text='Sun', value='Sun',
-                            radio_val=get_val, state='disabled',
-                            function=lambda: utils.comparison(c_win=parent_window,
-                                                              p_ojb=cel_object,
-                                                              c_obj=c_objs.Sun,
-                                                              c_lbl='Sun',
-                                                              c_type=equiv_type,
-                                                              column=column),
-                            row=0, column=0)
-    else:
-        equiv_radio_buttons(window=equiv_window, text='Sun', value='Sun',
-                            radio_val=get_val,
-                            function=lambda: utils.comparison(c_win=parent_window,
-                                                              p_ojb=cel_object,
-                                                              c_obj=c_objs.Sun,
-                                                              c_lbl='Sun',
-                                                              c_type=equiv_type,
-                                                              column=column),
-                            row=0, column=0)
+    state = 'disabled' if equiv_type in ['orbital', 'observation'] else 'active'
+
+    equiv_radio_buttons(window=equiv_window, text='Sun', value='Sun', radio_val=get_val,
+                        state=state,
+                        function=lambda: utils.comparison(c_win=parent_window,
+                                                          p_ojb=cel_object,
+                                                          c_obj=c_objs.Sun,
+                                                          c_lbl='Sun',
+                                                          c_type=equiv_type,
+                                                          column=column), row=0, column=0)
 
     equiv_radio_buttons(window=equiv_window, text='Mercury', value='Mercury',
                         radio_val=get_val,
@@ -263,8 +254,7 @@ def place_equivalencies(window: Union[tk.Tk, tk.Toplevel, tk.Frame], cel_object:
                                                           c_obj=c_objs.Mercury,
                                                           c_lbl='Mercury',
                                                           c_type=equiv_type,
-                                                          column=column),
-                        row=0, column=1)
+                                                          column=column), row=0, column=1)
 
     equiv_radio_buttons(window=equiv_window, text='Venus', value='Venus',
                         radio_val=get_val,
@@ -273,39 +263,29 @@ def place_equivalencies(window: Union[tk.Tk, tk.Toplevel, tk.Frame], cel_object:
                                                           c_obj=c_objs.Venus,
                                                           c_lbl='Venus',
                                                           c_type=equiv_type,
-                                                          column=column),
-                        row=0, column=2)
+                                                          column=column), row=0, column=2)
+
+    state = 'disabled' if equiv_type is 'observation' else 'active'
 
     equiv_radio_buttons(window=equiv_window, text='Earth', value='Earth',
-                        radio_val=get_val,
+                        radio_val=get_val, state=state,
                         function=lambda: utils.comparison(c_win=parent_window,
                                                           p_ojb=cel_object,
                                                           c_obj=c_objs.Earth,
                                                           c_lbl='Earth',
                                                           c_type=equiv_type,
-                                                          column=column),
-                        row=0, column=3)
+                                                          column=column), row=0, column=3)
 
-    if equiv_type is 'orbital':
-        equiv_radio_buttons(window=equiv_window, text='Moon', value='Moon',
-                            radio_val=get_val, state='disabled',
-                            function=lambda: utils.comparison(c_win=parent_window,
-                                                              p_ojb=cel_object,
-                                                              c_obj=c_objs.Moon,
-                                                              c_lbl='Moon',
-                                                              c_type=equiv_type,
-                                                              column=column),
-                            row=1, column=0)
-    else:
-        equiv_radio_buttons(window=equiv_window, text='Moon', value='Moon',
-                            radio_val=get_val,
-                            function=lambda: utils.comparison(c_win=parent_window,
-                                                              p_ojb=cel_object,
-                                                              c_obj=c_objs.Moon,
-                                                              c_lbl='Moon',
-                                                              c_type=equiv_type,
-                                                              column=column),
-                            row=1, column=0)
+    state = 'disabled' if equiv_type is 'orbital' else 'active'
+
+    equiv_radio_buttons(window=equiv_window, text='Moon', value='Moon',
+                        radio_val=get_val, state=state,
+                        function=lambda: utils.comparison(c_win=parent_window,
+                                                          p_ojb=cel_object,
+                                                          c_obj=c_objs.Moon,
+                                                          c_lbl='Moon',
+                                                          c_type=equiv_type,
+                                                          column=column), row=1, column=0)
 
     equiv_radio_buttons(window=equiv_window, text='Mars', value='Mars', radio_val=get_val,
                         function=lambda: utils.comparison(c_win=parent_window,
@@ -313,8 +293,7 @@ def place_equivalencies(window: Union[tk.Tk, tk.Toplevel, tk.Frame], cel_object:
                                                           c_obj=c_objs.Mars,
                                                           c_lbl='Mars',
                                                           c_type=equiv_type,
-                                                          column=column),
-                        row=1, column=1)
+                                                          column=column), row=1, column=1)
 
     equiv_radio_buttons(window=equiv_window, text='Jupiter', value='Jupiter',
                         radio_val=get_val,
@@ -323,8 +302,7 @@ def place_equivalencies(window: Union[tk.Tk, tk.Toplevel, tk.Frame], cel_object:
                                                           c_obj=c_objs.Jupiter,
                                                           c_lbl='Jupiter',
                                                           c_type=equiv_type,
-                                                          column=column),
-                        row=1, column=2)
+                                                          column=column), row=1, column=2)
 
     equiv_radio_buttons(window=equiv_window, text='Saturn', value='Saturn',
                         radio_val=get_val,
@@ -333,8 +311,7 @@ def place_equivalencies(window: Union[tk.Tk, tk.Toplevel, tk.Frame], cel_object:
                                                           c_obj=c_objs.Saturn,
                                                           c_lbl='Saturn',
                                                           c_type=equiv_type,
-                                                          column=column),
-                        row=1, column=3)
+                                                          column=column), row=1, column=3)
 
     equiv_radio_buttons(window=equiv_window, text='Uranus', value='Uranus',
                         radio_val=get_val,
@@ -343,8 +320,7 @@ def place_equivalencies(window: Union[tk.Tk, tk.Toplevel, tk.Frame], cel_object:
                                                           c_obj=c_objs.Uranus,
                                                           c_lbl='Uranus',
                                                           c_type=equiv_type,
-                                                          column=column),
-                        row=2, column=0)
+                                                          column=column), row=2, column=0)
 
     equiv_radio_buttons(window=equiv_window, text='Neptune', value='Neptune',
                         radio_val=get_val,
@@ -353,8 +329,7 @@ def place_equivalencies(window: Union[tk.Tk, tk.Toplevel, tk.Frame], cel_object:
                                                           c_obj=c_objs.Neptune,
                                                           c_lbl='Neptune',
                                                           c_type=equiv_type,
-                                                          column=column),
-                        row=2, column=1)
+                                                          column=column), row=2, column=1)
 
     equiv_radio_buttons(window=equiv_window, text='Pluto', value='Pluto',
                         radio_val=get_val,
@@ -363,8 +338,7 @@ def place_equivalencies(window: Union[tk.Tk, tk.Toplevel, tk.Frame], cel_object:
                                                           c_obj=c_objs.Pluto,
                                                           c_lbl='Pluto',
                                                           c_type=equiv_type,
-                                                          column=column),
-                        row=2, column=2)
+                                                          column=column), row=2, column=2)
 
     reset_button = tk.Button(master=equiv_window, text='Reset',
                              command=lambda: utils.comparison(c_win=parent_window,

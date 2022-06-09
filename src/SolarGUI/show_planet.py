@@ -45,6 +45,13 @@ class GetParameterSelection:
                                          object_class=object_class))
             self.orb.grid(row=0, column=1, sticky='news')
 
+            self.obs = tk.Button(master=self.button_frame,
+                                 text='Observational Parameters',
+                                 command=lambda: show_observational_parameters(
+                                         window=self.parameter_frame, object_name=title,
+                                         object_class=object_class))
+            self.obs.grid(row=0, column=2, sticky='news')
+
 
 def show_physical_parameters(window: Union[tk.Tk, tk.Toplevel, tk.Frame],
                              object_class: Any):
@@ -248,3 +255,76 @@ def show_orbital_parameters(window: Union[tk.Tk, tk.Toplevel, tk.Frame], object_
     tk_f.place_object_properties(window=planet_window, text='Axial Tilt',
                                  value=object_class.axial_tilt, function=convert,
                                  options=('deg', 'rad'), row=11, default='deg', column=0)
+
+
+def show_observational_parameters(window: Union[tk.Tk, tk.Toplevel, tk.Frame],
+                                  object_name: str, object_class: Any):
+    """
+    Display the orbital parameters of the celestial object.
+    Parameters
+    ----------
+    window : Union[tk.Tk, tk.Toplevel, tk.Frame]
+        tk.Tk or tk.Toplevel window or a tk.Frame to build the object inside.
+    object_name: str
+        The name of the object in consideration.
+    object_class : Any
+        The object clas from which the attributes are to be read.
+
+    Returns
+    -------
+    None.
+
+    """
+
+    # destroy the previous contents of the frame
+    _children = window.winfo_children()
+
+    for child in _children:
+        child.destroy()
+
+    # initialize the new data
+    object_class = object_class.ObservationalParameters()
+
+    # assign the frame to a new variable
+    planet_window = window
+
+    # adjust the columns in frame's width
+    [planet_window.grid_columnconfigure(index=i, weight=1) for i in range(5)]
+
+    # heading labels
+    tk_f.label_placement(window=planet_window, text="Observational parameters", row=0,
+                         column=0, pad_y=5, sticky="e")
+
+    tk_f.label_placement(window=planet_window, text="Values", row=0, column=1, pad_y=5)
+    tk_f.label_placement(window=planet_window, text="Unit space", row=0, column=2,
+                         pad_y=5)
+    tk_f.label_placement(window=planet_window, text="Reset", row=0, column=3, pad_y=5)
+
+    # placing the equivalency button
+    tk_f.object_button(window=planet_window, text="Equivalences",
+                       function=lambda: tk_f.place_equivalencies(window=planet_window,
+                                                                 cel_object=object_class,
+                                                                 column=4,
+                                                                 equiv_type='observation'),
+                       row=0, column=4, width=25, sticky="nsew")
+
+    tk_f.place_object_properties(window=planet_window, text='Apparent Magnitude',
+                                 value=object_class.apparent_magnitude,
+                                 function=convert, options=tuple(),
+                                 row=1, default='', column=0)
+
+    tk_f.place_object_properties(window=planet_window, text='Geometric Albedo',
+                                 value=object_class.geom_albedo,
+                                 function=convert, options=tuple(),
+                                 row=2, default='', column=0)
+
+    tk_f.place_object_properties(window=planet_window, text='Absolute Magnitude',
+                                 value=object_class.absolute_magnitude,
+                                 function=convert, options=tuple(),
+                                 row=3, default='', column=0)
+
+    tk_f.place_object_properties(window=planet_window, text='Average angular size',
+                                 value=object_class.average_angular_size,
+                                 function=convert,
+                                 options=('arcsec', 'arcmin', 'deg', 'rad'),
+                                 row=4, default='arcsec', column=0)
