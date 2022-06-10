@@ -14,6 +14,13 @@ except ImportError:
     import tk_functions as tk_f
     from utilities import convert
 
+star_list = ['Sun']
+planet_list = ['Mercury', 'Venus', 'Mars', 'Jupiter', 'Saturn', 'Uranus', 'Neptune',
+               'Pluto']
+moon_list = ['Moon']
+
+planet_moon = {'Moon': 'Earth'}
+
 
 class GetParameterSelection:
 
@@ -41,7 +48,8 @@ class GetParameterSelection:
         if title is not 'Sun':
             self.orb = tk.Button(master=self.button_frame, text='Orbital Parameters',
                                  command=lambda: show_orbital_parameters(
-                                         window=self.parameter_frame, object_name=title,
+                                         window=self.parameter_frame,
+                                         object_name=title,
                                          object_class=object_class))
             self.orb.grid(row=0, column=1, sticky='news')
 
@@ -49,6 +57,7 @@ class GetParameterSelection:
                              text='Observational Parameters',
                              command=lambda: show_observational_parameters(
                                      window=self.parameter_frame,
+                                     object_name=title,
                                      object_class=object_class))
         self.obs.grid(row=0, column=2, sticky='news')
 
@@ -178,8 +187,6 @@ def show_orbital_parameters(window: Union[tk.Tk, tk.Toplevel, tk.Frame], object_
     tk_f.label_placement(window=planet_window, text="Orbital parameters", row=0,
                          column=0, pad_y=5, sticky="e")
 
-    planet_moon = {'Moon': 'Earth'}
-
     if object_name in planet_moon.keys():
         tk_f.label_placement(window=planet_window,
                              text='The orbital parameters are given with respect to '
@@ -253,13 +260,15 @@ def show_orbital_parameters(window: Union[tk.Tk, tk.Toplevel, tk.Frame], object_
 
 
 def show_observational_parameters(window: Union[tk.Tk, tk.Toplevel, tk.Frame],
-                                  object_class: Any):
+                                  object_name: str, object_class: Any):
     """
     Display the orbital parameters of the celestial object.
     Parameters
     ----------
     window : Union[tk.Tk, tk.Toplevel, tk.Frame]
         tk.Tk or tk.Toplevel window or a tk.Frame to build the object inside.
+    object_name: str
+        Name of the celestial object.
     object_class : Any
         The object clas from which the attributes are to be read.
 
@@ -324,3 +333,18 @@ def show_observational_parameters(window: Union[tk.Tk, tk.Toplevel, tk.Frame],
                                  function=convert,
                                  options=('arcsec', 'arcmin', 'deg', 'rad'), row=5,
                                  default='arcsec', column=0)
+
+    if object_name not in star_list:
+        if object_name in planet_list:
+            text = 'Distance from Earth for the planet is calculated as the planets\' ' \
+                   'distance from Sun in AU - 1 AU.'
+        elif object_name in moon_list and object_name != 'Moon':
+            _pl_name = [moon for moon, planet in planet_moon.items() if
+                        moon == object_name][0]
+            text = f'Distance from Earth to {_pl_name} is taken as the distance from ' \
+                   f'Earth to the parent planet, e.g, {planet_moon[object_name]}.'
+        else:
+            text = ''
+
+        tk_f.label_placement(window=planet_window, text=text, row=20, pad_y=10,
+                             sticky='news', columnspan=10)
