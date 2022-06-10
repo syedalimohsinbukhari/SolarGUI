@@ -21,14 +21,10 @@ except ImportError:
 
 # TODO: Get a good font
 # TODO: adjust/create designs in tkinter windows
-# TODO: Segregate moons, dwarf planets, planets and other type of celestial objects.
-# TODO: Design adjustments of the GUI
 # TODO: Some interesting plots (optional).
 # TODO: Random facts button.
 # TODO: Add citations
 # TODO: Add a section of papers that study different properties of the celestial objects.
-# TODO: Better GUI layouts, with some fancy stuff
-# TODO: Add more parameters
 # TODO: Add more celestial bodies
 # TODO: See that no button opens more than one window
 
