@@ -10,13 +10,18 @@ from tkinter import ttk
 try:
     from . import show_planet as sp
     from . import tk_functions as tk_f
-    from .celestial_objects import (Sun, Mercury, Venus, Earth, Moon, Mars, Jupiter,
-                                    Saturn, Uranus, Neptune, Pluto)
+    from .cel__stars import Sun
+    from .cel__planets import (Mercury, Venus, Earth, Mars, Jupiter, Saturn, Uranus,
+                               Neptune)
+    from .cel__moons import Moon
+    from .cel__others import Pluto
 except ImportError:
     import show_planet as sp
     import tk_functions as tk_f
-    from celestial_objects import (Sun, Mercury, Venus, Earth, Moon, Mars, Jupiter,
-                                   Saturn, Uranus, Neptune, Pluto)
+    from cel__stars import Sun
+    from cel__planets import Mercury, Venus, Earth, Mars, Jupiter, Saturn, Uranus, Neptune
+    from cel__moons import Moon
+    from cel__others import Pluto
 
 
 # TODO: Get a good font
@@ -87,7 +92,7 @@ class Main:
                            function=lambda: sp.GetParameterSelection(
                                    window=self.root_window,
                                    title='Sun',
-                                   object_class=Sun()), column=0, row=1)
+                                   object_class=Sun), column=0, row=1)
 
         tk_f.object_button(window=self.planet_frame, text='Mercury',
                            function=lambda: sp.GetParameterSelection(
