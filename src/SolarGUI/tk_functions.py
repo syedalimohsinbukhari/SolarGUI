@@ -9,11 +9,18 @@ from typing import Callable, Optional, Tuple, Union
 from astropy.units.quantity import Quantity
 
 try:
-    from . import celestial_objects as c_objs
     from . import utilities as utils
+    from .cel__stars import Sun
+    from .cel__planets import (Mercury, Venus, Earth, Mars, Jupiter, Saturn, Uranus,
+                               Neptune)
+    from .cel__moons import Moon
+    from .cel__others import Pluto
 except ImportError:
-    import celestial_objects as c_objs
     import utilities as utils
+    from cel__stars import Sun
+    from cel__planets import Mercury, Venus, Earth, Mars, Jupiter, Saturn, Uranus, Neptune
+    from cel__moons import Moon
+    from cel__others import Pluto
 
 
 def object_button(window: Union[tk.Tk, tk.Toplevel, tk.Frame], text: str,
@@ -242,7 +249,7 @@ def place_equivalencies(window: Union[tk.Tk, tk.Toplevel, tk.Frame], cel_object:
                         state=state,
                         function=lambda: utils.comparison(c_win=parent_window,
                                                           p_ojb=cel_object,
-                                                          c_obj=c_objs.Sun,
+                                                          c_obj=Sun,
                                                           c_lbl='Sun',
                                                           c_type=equiv_type,
                                                           column=column), row=0, column=0)
@@ -251,7 +258,7 @@ def place_equivalencies(window: Union[tk.Tk, tk.Toplevel, tk.Frame], cel_object:
                         radio_val=get_val,
                         function=lambda: utils.comparison(c_win=parent_window,
                                                           p_ojb=cel_object,
-                                                          c_obj=c_objs.Mercury,
+                                                          c_obj=Mercury,
                                                           c_lbl='Mercury',
                                                           c_type=equiv_type,
                                                           column=column), row=0, column=1)
@@ -260,7 +267,7 @@ def place_equivalencies(window: Union[tk.Tk, tk.Toplevel, tk.Frame], cel_object:
                         radio_val=get_val,
                         function=lambda: utils.comparison(c_win=parent_window,
                                                           p_ojb=cel_object,
-                                                          c_obj=c_objs.Venus,
+                                                          c_obj=Venus,
                                                           c_lbl='Venus',
                                                           c_type=equiv_type,
                                                           column=column), row=0, column=2)
@@ -271,7 +278,7 @@ def place_equivalencies(window: Union[tk.Tk, tk.Toplevel, tk.Frame], cel_object:
                         radio_val=get_val, state=state,
                         function=lambda: utils.comparison(c_win=parent_window,
                                                           p_ojb=cel_object,
-                                                          c_obj=c_objs.Earth,
+                                                          c_obj=Earth,
                                                           c_lbl='Earth',
                                                           c_type=equiv_type,
                                                           column=column), row=0, column=3)
@@ -282,7 +289,7 @@ def place_equivalencies(window: Union[tk.Tk, tk.Toplevel, tk.Frame], cel_object:
                         radio_val=get_val, state=state,
                         function=lambda: utils.comparison(c_win=parent_window,
                                                           p_ojb=cel_object,
-                                                          c_obj=c_objs.Moon,
+                                                          c_obj=Moon,
                                                           c_lbl='Moon',
                                                           c_type=equiv_type,
                                                           column=column), row=1, column=0)
@@ -290,7 +297,7 @@ def place_equivalencies(window: Union[tk.Tk, tk.Toplevel, tk.Frame], cel_object:
     equiv_radio_buttons(window=equiv_window, text='Mars', value='Mars', radio_val=get_val,
                         function=lambda: utils.comparison(c_win=parent_window,
                                                           p_ojb=cel_object,
-                                                          c_obj=c_objs.Mars,
+                                                          c_obj=Mars,
                                                           c_lbl='Mars',
                                                           c_type=equiv_type,
                                                           column=column), row=1, column=1)
@@ -299,7 +306,7 @@ def place_equivalencies(window: Union[tk.Tk, tk.Toplevel, tk.Frame], cel_object:
                         radio_val=get_val,
                         function=lambda: utils.comparison(c_win=parent_window,
                                                           p_ojb=cel_object,
-                                                          c_obj=c_objs.Jupiter,
+                                                          c_obj=Jupiter,
                                                           c_lbl='Jupiter',
                                                           c_type=equiv_type,
                                                           column=column), row=1, column=2)
@@ -308,7 +315,7 @@ def place_equivalencies(window: Union[tk.Tk, tk.Toplevel, tk.Frame], cel_object:
                         radio_val=get_val,
                         function=lambda: utils.comparison(c_win=parent_window,
                                                           p_ojb=cel_object,
-                                                          c_obj=c_objs.Saturn,
+                                                          c_obj=Saturn,
                                                           c_lbl='Saturn',
                                                           c_type=equiv_type,
                                                           column=column), row=1, column=3)
@@ -317,7 +324,7 @@ def place_equivalencies(window: Union[tk.Tk, tk.Toplevel, tk.Frame], cel_object:
                         radio_val=get_val,
                         function=lambda: utils.comparison(c_win=parent_window,
                                                           p_ojb=cel_object,
-                                                          c_obj=c_objs.Uranus,
+                                                          c_obj=Uranus,
                                                           c_lbl='Uranus',
                                                           c_type=equiv_type,
                                                           column=column), row=2, column=0)
@@ -326,7 +333,7 @@ def place_equivalencies(window: Union[tk.Tk, tk.Toplevel, tk.Frame], cel_object:
                         radio_val=get_val,
                         function=lambda: utils.comparison(c_win=parent_window,
                                                           p_ojb=cel_object,
-                                                          c_obj=c_objs.Neptune,
+                                                          c_obj=Neptune,
                                                           c_lbl='Neptune',
                                                           c_type=equiv_type,
                                                           column=column), row=2, column=1)
@@ -335,7 +342,7 @@ def place_equivalencies(window: Union[tk.Tk, tk.Toplevel, tk.Frame], cel_object:
                         radio_val=get_val,
                         function=lambda: utils.comparison(c_win=parent_window,
                                                           p_ojb=cel_object,
-                                                          c_obj=c_objs.Pluto,
+                                                          c_obj=Pluto,
                                                           c_lbl='Pluto',
                                                           c_type=equiv_type,
                                                           column=column), row=2, column=2)
@@ -343,7 +350,7 @@ def place_equivalencies(window: Union[tk.Tk, tk.Toplevel, tk.Frame], cel_object:
     reset_button = tk.Button(master=equiv_window, text='Reset',
                              command=lambda: utils.comparison(c_win=parent_window,
                                                               p_ojb=cel_object,
-                                                              c_obj=c_objs.Pluto,
+                                                              c_obj=Pluto,
                                                               c_lbl='Reset',
                                                               c_type=equiv_type,
                                                               reset=True, column=column))

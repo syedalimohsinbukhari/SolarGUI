@@ -1,47 +1,18 @@
 """
-Created on May 26 01:33:39 2022
+Created on Jun 12 12:12:24 2022
 """
 
 import astropy.units as u
 import numpy as np
 
 try:
+    from .cel__CONSTANTS import (EARTH_MASS, EARTH_RADIUS, JUPITER_MASS, JUPITER_RADIUS,
+                                 SOL_EARTH_DISTANCE, SOL_EARTH_PERIOD)
     from . import utilities as utils
 except ImportError:
     import utilities as utils
-
-earth_dist = (1 * u.AU).to(u.km)
-
-
-class Sun:
-
-    class PhysicalParameters:
-
-        def __init__(self):
-            self.age = 4.603 * u.Gyr
-            self.mass = (1 * u.M_sun).si
-            self.radius = (1 * u.R_sun).si.to(u.km)
-            (self.volume,
-             self.density,
-             self.surface_area,
-             self.surface_gravity,
-             self.escape_velocity) = utils.GetPhysicalParameters(mass=self.mass,
-                                                                 radius=self.radius).get()
-
-    class ObservationalParameters:
-
-        def __init__(self):
-            ang_min, ang_max = 0.527 * u.deg, 0.545 * u.deg
-
-            self.apparent_magnitude = -26.74
-            self.geom_albedo = 0.0001
-            self.distance_from_earth = earth_dist
-
-            (self.absolute_magnitude,
-             self.average_angular_size) = utils.GetObservationalParameters(
-                    angular_size=tuple([ang_min, ang_max]),
-                    apparent_magnitude=self.apparent_magnitude,
-                    distance=self.distance_from_earth).get()
+    from cel__CONSTANTS import (EARTH_MASS, EARTH_RADIUS, JUPITER_MASS, JUPITER_RADIUS,
+                                SOL_EARTH_DISTANCE, SOL_EARTH_PERIOD)
 
 
 class Mercury:
@@ -84,7 +55,7 @@ class Mercury:
 
             self.apparent_magnitude = np.mean([ap_mag_min, ap_mag_max])
             self.geom_albedo = 0.138
-            self.distance_from_earth = earth_dist - (0.387 * earth_dist)
+            self.distance_from_earth = SOL_EARTH_DISTANCE - (0.387 * SOL_EARTH_DISTANCE)
 
             (self.absolute_magnitude,
              self.average_angular_size) = utils.GetObservationalParameters(
@@ -133,7 +104,7 @@ class Venus:
 
             self.apparent_magnitude = np.mean([ap_mag_min, ap_mag_max])
             self.geom_albedo = 0.689
-            self.distance_from_earth = earth_dist - (0.723 * earth_dist)
+            self.distance_from_earth = SOL_EARTH_DISTANCE - (0.723 * SOL_EARTH_DISTANCE)
 
             (self.absolute_magnitude,
              self.average_angular_size) = utils.GetObservationalParameters(
@@ -148,8 +119,8 @@ class Earth:
 
         def __init__(self):
             self.age = 4.5682 * u.Gyr
-            self.mass = (1 * u.M_earth).si
-            self.radius = (1 * u.R_earth).si.to(u.km)
+            self.mass = EARTH_MASS
+            self.radius = EARTH_RADIUS
             (self.volume,
              self.density,
              self.surface_area,
@@ -160,68 +131,19 @@ class Earth:
     class OrbitalParameters:
 
         def __init__(self):
-            self.semi_major_axis = 1 * u.AU
+            self.semi_major_axis = SOL_EARTH_DISTANCE
             self.eccentricity = 0.0167086
 
             self.apo, self.peri = utils.GetOrbitalParameters(a_0=self.semi_major_axis,
                                                              ecc=self.eccentricity).get()
 
-            self.orbital_period = 365.256363004 * u.day
+            self.orbital_period = SOL_EARTH_PERIOD
             self.av_orbital_speed = 47.36 * u.km * u.s**-1
             self.mean_anomaly = 29.78 * u.deg
             self.inclination = 1.57869 * u.deg
             self.longitude_of_ascending_node = -11.26064 * u.deg
             self.argument_of_perihelion = 114.20783 * u.deg
             self.axial_tilt = 23.4392811 * u.deg
-
-
-class Moon:
-
-    class PhysicalParameters:
-
-        def __init__(self):
-            self.age = 4.53 * u.Gyr
-            self.mass = 7.342e22 * u.kg
-            self.radius = 1737.4 * u.km
-            (self.volume,
-             self.density,
-             self.surface_area,
-             self.surface_gravity,
-             self.escape_velocity) = utils.GetPhysicalParameters(mass=self.mass,
-                                                                 radius=self.radius).get()
-
-    class OrbitalParameters:
-
-        def __init__(self):
-            self.semi_major_axis = (384399 * u.km).to(u.AU)
-            self.eccentricity = 0.0549
-
-            self.apo, self.peri = utils.GetOrbitalParameters(a_0=self.semi_major_axis,
-                                                             ecc=self.eccentricity).get()
-
-            self.orbital_period = 27.321661 * u.day
-            self.av_orbital_speed = 1.022 * u.km * u.s**-1
-            self.mean_anomaly = 135.27 * u.deg
-            self.inclination = 5.145 * u.deg
-            self.longitude_of_ascending_node = 125.08 * u.deg
-            self.argument_of_perihelion = 318.15 * u.deg
-            self.axial_tilt = 1.5427 * u.deg
-
-    class ObservationalParameters:
-
-        def __init__(self):
-            ap_mag_min, ap_mag_max = -2.5, -12.9
-            ang_min, ang_max = 29.3 * u.arcmin, 34.1 * u.arcmin
-
-            self.apparent_magnitude = np.mean([ap_mag_min, ap_mag_max])
-            self.geom_albedo = 0.136
-            self.distance_from_earth = 0.00256955529 * earth_dist
-
-            (self.absolute_magnitude,
-             self.average_angular_size) = utils.GetObservationalParameters(
-                    angular_size=tuple([ang_min, ang_max]),
-                    apparent_magnitude=self.apparent_magnitude,
-                    distance=self.distance_from_earth).get()
 
 
 class Mars:
@@ -264,7 +186,7 @@ class Mars:
 
             self.apparent_magnitude = np.mean([ap_mag_min, ap_mag_max])
             self.geom_albedo = 0.17
-            self.distance_from_earth = (1.52 * earth_dist) - earth_dist
+            self.distance_from_earth = (1.52 * SOL_EARTH_DISTANCE) - SOL_EARTH_DISTANCE
 
             (self.absolute_magnitude,
              self.average_angular_size) = utils.GetObservationalParameters(
@@ -279,8 +201,8 @@ class Jupiter:
 
         def __init__(self):
             self.age = 4.603 * u.Gyr
-            self.mass = (1 * u.M_jupiter).si
-            self.radius = (1 * u.R_jupiter).si.to(u.km)
+            self.mass = JUPITER_MASS
+            self.radius = JUPITER_RADIUS
             (self.volume,
              self.density,
              self.surface_area,
@@ -313,7 +235,7 @@ class Jupiter:
 
             self.apparent_magnitude = np.mean([ap_mag_min, ap_mag_max])
             self.geom_albedo = 0.538
-            self.distance_from_earth = (5.20 * earth_dist) - earth_dist
+            self.distance_from_earth = (5.20 * SOL_EARTH_DISTANCE) - SOL_EARTH_DISTANCE
 
             (self.absolute_magnitude,
              self.average_angular_size) = utils.GetObservationalParameters(
@@ -362,7 +284,7 @@ class Saturn:
 
             self.apparent_magnitude = np.mean([ap_mag_min, ap_mag_max])
             self.geom_albedo = 0.499
-            self.distance_from_earth = (9.57 * earth_dist) - earth_dist
+            self.distance_from_earth = (9.57 * SOL_EARTH_DISTANCE) - SOL_EARTH_DISTANCE
 
             (self.absolute_magnitude,
              self.average_angular_size) = utils.GetObservationalParameters(
@@ -411,7 +333,7 @@ class Uranus:
 
             self.apparent_magnitude = np.mean([ap_mag_min, ap_mag_max])
             self.geom_albedo = 0.488
-            self.distance_from_earth = (19.17 * earth_dist) - earth_dist
+            self.distance_from_earth = (19.17 * SOL_EARTH_DISTANCE) - SOL_EARTH_DISTANCE
 
             (self.absolute_magnitude,
              self.average_angular_size) = utils.GetObservationalParameters(
@@ -460,56 +382,7 @@ class Neptune:
 
             self.apparent_magnitude = np.mean([ap_mag_min, ap_mag_max])
             self.geom_albedo = 0.442
-            self.distance_from_earth = (30.18 * earth_dist) - earth_dist
-
-            (self.absolute_magnitude,
-             self.average_angular_size) = utils.GetObservationalParameters(
-                    angular_size=tuple([ang_min, ang_max]),
-                    apparent_magnitude=self.apparent_magnitude,
-                    distance=self.distance_from_earth).get()
-
-
-class Pluto:
-
-    class PhysicalParameters:
-
-        def __init__(self):
-            self.age = 4.603 * u.Gyr
-            self.mass = 1.303e22 * u.kg
-            self.radius = 1188.3 * u.km
-            (self.volume,
-             self.density,
-             self.surface_area,
-             self.surface_gravity,
-             self.escape_velocity) = utils.GetPhysicalParameters(mass=self.mass,
-                                                                 radius=self.radius).get()
-
-    class OrbitalParameters:
-
-        def __init__(self):
-            self.semi_major_axis = 39.482 * u.AU
-            self.eccentricity = 0.2488
-
-            self.apo, self.peri = utils.GetOrbitalParameters(a_0=self.semi_major_axis,
-                                                             ecc=self.eccentricity).get()
-
-            self.orbital_period = (247.94 * u.yr).to(u.day)
-            self.av_orbital_speed = 4.743 * u.km * u.s**-1
-            self.mean_anomaly = 14.53 * u.deg
-            self.inclination = 17.16 * u.deg
-            self.longitude_of_ascending_node = 110.299 * u.deg
-            self.argument_of_perihelion = 113.834 * u.deg
-            self.axial_tilt = 122.53 * u.deg
-
-    class ObservationalParameters:
-
-        def __init__(self):
-            ap_mag_min, ap_mag_max = 16.3, 13.65
-            ang_min, ang_max = 0.06 * u.arcsec, 0.11 * u.arcsec
-
-            self.apparent_magnitude = np.mean([ap_mag_min, ap_mag_max])
-            self.geom_albedo = 0.52
-            self.distance_from_earth = (39.48 * earth_dist) - earth_dist
+            self.distance_from_earth = (30.18 * SOL_EARTH_DISTANCE) - SOL_EARTH_DISTANCE
 
             (self.absolute_magnitude,
              self.average_angular_size) = utils.GetObservationalParameters(
