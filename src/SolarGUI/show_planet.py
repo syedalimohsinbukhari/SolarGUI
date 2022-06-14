@@ -58,12 +58,14 @@ class GetParameterSelection:
                                          object_class=object_class))
             self.orb.grid(row=0, column=1, sticky='news')
 
-        self.obs = tk.Button(master=self.button_frame, text='Observational Parameters',
-                             command=lambda: show_observational_parameters(
-                                     window=self.parameter_frame,
-                                     object_name=title,
-                                     object_class=object_class))
-        self.obs.grid(row=0, column=2, sticky='news')
+        if title is not 'Earth':
+            self.obs = tk.Button(master=self.button_frame,
+                                 text='Observational Parameters',
+                                 command=lambda: show_observational_parameters(
+                                         window=self.parameter_frame,
+                                         object_name=title,
+                                         object_class=object_class))
+            self.obs.grid(row=0, column=2, sticky='news')
 
         img = tk.Button(master=self.button_frame, text='Images',
                         command=lambda: ShowImages(window=window,

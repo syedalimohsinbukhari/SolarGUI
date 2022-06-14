@@ -1,4 +1,4 @@
 [build-system]
-requires = ["astropy>=4.3.1", "numpy>=1.21.6", "setuptools >= 59.6.0"]
+requires = ["astropy>=4.3.1", "numpy>=1.21.6", "setuptools >= 59.6.0", "pillow>=9.1.1"]
 
 build-backend = "setuptools.build_meta:__legacy__"
