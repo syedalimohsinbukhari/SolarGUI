@@ -45,7 +45,7 @@ class Mercury:
             self.inclination = 6.35 * u.deg
             self.longitude_of_ascending_node = 48.331 * u.deg
             self.argument_of_perihelion = 29.124 * u.deg
-            self.axial_tilt = (2 * u.arcmin).to(u.deg)
+            self.axial_tilt = (2.04 * u.arcmin).to(u.deg)
 
     class ObservationalParameters:
 
