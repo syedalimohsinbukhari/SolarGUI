@@ -91,10 +91,10 @@ class ShowImages:
         self.img_fr.pack()
 
         path = f'{img_path}{self.object_name.lower()}/'
-        self.img_ = [f for f in os.listdir(path) if f.endswith('.png')]
+        self.img_ = [f for f in os.listdir(path) if f.endswith('.png')][0]
 
         # taken from https://stackoverflow.com/a/66506713
-        self.img = Image.open(f'{path}{img_}')
+        self.img = Image.open(f'{path}{self.img_}')
         self.img.thumbnail((self.w / 4, self.h / 4))
         self.img = ImageTk.PhotoImage(self.img)
         self.img_fr.picture = self.img
