@@ -2,11 +2,16 @@
 Created on May 24 22:12:45 2022
 """
 
+import os
 import tkinter as tk
 from typing import Any, Union
 
-# added try/except because pip bundle and main file do not work with same imports
+from PIL import Image, ImageTk
 
+# add path to images
+img_path = f'{os.getcwd()}/src/SolarGUI/images/'
+
+# added try/except because pip bundle and main file do not work with same imports
 try:
     from . import tk_functions as tk_f
     from .utilities import convert
@@ -36,7 +41,6 @@ class GetParameterSelection:
         self.button_frame.pack(side=tk.TOP)
 
         self.parameter_frame = tk.Frame(master=self.par_window, padx=10, pady=10)
-
         self.parameter_frame.pack(side=tk.BOTTOM, expand=True)
 
         self.phy = tk.Button(master=self.button_frame, text='Physical Parameters',
@@ -53,13 +57,49 @@ class GetParameterSelection:
                                          object_class=object_class))
             self.orb.grid(row=0, column=1, sticky='news')
 
-        self.obs = tk.Button(master=self.button_frame,
-                             text='Observational Parameters',
+        self.obs = tk.Button(master=self.button_frame, text='Observational Parameters',
                              command=lambda: show_observational_parameters(
                                      window=self.parameter_frame,
                                      object_name=title,
                                      object_class=object_class))
         self.obs.grid(row=0, column=2, sticky='news')
+
+        self.img = tk.Button(master=self.button_frame, text='Images',
+                             command=lambda: ShowImages(window=window,
+                                                        object_class=object_class,
+                                                        object_name=title).adjustments())
+        self.img.grid(row=0, column=3, sticky='news')
+
+
+class ShowImages:
+
+    def __init__(self, window, object_class, object_name):
+        self.w, self.h = window.winfo_width(), window.winfo_height()
+        self.img_win = tk.Toplevel(window)
+        self.object_class = object_class
+        self.object_name = object_name
+        self.img_fr = None
+        self.img_ = None
+        self.img = None
+
+    def adjustments(self):
+        self.img_win.geometry(newGeometry=f'{self.w}x{self.h}')
+        self.img_win.title(f'{self.object_name} images')
+
+        # make a new frame
+        self.img_fr = tk.Frame(master=self.img_win)
+        self.img_fr.pack()
+
+        path = f'{img_path}{self.object_name.lower()}/'
+        self.img_ = [f for f in os.listdir(path) if f.endswith('.png')]
+
+        # taken from https://stackoverflow.com/a/66506713
+        self.img = Image.open(f'{path}{img_}')
+        self.img.thumbnail((self.w / 4, self.h / 4))
+        self.img = ImageTk.PhotoImage(self.img)
+        self.img_fr.picture = self.img
+        self.img_fr.label = tk.Label(master=self.img_fr, image=self.img_fr.picture)
+        self.img_fr.label.grid(row=0, column=0, sticky='news')
 
 
 def show_physical_parameters(window: Union[tk.Tk, tk.Toplevel, tk.Frame],
