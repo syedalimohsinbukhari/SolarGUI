@@ -2,6 +2,7 @@
 Created on May 24 22:12:45 2022
 """
 
+import itertools
 import os
 import tkinter as tk
 from typing import Any, Union
@@ -64,42 +65,56 @@ class GetParameterSelection:
                                      object_class=object_class))
         self.obs.grid(row=0, column=2, sticky='news')
 
-        self.img = tk.Button(master=self.button_frame, text='Images',
-                             command=lambda: ShowImages(window=window,
-                                                        object_class=object_class,
-                                                        object_name=title).adjustments())
-        self.img.grid(row=0, column=3, sticky='news')
+        img = tk.Button(master=self.button_frame, text='Images',
+                        command=lambda: ShowImages(window=window,
+                                                   object_class=object_class,
+                                                   object_name=title).adjustments())
+        img.grid(row=0, column=3, sticky='news')
 
 
 class ShowImages:
 
     def __init__(self, window, object_class, object_name):
         self.w, self.h = window.winfo_width(), window.winfo_height()
-        self.img_win = tk.Toplevel(window)
+        self.img_win = tk.Toplevel(master=window)
         self.object_class = object_class
         self.object_name = object_name
-        self.img_fr = None
-        self.img_ = None
-        self.img = None
+        self.img_frame = None
 
     def adjustments(self):
         self.img_win.geometry(newGeometry=f'{self.w}x{self.h}')
         self.img_win.title(f'{self.object_name} images')
 
-        # make a new frame
-        self.img_fr = tk.Frame(master=self.img_win)
-        self.img_fr.pack()
+        self.img_frame = tk.Frame(master=self.img_win)
+        self.img_frame.pack()
 
+        # iter and next_image() ideas taken from
+        # https://stackoverflow.com/a/49919635/3212945
         path = f'{img_path}{self.object_name.lower()}/'
-        self.img_ = [f for f in os.listdir(path) if f.endswith('.png')][0]
+        img_ = itertools.cycle([f for f in os.listdir(path) if f.endswith('.png')])
 
-        # taken from https://stackoverflow.com/a/66506713
-        self.img = Image.open(f'{path}{self.img_}')
-        self.img.thumbnail((self.w / 4, self.h / 4))
-        self.img = ImageTk.PhotoImage(self.img)
-        self.img_fr.picture = self.img
-        self.img_fr.label = tk.Label(master=self.img_fr, image=self.img_fr.picture)
-        self.img_fr.label.grid(row=0, column=0, sticky='news')
+        def next_image():
+            img = next(img_)
+            description = img.title().split('.')[0]
+
+            # thumbnail idea taken from https://stackoverflow.com/a/66506713
+            img = Image.open(f'{path}{img}')
+            img.thumbnail((self.w, self.h - 50))
+            img = ImageTk.PhotoImage(img)
+
+            self.img_frame.picture = img
+            self.img_frame.label = tk.Label(master=self.img_frame,
+                                            image=self.img_frame.picture)
+            self.img_frame.label.grid(row=0, column=0, sticky='news')
+
+            desc_label = tk.Label(master=self.img_frame, text=description)
+            desc_label.grid(row=1, column=0, sticky='news')
+
+        next_image()
+
+        show_img = tk.Button(master=self.img_frame, text='Next image',
+                             command=lambda: next_image())
+        show_img.grid(row=2, column=0)
 
 
 def show_physical_parameters(window: Union[tk.Tk, tk.Toplevel, tk.Frame],
