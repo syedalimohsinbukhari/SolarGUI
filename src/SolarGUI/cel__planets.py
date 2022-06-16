@@ -2,7 +2,6 @@
 Created on Jun 12 12:12:24 2022
 """
 
-import astropy.units as u
 import numpy as np
 
 try:
@@ -20,9 +19,9 @@ class Mercury:
     class PhysicalParameters:
 
         def __init__(self):
-            self.age = 4.503 * u.Gyr
-            self.mass = 3.3011e23 * u.kg
-            self.radius = 2439.8 * u.km
+            self.age = utils.Q(4.503, 'Gyr')
+            self.mass = utils.Q(3.3011e23, 'kg')
+            self.radius = utils.Q(2439.8, 'km')
             (self.volume,
              self.density,
              self.surface_area,
@@ -33,25 +32,25 @@ class Mercury:
     class OrbitalParameters:
 
         def __init__(self):
-            self.semi_major_axis = 0.387098 * u.AU
+            self.semi_major_axis = utils.Q(0.387098, 'AU')
             self.eccentricity = 0.205630
 
             self.apo, self.peri = utils.GetOrbitalParameters(a_0=self.semi_major_axis,
                                                              ecc=self.eccentricity).get()
 
-            self.orbital_period = 155.8 * u.day
-            self.av_orbital_speed = 47.36 * u.km * u.s**-1
-            self.mean_anomaly = 174.796 * u.deg
-            self.inclination = 6.35 * u.deg
-            self.longitude_of_ascending_node = 48.331 * u.deg
-            self.argument_of_perihelion = 29.124 * u.deg
-            self.axial_tilt = (2.04 * u.arcmin).to(u.deg)
+            self.orbital_period = utils.Q(155.8, 'day')
+            self.av_orbital_speed = utils.Q(47.36, 'km/s')
+            self.mean_anomaly = utils.Q(174.796, 'deg')
+            self.inclination = utils.Q(6.35, 'deg')
+            self.longitude_of_ascending_node = utils.Q(48.331, 'deg')
+            self.argument_of_perihelion = utils.Q(29.124, 'deg')
+            self.axial_tilt = utils.Q(2.04, 'arcmin').to('deg')
 
     class ObservationalParameters:
 
         def __init__(self):
             ap_mag_min, ap_mag_max = 7.25, -2.48
-            ang_min, ang_max = 4.5 * u.arcmin, 13 * u.arcmin
+            ang_min, ang_max = utils.Q(4.5, 'arcmin'), utils.Q(13, 'arcmin')
 
             self.apparent_magnitude = np.mean([ap_mag_min, ap_mag_max])
             self.geom_albedo = 0.138
@@ -69,9 +68,9 @@ class Venus:
     class PhysicalParameters:
 
         def __init__(self):
-            self.age = 4.503 * u.Gyr
-            self.mass = 4.8675e24 * u.kg
-            self.radius = 6051.8 * u.km
+            self.age = utils.Q(4.503, 'Gyr')
+            self.mass = utils.Q(4.8675e24, 'kg')
+            self.radius = utils.Q(6051.8, 'km')
             (self.volume,
              self.density,
              self.surface_area,
@@ -82,25 +81,27 @@ class Venus:
     class OrbitalParameters:
 
         def __init__(self):
-            self.semi_major_axis = 0.728213 * u.AU
+            self.semi_major_axis = utils.Q(0.728213, 'AU')
             self.eccentricity = 0.006772
 
             self.apo, self.peri = utils.GetOrbitalParameters(a_0=self.semi_major_axis,
                                                              ecc=self.eccentricity).get()
 
-            self.orbital_period = 583.92 * u.day
-            self.av_orbital_speed = 35.02 * u.km * u.s**-1
-            self.mean_anomaly = 50.115 * u.deg
-            self.inclination = 2.15 * u.deg
-            self.longitude_of_ascending_node = 76.680 * u.deg
-            self.argument_of_perihelion = 54.884 * u.deg
-            self.axial_tilt = 177.36 * u.deg
+            self.orbital_period = utils.Q(583.92, 'day')
+            self.av_orbital_speed = utils.Q(35.02, 'km/s')
+            self.mean_anomaly = utils.Q(50.115, 'deg')
+            self.inclination = utils.Q(2.15, 'deg')
+            self.longitude_of_ascending_node = utils.Q(76.680, 'deg')
+            self.argument_of_perihelion = utils.Q(54.884, 'deg')
+            self.axial_tilt = utils.Q(177.36, 'deg')
 
     class ObservationalParameters:
 
         def __init__(self):
             ap_mag_min, ap_mag_max = -2.98, -4.92
-            ang_min, ang_max = 0 * u.arcmin + 9.7 * u.arcsec, 1 * u.arcmin + 6 * u.arcsec
+
+            ang_min = utils.Q(0, 'arcmin') + utils.Q(9.7, 'arcsec')
+            ang_max = utils.Q(1, 'arcmin') + utils.Q(6, 'arcsec')
 
             self.apparent_magnitude = np.mean([ap_mag_min, ap_mag_max])
             self.geom_albedo = 0.689
@@ -118,7 +119,7 @@ class Earth:
     class PhysicalParameters:
 
         def __init__(self):
-            self.age = 4.5682 * u.Gyr
+            self.age = utils.Q(4.5682, 'Gyr')
             self.mass = EARTH_MASS
             self.radius = EARTH_RADIUS
             (self.volume,
@@ -138,12 +139,12 @@ class Earth:
                                                              ecc=self.eccentricity).get()
 
             self.orbital_period = SOL_EARTH_PERIOD
-            self.av_orbital_speed = 47.36 * u.km * u.s**-1
-            self.mean_anomaly = 29.78 * u.deg
-            self.inclination = 1.57869 * u.deg
-            self.longitude_of_ascending_node = -11.26064 * u.deg
-            self.argument_of_perihelion = 114.20783 * u.deg
-            self.axial_tilt = 23.4392811 * u.deg
+            self.av_orbital_speed = utils.Q(47.36, 'km/s')
+            self.mean_anomaly = utils.Q(29.78, 'deg')
+            self.inclination = utils.Q(1.57869, 'deg')
+            self.longitude_of_ascending_node = utils.Q(-11.26064, 'deg')
+            self.argument_of_perihelion = utils.Q(114.20783, 'deg')
+            self.axial_tilt = utils.Q(23.4392811, 'deg')
 
 
 class Mars:
@@ -151,9 +152,9 @@ class Mars:
     class PhysicalParameters:
 
         def __init__(self):
-            self.age = 4.603 * u.Gyr
-            self.mass = 6.4171e23 * u.kg
-            self.radius = 3398.5 * u.km
+            self.age = utils.Q(4.603, 'Gyr')
+            self.mass = utils.Q(6.4171e23, 'kg')
+            self.radius = utils.Q(3398.5, 'km')
             (self.volume,
              self.density,
              self.surface_area,
@@ -164,25 +165,25 @@ class Mars:
     class OrbitalParameters:
 
         def __init__(self):
-            self.semi_major_axis = 1.52368055 * u.AU
+            self.semi_major_axis = utils.Q(1.52368055, 'AU')
             self.eccentricity = 0.0934
 
             self.apo, self.peri = utils.GetOrbitalParameters(a_0=self.semi_major_axis,
                                                              ecc=self.eccentricity).get()
 
-            self.orbital_period = 686.980 * u.day
-            self.av_orbital_speed = 24.07 * u.km * u.s**-1
-            self.mean_anomaly = 19.412 * u.deg
-            self.inclination = 1.850 * u.deg
-            self.longitude_of_ascending_node = 49.57854 * u.deg
-            self.argument_of_perihelion = 286.5 * u.deg
-            self.axial_tilt = 25.19 * u.deg
+            self.orbital_period = utils.Q(686.980, 'day')
+            self.av_orbital_speed = utils.Q(24.07, 'km/s')
+            self.mean_anomaly = utils.Q(19.412, 'deg')
+            self.inclination = utils.Q(1.850, 'deg')
+            self.longitude_of_ascending_node = utils.Q(49.57854, 'deg')
+            self.argument_of_perihelion = utils.Q(286.5, 'deg')
+            self.axial_tilt = utils.Q(25.19, 'deg')
 
     class ObservationalParameters:
 
         def __init__(self):
             ap_mag_min, ap_mag_max = 1.86, -2.94
-            ang_min, ang_max = 3.5 * u.arcsec, 25.1 * u.arcsec
+            ang_min, ang_max = utils.Q(3.5, 'arcsec'), utils.Q(25.1, 'arcsec')
 
             self.apparent_magnitude = np.mean([ap_mag_min, ap_mag_max])
             self.geom_albedo = 0.17
@@ -200,7 +201,7 @@ class Jupiter:
     class PhysicalParameters:
 
         def __init__(self):
-            self.age = 4.603 * u.Gyr
+            self.age = utils.Q(4.603, 'Gyr')
             self.mass = JUPITER_MASS
             self.radius = JUPITER_RADIUS
             (self.volume,
@@ -213,25 +214,25 @@ class Jupiter:
     class OrbitalParameters:
 
         def __init__(self):
-            self.semi_major_axis = 5.2038 * u.AU
+            self.semi_major_axis = utils.Q(5.2038, 'AU')
             self.eccentricity = 0.0489
 
             self.apo, self.peri = utils.GetOrbitalParameters(a_0=self.semi_major_axis,
                                                              ecc=self.eccentricity).get()
 
-            self.orbital_period = (11.862 * u.yr).to(u.day)
-            self.av_orbital_speed = 13.07 * u.km * u.s**-1
-            self.mean_anomaly = 20.020 * u.deg
-            self.inclination = 1.303 * u.deg
-            self.longitude_of_ascending_node = 100.464 * u.deg
-            self.argument_of_perihelion = 273.867 * u.deg
-            self.axial_tilt = 3.13 * u.deg
+            self.orbital_period = utils.Q(11.862, 'yr').to('day')
+            self.av_orbital_speed = utils.Q(13.07, 'km/s')
+            self.mean_anomaly = utils.Q(20.020, 'deg')
+            self.inclination = utils.Q(1.303, 'deg')
+            self.longitude_of_ascending_node = utils.Q(100.464, 'deg')
+            self.argument_of_perihelion = utils.Q(273.867, 'deg')
+            self.axial_tilt = utils.Q(3.13, 'deg')
 
     class ObservationalParameters:
 
         def __init__(self):
             ap_mag_min, ap_mag_max = -1.66, -2.94
-            ang_min, ang_max = 29.8 * u.arcsec, 50.1 * u.arcsec
+            ang_min, ang_max = utils.Q(29.8, 'arcsec'), utils.Q(50.1, 'arcsec')
 
             self.apparent_magnitude = np.mean([ap_mag_min, ap_mag_max])
             self.geom_albedo = 0.538
@@ -249,9 +250,9 @@ class Saturn:
     class PhysicalParameters:
 
         def __init__(self):
-            self.age = 4.503 * u.Gyr
-            self.mass = 5.6834e26 * u.kg
-            self.radius = 58232 * u.km
+            self.age = utils.Q(4.503, 'Gyr')
+            self.mass = utils.Q(5.6834e26, 'kg')
+            self.radius = utils.Q(58232, 'km')
             (self.volume,
              self.density,
              self.surface_area,
@@ -262,25 +263,25 @@ class Saturn:
     class OrbitalParameters:
 
         def __init__(self):
-            self.semi_major_axis = 9.5826 * u.AU
+            self.semi_major_axis = utils.Q(9.5826, 'AU')
             self.eccentricity = 0.0565
 
             self.apo, self.peri = utils.GetOrbitalParameters(a_0=self.semi_major_axis,
                                                              ecc=self.eccentricity).get()
 
-            self.orbital_period = (29.4571 * u.yr).to(u.day)
-            self.av_orbital_speed = 9.68 * u.km * u.s**-1
-            self.mean_anomaly = 317.020 * u.deg
-            self.inclination = 2.485 * u.deg
-            self.longitude_of_ascending_node = 113.665 * u.deg
-            self.argument_of_perihelion = 339.392 * u.deg
-            self.axial_tilt = 26.73 * u.deg
+            self.orbital_period = utils.Q(29.4571, 'yr').to('day')
+            self.av_orbital_speed = utils.Q(9.68, 'km/s')
+            self.mean_anomaly = utils.Q(317.020, 'deg')
+            self.inclination = utils.Q(2.485, 'deg')
+            self.longitude_of_ascending_node = utils.Q(113.665, 'deg')
+            self.argument_of_perihelion = utils.Q(339.392, 'deg')
+            self.axial_tilt = utils.Q(26.73, 'deg')
 
     class ObservationalParameters:
 
         def __init__(self):
             ap_mag_min, ap_mag_max = 1.17, -0.55
-            ang_min, ang_max = 14.5 * u.arcsec, 20.1 * u.arcsec
+            ang_min, ang_max = utils.Q(14.5, 'arcsec'), utils.Q(20.1, 'arcsec')
 
             self.apparent_magnitude = np.mean([ap_mag_min, ap_mag_max])
             self.geom_albedo = 0.499
@@ -298,9 +299,9 @@ class Uranus:
     class PhysicalParameters:
 
         def __init__(self):
-            self.age = 4.503 * u.Gyr
-            self.mass = 8.6810e25 * u.kg
-            self.radius = 25362 * u.km
+            self.age = utils.Q(4.503, 'Gyr')
+            self.mass = utils.Q(8.6810e25, 'kg')
+            self.radius = utils.Q(25362, 'km')
             (self.volume,
              self.density,
              self.surface_area,
@@ -311,25 +312,25 @@ class Uranus:
     class OrbitalParameters:
 
         def __init__(self):
-            self.semi_major_axis = 19.19126 * u.AU
+            self.semi_major_axis = utils.Q(19.19126, 'AU')
             self.eccentricity = 0.04717
 
             self.apo, self.peri = utils.GetOrbitalParameters(a_0=self.semi_major_axis,
                                                              ecc=self.eccentricity).get()
 
-            self.orbital_period = (84.0205 * u.yr).to(u.day)
-            self.av_orbital_speed = 6.80 * u.km * u.s**-1
-            self.mean_anomaly = 142.238600 * u.deg
-            self.inclination = 0.773 * u.deg
-            self.longitude_of_ascending_node = 74.006 * u.deg
-            self.argument_of_perihelion = 96.998857 * u.deg
-            self.axial_tilt = 97.77 * u.deg
+            self.orbital_period = utils.Q(84.0205, 'yr').to('day')
+            self.av_orbital_speed = utils.Q(6.80, 'km/s')
+            self.mean_anomaly = utils.Q(142.238600, 'deg')
+            self.inclination = utils.Q(0.773, 'deg')
+            self.longitude_of_ascending_node = utils.Q(74.006, 'deg')
+            self.argument_of_perihelion = utils.Q(96.998857, 'deg')
+            self.axial_tilt = utils.Q(97.77, 'deg')
 
     class ObservationalParameters:
 
         def __init__(self):
             ap_mag_min, ap_mag_max = 6.03, 5.38
-            ang_min, ang_max = 3.3 * u.arcsec, 4.1 * u.arcsec
+            ang_min, ang_max = utils.Q(3.3, 'arcsec'), utils.Q(4.1, 'arcsec')
 
             self.apparent_magnitude = np.mean([ap_mag_min, ap_mag_max])
             self.geom_albedo = 0.488
@@ -347,9 +348,9 @@ class Neptune:
     class PhysicalParameters:
 
         def __init__(self):
-            self.age = 4.503 * u.Gyr
-            self.mass = 1.02413e26 * u.kg
-            self.radius = 24622 * u.km
+            self.age = utils.Q(4.503, 'Gyr')
+            self.mass = utils.Q(1.02413e26, 'kg')
+            self.radius = utils.Q(24622, 'km')
             (self.volume,
              self.density,
              self.surface_area,
@@ -360,25 +361,25 @@ class Neptune:
     class OrbitalParameters:
 
         def __init__(self):
-            self.semi_major_axis = 30.07 * u.AU
+            self.semi_major_axis = utils.Q(30.07, 'AU')
             self.eccentricity = 0.008678
 
             self.apo, self.peri = utils.GetOrbitalParameters(a_0=self.semi_major_axis,
                                                              ecc=self.eccentricity).get()
 
-            self.orbital_period = (164.8 * u.yr).to(u.day)
-            self.av_orbital_speed = 5.43 * u.km * u.s**-1
-            self.mean_anomaly = 256.228 * u.deg
-            self.inclination = 1.770 * u.deg
-            self.longitude_of_ascending_node = 131.783 * u.deg
-            self.argument_of_perihelion = 273.187 * u.deg
-            self.axial_tilt = 28.32 * u.deg
+            self.orbital_period = utils.Q(164.8, 'yr').to('day')
+            self.av_orbital_speed = utils.Q(5.43, 'km/s')
+            self.mean_anomaly = utils.Q(256.228, 'deg')
+            self.inclination = utils.Q(1.770, 'deg')
+            self.longitude_of_ascending_node = utils.Q(131.783, 'deg')
+            self.argument_of_perihelion = utils.Q(273.187, 'deg')
+            self.axial_tilt = utils.Q(28.32, 'deg')
 
     class ObservationalParameters:
 
         def __init__(self):
             ap_mag_min, ap_mag_max = 8, 7.67
-            ang_min, ang_max = 2.2 * u.arcsec, 2.4 * u.arcsec
+            ang_min, ang_max = utils.Q(2.2, 'arcsec'), utils.Q(2.4, 'arcsec')
 
             self.apparent_magnitude = np.mean([ap_mag_min, ap_mag_max])
             self.geom_albedo = 0.442
