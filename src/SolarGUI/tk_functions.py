@@ -420,3 +420,9 @@ def change_value(entry: tk.Entry, function: Callable, value: Union[Quantity, str
     """
     entry.delete(first=0, last='end')
     entry.insert(index=0, string=function(parameter=value, change_to=change_to))
+
+
+def image_placement(window, text, row, column=0, wraplength=1550, justify=tk.CENTER,
+                    sticky='news'):
+    tk.Label(master=window, text=text, wraplength=wraplength,
+             justify=justify).grid(row=row, column=column, sticky=sticky)

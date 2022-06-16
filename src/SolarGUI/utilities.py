@@ -78,7 +78,7 @@ class GetObservationalParameters:
 
         """
         ang_min, ang_max = [i.si.value for i in self.angular_size]
-        return (np.mean([ang_min, ang_max]) * u.rad).to(u.arcsec)
+        return (np.mean([ang_min, ang_max]) * u.rad).to('arcsec')
 
     def get_absolute_magnitude(self):
         """
@@ -90,7 +90,7 @@ class GetObservationalParameters:
             Absolute magnitude of the celestial object.
 
         """
-        distance = self.distance.to(u.pc)
+        distance = self.distance.to('pc')
         return self.apparent_magnitude - 5 * np.log10(distance.value) + 5
 
     def get(self):
@@ -316,3 +316,7 @@ def comparison(c_win: Union[tk.Tk, tk.Toplevel, tk.Frame], p_ojb: Any, c_obj: An
         value = value if not reset else ''
 
         tk_f.entry_placement(window=c_win, value=value, row=num, columns=column, width=25)
+
+
+def Q(value, unit):
+    return Quantity(value=value, unit=unit)

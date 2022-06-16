@@ -2,13 +2,11 @@
 Created on Jun 12 12:12:04 2022
 """
 
-import astropy.units as u
-
 try:
-    from .cel__CONSTANTS import SOL_EARTH_DISTANCE
+    from .cel__CONSTANTS import SOL_EARTH_DISTANCE, SOL_MASS, SOL_RADIUS
     from . import utilities as utils
 except ImportError:
-    from cel__CONSTANTS import SOL_EARTH_DISTANCE
+    from cel__CONSTANTS import SOL_EARTH_DISTANCE, SOL_MASS, SOL_RADIUS
     import utilities as utils
 
 
@@ -17,9 +15,9 @@ class Sun:
     class PhysicalParameters:
 
         def __init__(self):
-            self.age = 4.603 * u.Gyr
-            self.mass = (1 * u.M_sun).si
-            self.radius = (1 * u.R_sun).si.to(u.km)
+            self.age = utils.Q(4.603, 'Gyr')
+            self.mass = SOL_MASS
+            self.radius = SOL_RADIUS.to('km')
             (self.volume,
              self.density,
              self.surface_area,
@@ -30,7 +28,7 @@ class Sun:
     class ObservationalParameters:
 
         def __init__(self):
-            ang_min, ang_max = 0.527 * u.deg, 0.545 * u.deg
+            ang_min, ang_max = utils.Q(0.527, 'deg'), utils.Q(0.545, 'deg')
 
             self.apparent_magnitude = -26.74
             self.geom_albedo = 0.0001

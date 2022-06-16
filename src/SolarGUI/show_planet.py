@@ -77,11 +77,12 @@ class GetParameterSelection:
 class ShowImages:
 
     def __init__(self, window, object_class, object_name):
-        self.w, self.h = window.winfo_width(), window.winfo_height()
+        self.w, self.h = int(window.winfo_width() * 1.5), int(window.winfo_height() * 2)
         self.img_win = tk.Toplevel(master=window)
         self.object_class = object_class
         self.object_name = object_name
         self.img_frame = None
+        self.img_win.resizable(False, False)
 
     def adjustments(self):
         self.img_win.geometry(newGeometry=f'{self.w}x{self.h}')
@@ -93,15 +94,20 @@ class ShowImages:
         # iter and next_image() ideas taken from
         # https://stackoverflow.com/a/49919635/3212945
         path = f'{img_path}{self.object_name.lower()}/'
-        img_ = itertools.cycle([f for f in os.listdir(path) if f.endswith('.png')])
+        img_list = [f for f in os.listdir(path) if
+                    f.endswith('.png') or f.endswith('.jpg')]
+        img_ = itertools.cycle(img_list)
 
         def next_image():
             img = next(img_)
-            description = img.title().split('.')[0]
+            img_name = img.title()
+            img_title = img_name.split(' : ')[0]
+            img_descr = f"{img_name.split(' : ')[1].split(' ~ ')[0]}.".capitalize()
+            img_credits = f"{img_name.split(' ~ ')[1].split('.Jp')[0]}.".upper()
 
             # thumbnail idea taken from https://stackoverflow.com/a/66506713
             img = Image.open(f'{path}{img}')
-            img.thumbnail((self.w, self.h - 50))
+            img.thumbnail((self.w, self.h - 120))
             img = ImageTk.PhotoImage(img)
 
             self.img_frame.picture = img
@@ -109,14 +115,22 @@ class ShowImages:
                                             image=self.img_frame.picture)
             self.img_frame.label.grid(row=0, column=0, sticky='news')
 
-            desc_label = tk.Label(master=self.img_frame, text=description)
-            desc_label.grid(row=1, column=0, sticky='news')
+            tk_f.image_placement(window=self.img_frame, text=img_title, row=1)
+
+            tk_f.label_placement(window=self.img_frame, text='', row=2)
+
+            tk_f.image_placement(window=self.img_frame, text=img_descr, row=3)
+
+            tk_f.label_placement(window=self.img_frame, text='', row=4)
+
+            tk_f.image_placement(window=self.img_frame, text=img_credits, row=5)
 
         next_image()
 
-        show_img = tk.Button(master=self.img_frame, text='Next image',
-                             command=lambda: next_image())
-        show_img.grid(row=2, column=0)
+        tk_f.label_placement(window=self.img_frame, text='', row=4, column=0)
+
+        tk_f.object_button(window=self.img_frame, text='Next Image',
+                           function=lambda: next_image(), row=6, column=0, sticky='')
 
 
 def show_physical_parameters(window: Union[tk.Tk, tk.Toplevel, tk.Frame],

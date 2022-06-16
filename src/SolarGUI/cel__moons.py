@@ -2,7 +2,6 @@
 Created on Jun 12 12:12:36 2022
 """
 
-import astropy.units as u
 import numpy as np
 
 try:
@@ -18,9 +17,9 @@ class Moon:
     class PhysicalParameters:
 
         def __init__(self):
-            self.age = 4.53 * u.Gyr
-            self.mass = 7.342e22 * u.kg
-            self.radius = 1737.4 * u.km
+            self.age = utils.Q(4.53, 'Gyr')
+            self.mass = utils.Q(7.342e22, 'kg')
+            self.radius = utils.Q(1737.4, 'km')
             (self.volume,
              self.density,
              self.surface_area,
@@ -31,25 +30,25 @@ class Moon:
     class OrbitalParameters:
 
         def __init__(self):
-            self.semi_major_axis = (384399 * u.km).to(u.AU)
+            self.semi_major_axis = utils.Q(384399, 'km').to('AU')
             self.eccentricity = 0.0549
 
             self.apo, self.peri = utils.GetOrbitalParameters(a_0=self.semi_major_axis,
                                                              ecc=self.eccentricity).get()
 
-            self.orbital_period = 27.321661 * u.day
-            self.av_orbital_speed = 1.022 * u.km * u.s**-1
-            self.mean_anomaly = 135.27 * u.deg
-            self.inclination = 5.145 * u.deg
-            self.longitude_of_ascending_node = 125.08 * u.deg
-            self.argument_of_perihelion = 318.15 * u.deg
-            self.axial_tilt = 1.5427 * u.deg
+            self.orbital_period = utils.Q(27.321661, 'day')
+            self.av_orbital_speed = utils.Q(1.022, 'km/s')
+            self.mean_anomaly = utils.Q(135.27, 'deg')
+            self.inclination = utils.Q(5.145, 'deg')
+            self.longitude_of_ascending_node = utils.Q(125.08, 'deg')
+            self.argument_of_perihelion = utils.Q(318.15, 'deg')
+            self.axial_tilt = utils.Q(1.5427, 'deg')
 
     class ObservationalParameters:
 
         def __init__(self):
             ap_mag_min, ap_mag_max = -2.5, -12.9
-            ang_min, ang_max = 29.3 * u.arcmin, 34.1 * u.arcmin
+            ang_min, ang_max = utils.Q(29.3, 'arcmin'), utils.Q(34.1, 'arcmin')
 
             self.apparent_magnitude = np.mean([ap_mag_min, ap_mag_max])
             self.geom_albedo = 0.136
