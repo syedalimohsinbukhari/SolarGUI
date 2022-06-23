@@ -77,7 +77,8 @@ class GetParameterSelection:
 class ShowImages:
 
     def __init__(self, window, object_class, object_name):
-        self.w, self.h = int(window.winfo_width() * 1.5), int(window.winfo_height() * 2)
+        screen_w, screen_h = window.winfo_screenwidth(), window.winfo_screenheight()
+        self.w, self.h = int(screen_w * 0.8), int(screen_h * 0.8)
         self.img_win = tk.Toplevel(master=window)
         self.object_class = object_class
         self.object_name = object_name
