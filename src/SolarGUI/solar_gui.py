@@ -79,90 +79,69 @@ class Main:
         self.others_frame.grid(row=4, column=0, pady=5, columnspan=8)
         [self.others_frame.grid_columnconfigure(index=i, weight=1) for i in range(8)]
 
-        tk_f.label_placement(window=self.star_frame, text='Stars', row=0, pad_y=10,
-                             sticky='news', columnspan=10)
-        tk_f.label_placement(window=self.planet_frame, text='Planets', row=0, pad_y=10,
-                             sticky='news', columnspan=10)
-        tk_f.label_placement(window=self.moons_frame, text='Moons', row=0, pad_y=10,
-                             sticky='news', columnspan=10)
-        tk_f.label_placement(window=self.others_frame, text='Others', row=0, pad_y=10,
-                             sticky='news', columnspan=10)
+        tk_f.label_placement(window=self.star_frame, text='Stars', row=0, columnspan=10,
+                             pad_y=10, sticky='news')
+        tk_f.label_placement(window=self.planet_frame, text='Planets', row=0,
+                             columnspan=10, pad_y=10, sticky='news')
+        tk_f.label_placement(window=self.moons_frame, text='Moons', row=0, columnspan=10,
+                             pad_y=10, sticky='news')
+        tk_f.label_placement(window=self.others_frame, text='Others', row=0,
+                             columnspan=10, pad_y=10, sticky='news')
 
         tk_f.object_button(window=self.star_frame, text='Sun',
                            function=lambda: sp.GetParameterSelection(
-                                   window=self.root_window,
-                                   title='Sun',
-                                   object_class=Sun), column=0, row=1)
+                                   window=self.root_window, object_name='Sun',
+                                   object_class=Sun), row=1, column=0)
 
         tk_f.object_button(window=self.planet_frame, text='Mercury',
                            function=lambda: sp.GetParameterSelection(
-                                   window=self.root_window,
-                                   title='Mercury',
-                                   object_class=Mercury),
-                           column=0, row=1)
+                                   window=self.root_window, object_name='Mercury',
+                                   object_class=Mercury), row=1, column=0)
 
         tk_f.object_button(window=self.planet_frame, text='Venus',
                            function=lambda: sp.GetParameterSelection(
-                                   window=self.root_window,
-                                   title='Venus',
-                                   object_class=Venus),
-                           column=1, row=1)
+                                   window=self.root_window, object_name='Venus',
+                                   object_class=Venus), row=1, column=1)
 
         tk_f.object_button(window=self.planet_frame, text='Earth',
                            function=lambda: sp.GetParameterSelection(
-                                   window=self.root_window,
-                                   title='Earth',
-                                   object_class=Earth),
-                           column=2, row=1)
+                                   window=self.root_window, object_name='Earth',
+                                   object_class=Earth), row=1, column=2)
 
         tk_f.object_button(window=self.planet_frame, text='Mars',
                            function=lambda: sp.GetParameterSelection(
-                                   window=self.root_window,
-                                   title='Mars',
-                                   object_class=Mars),
-                           column=3, row=1)
+                                   window=self.root_window, object_name='Mars',
+                                   object_class=Mars), row=1, column=3)
 
         tk_f.object_button(window=self.planet_frame, text='Jupiter',
                            function=lambda: sp.GetParameterSelection(
-                                   window=self.root_window,
-                                   title='Jupiter',
-                                   object_class=Jupiter),
-                           column=4, row=1)
+                                   window=self.root_window, object_name='Jupiter',
+                                   object_class=Jupiter), row=1, column=4)
 
         tk_f.object_button(window=self.planet_frame, text='Saturn',
                            function=lambda: sp.GetParameterSelection(
-                                   window=self.root_window,
-                                   title='Saturn',
-                                   object_class=Saturn),
-                           column=5, row=1)
+                                   window=self.root_window, object_name='Saturn',
+                                   object_class=Saturn), row=1, column=5)
 
         tk_f.object_button(window=self.planet_frame, text='Uranus',
                            function=lambda: sp.GetParameterSelection(
-                                   window=self.root_window,
-                                   title='Uranus',
-                                   object_class=Uranus),
-                           column=6, row=1)
+                                   window=self.root_window, object_name='Uranus',
+                                   object_class=Uranus), row=1, column=6)
 
         tk_f.object_button(window=self.planet_frame, text='Neptune',
                            function=lambda: sp.GetParameterSelection(
-                                   window=self.root_window,
-                                   title='Neptune',
-                                   object_class=Neptune),
-                           column=7, row=1)
+                                   window=self.root_window, object_name='Neptune',
+                                   object_class=Neptune), row=1, column=7)
 
         tk_f.object_button(window=self.moons_frame, text='Moon',
                            function=lambda: sp.GetParameterSelection(
-                                   window=self.root_window,
-                                   title='Moon',
-                                   object_class=Moon),
-                           row=1, column=0)
+                                   window=self.root_window, object_name='Moon',
+                                   object_class=Moon), row=1, column=0)
 
         tk_f.object_button(window=self.others_frame, text='Pluto',
                            function=lambda: sp.GetParameterSelection(
-                                   window=self.root_window,
-                                   title='Pluto',
-                                   object_class=Pluto),
-                           row=1, column=0)
+                                   window=self.root_window, object_name='Pluto',
+                                   object_class=Pluto), row=1, column=0)
 
         self.root_window.mainloop()
 
