@@ -9,18 +9,18 @@ from typing import Callable, Optional, Tuple, Union
 from astropy.units.quantity import Quantity
 
 try:
-    from . import utilities as utils
-    from .cel__stars import Sun
-    from .cel__planets import (Mercury, Venus, Earth, Mars, Jupiter, Saturn, Uranus,
-                               Neptune)
     from .cel__moons import Moon
     from .cel__others import Pluto
+    from .cel__planets import (Mercury, Venus, Earth, Mars, Jupiter, Saturn, Uranus,
+                               Neptune)
+    from .cel__stars import Sun
+    from .utilities import comparison
 except ImportError:
-    import utilities as utils
-    from cel__stars import Sun
-    from cel__planets import Mercury, Venus, Earth, Mars, Jupiter, Saturn, Uranus, Neptune
     from cel__moons import Moon
     from cel__others import Pluto
+    from cel__planets import Mercury, Venus, Earth, Mars, Jupiter, Saturn, Uranus, Neptune
+    from cel__stars import Sun
+    from utilities import comparison
 
 
 def object_button(window: Union[tk.Tk, tk.Toplevel, tk.Frame], text: str,
@@ -245,109 +245,109 @@ def place_equivalencies(window: Union[tk.Tk, tk.Toplevel, tk.Frame], cel_object:
     state = 'disabled' if equiv_type in ['orbital'] else 'active'
 
     equiv_radio_buttons(window=equiv_window,
-                        function=lambda: utils.comparison(c_win=parent_window,
-                                                          primary_obj=cel_object,
-                                                          sec_obj=Sun, sec_lbl='Sun',
-                                                          comparison_type=equiv_type,
-                                                          column=column), text='Sun',
+                        function=lambda: comparison(c_win=parent_window,
+                                                    primary_obj=cel_object,
+                                                    sec_obj=Sun, sec_lbl='Sun',
+                                                    comparison_type=equiv_type,
+                                                    column=column), text='Sun',
                         value='Sun', radio_val=get_val, row=0, column=0, state=state)
 
     equiv_radio_buttons(window=equiv_window,
-                        function=lambda: utils.comparison(c_win=parent_window,
-                                                          primary_obj=cel_object,
-                                                          sec_obj=Mercury,
-                                                          sec_lbl='Mercury',
-                                                          comparison_type=equiv_type,
-                                                          column=column), text='Mercury',
+                        function=lambda: comparison(c_win=parent_window,
+                                                    primary_obj=cel_object,
+                                                    sec_obj=Mercury,
+                                                    sec_lbl='Mercury',
+                                                    comparison_type=equiv_type,
+                                                    column=column), text='Mercury',
                         value='Mercury', radio_val=get_val, row=0, column=1)
 
     equiv_radio_buttons(window=equiv_window,
-                        function=lambda: utils.comparison(c_win=parent_window,
-                                                          primary_obj=cel_object,
-                                                          sec_obj=Venus, sec_lbl='Venus',
-                                                          comparison_type=equiv_type,
-                                                          column=column), text='Venus',
+                        function=lambda: comparison(c_win=parent_window,
+                                                    primary_obj=cel_object,
+                                                    sec_obj=Venus, sec_lbl='Venus',
+                                                    comparison_type=equiv_type,
+                                                    column=column), text='Venus',
                         value='Venus', radio_val=get_val, row=0, column=2)
 
     state = 'disabled' if equiv_type == 'observation' else 'active'
 
     equiv_radio_buttons(window=equiv_window,
-                        function=lambda: utils.comparison(c_win=parent_window,
-                                                          primary_obj=cel_object,
-                                                          sec_obj=Earth, sec_lbl='Earth',
-                                                          comparison_type=equiv_type,
-                                                          column=column), text='Earth',
+                        function=lambda: comparison(c_win=parent_window,
+                                                    primary_obj=cel_object,
+                                                    sec_obj=Earth, sec_lbl='Earth',
+                                                    comparison_type=equiv_type,
+                                                    column=column), text='Earth',
                         value='Earth', radio_val=get_val, row=0, column=3, state=state)
 
     state = 'disabled' if equiv_type in ['orbital', 'observation'] else 'active'
 
     equiv_radio_buttons(window=equiv_window,
-                        function=lambda: utils.comparison(c_win=parent_window,
-                                                          primary_obj=cel_object,
-                                                          sec_obj=Moon, sec_lbl='Moon',
-                                                          comparison_type=equiv_type,
-                                                          column=column), text='Moon',
+                        function=lambda: comparison(c_win=parent_window,
+                                                    primary_obj=cel_object,
+                                                    sec_obj=Moon, sec_lbl='Moon',
+                                                    comparison_type=equiv_type,
+                                                    column=column), text='Moon',
                         value='Moon', radio_val=get_val, row=1, column=0, state=state)
 
     equiv_radio_buttons(window=equiv_window,
-                        function=lambda: utils.comparison(c_win=parent_window,
-                                                          primary_obj=cel_object,
-                                                          sec_obj=Mars, sec_lbl='Mars',
-                                                          comparison_type=equiv_type,
-                                                          column=column), text='Mars',
+                        function=lambda: comparison(c_win=parent_window,
+                                                    primary_obj=cel_object,
+                                                    sec_obj=Mars, sec_lbl='Mars',
+                                                    comparison_type=equiv_type,
+                                                    column=column), text='Mars',
                         value='Mars', radio_val=get_val, row=1, column=1)
 
     equiv_radio_buttons(window=equiv_window,
-                        function=lambda: utils.comparison(c_win=parent_window,
-                                                          primary_obj=cel_object,
-                                                          sec_obj=Jupiter,
-                                                          sec_lbl='Jupiter',
-                                                          comparison_type=equiv_type,
-                                                          column=column), text='Jupiter',
+                        function=lambda: comparison(c_win=parent_window,
+                                                    primary_obj=cel_object,
+                                                    sec_obj=Jupiter,
+                                                    sec_lbl='Jupiter',
+                                                    comparison_type=equiv_type,
+                                                    column=column), text='Jupiter',
                         value='Jupiter', radio_val=get_val, row=1, column=2)
 
     equiv_radio_buttons(window=equiv_window,
-                        function=lambda: utils.comparison(c_win=parent_window,
-                                                          primary_obj=cel_object,
-                                                          sec_obj=Saturn,
-                                                          sec_lbl='Saturn',
-                                                          comparison_type=equiv_type,
-                                                          column=column), text='Saturn',
+                        function=lambda: comparison(c_win=parent_window,
+                                                    primary_obj=cel_object,
+                                                    sec_obj=Saturn,
+                                                    sec_lbl='Saturn',
+                                                    comparison_type=equiv_type,
+                                                    column=column), text='Saturn',
                         value='Saturn', radio_val=get_val, row=1, column=3)
 
     equiv_radio_buttons(window=equiv_window,
-                        function=lambda: utils.comparison(c_win=parent_window,
-                                                          primary_obj=cel_object,
-                                                          sec_obj=Uranus,
-                                                          sec_lbl='Uranus',
-                                                          comparison_type=equiv_type,
-                                                          column=column), text='Uranus',
+                        function=lambda: comparison(c_win=parent_window,
+                                                    primary_obj=cel_object,
+                                                    sec_obj=Uranus,
+                                                    sec_lbl='Uranus',
+                                                    comparison_type=equiv_type,
+                                                    column=column), text='Uranus',
                         value='Uranus', radio_val=get_val, row=2, column=0)
 
     equiv_radio_buttons(window=equiv_window,
-                        function=lambda: utils.comparison(c_win=parent_window,
-                                                          primary_obj=cel_object,
-                                                          sec_obj=Neptune,
-                                                          sec_lbl='Neptune',
-                                                          comparison_type=equiv_type,
-                                                          column=column), text='Neptune',
+                        function=lambda: comparison(c_win=parent_window,
+                                                    primary_obj=cel_object,
+                                                    sec_obj=Neptune,
+                                                    sec_lbl='Neptune',
+                                                    comparison_type=equiv_type,
+                                                    column=column), text='Neptune',
                         value='Neptune', radio_val=get_val, row=2, column=1)
 
     equiv_radio_buttons(window=equiv_window,
-                        function=lambda: utils.comparison(c_win=parent_window,
-                                                          primary_obj=cel_object,
-                                                          sec_obj=Pluto, sec_lbl='Pluto',
-                                                          comparison_type=equiv_type,
-                                                          column=column), text='Pluto',
+                        function=lambda: comparison(c_win=parent_window,
+                                                    primary_obj=cel_object,
+                                                    sec_obj=Pluto, sec_lbl='Pluto',
+                                                    comparison_type=equiv_type,
+                                                    column=column), text='Pluto',
                         value='Pluto', radio_val=get_val, row=2, column=2)
 
     reset_button = tk.Button(master=equiv_window, text='Reset',
-                             command=lambda: utils.comparison(c_win=parent_window,
-                                                              primary_obj=cel_object,
-                                                              sec_obj=Pluto,
-                                                              sec_lbl='Reset',
-                                                              comparison_type=equiv_type,
-                                                              column=column, reset=True))
+                             command=lambda: comparison(c_win=parent_window,
+                                                        primary_obj=cel_object,
+                                                        sec_obj=Pluto,
+                                                        sec_lbl='Reset',
+                                                        comparison_type=equiv_type,
+                                                        column=column, reset=True))
     reset_button.grid(row=3, column=0, columnspan=4, padx=10, sticky='news')
 
     # taken from https://stackoverflow.com/a/69416040/3212945

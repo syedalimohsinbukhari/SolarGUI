@@ -1,6 +1,7 @@
 """
 Created on May 22 00:40:38 2022
 """
+
 import sys
 import tkinter as tk
 
@@ -13,14 +14,14 @@ try:
     from .cel__stars import Sun
     from .cel__planets import (Mercury, Venus, Earth, Mars, Jupiter, Saturn, Uranus,
                                Neptune)
-    from .cel__moons import Moon
+    from .cel__moons import Moon, Phobos, Deimos
     from .cel__others import Pluto
 except ImportError:
     import show_planet as sp
     import tk_functions as tk_f
     from cel__stars import Sun
     from cel__planets import Mercury, Venus, Earth, Mars, Jupiter, Saturn, Uranus, Neptune
-    from cel__moons import Moon
+    from cel__moons import Moon, Phobos, Deimos
     from cel__others import Pluto
 
 
@@ -137,6 +138,16 @@ class Main:
                            function=lambda: sp.GetParameterSelection(
                                    window=self.root_window, object_name='Moon',
                                    object_class=Moon), row=1, column=0)
+
+        tk_f.object_button(window=self.moons_frame, text='Phobos',
+                           function=lambda: sp.GetParameterSelection(
+                                   window=self.root_window, object_name='Phobos',
+                                   object_class=Phobos), row=1, column=2)
+
+        tk_f.object_button(window=self.moons_frame, text='Deimos',
+                           function=lambda: sp.GetParameterSelection(
+                                   window=self.root_window, object_name='Deimos',
+                                   object_class=Deimos), row=1, column=3)
 
         tk_f.object_button(window=self.others_frame, text='Pluto',
                            function=lambda: sp.GetParameterSelection(

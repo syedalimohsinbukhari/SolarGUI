@@ -298,15 +298,21 @@ def comparison(c_win: Union[tk.Tk, tk.Toplevel, tk.Frame], primary_obj: Any, sec
 
     out = []
     for attr in attributes:
-        ratio = primary_obj.__getattribute__(attr) / sec_obj.__getattribute__(attr)
-        if attr in ['apparent_magnitude', 'absolute_magnitude']:
-            ratio = sec_obj.__getattribute__(attr) - primary_obj.__getattribute__(attr)
-            ratio = 100**(ratio / 5)
+        if primary_obj.__getattribute__(attr) == 'NA':
+            ratio = 'NA'
+        else:
+            ratio = primary_obj.__getattribute__(attr) / sec_obj.__getattribute__(attr)
+            if attr in ['apparent_magnitude', 'absolute_magnitude']:
+                ratio = sec_obj.__getattribute__(attr) - primary_obj.__getattribute__(
+                        attr)
+                ratio = 100**(ratio / 5)
         out.append(ratio)
 
     # place the entries on the comparison window or reset them
     for value, num in zip(out, range(1, num_attributes + 1)):
-        if 0 < value <= 0.001:
+        if value == 'NA':
+            value = 'NA'
+        elif 0 < value <= 0.001:
             value = f'{abs(value):.5e} × {sec_lbl}'
         elif value > int(1e9):
             value = f'{np.round(abs(value), 5):.3E} × {sec_lbl}'

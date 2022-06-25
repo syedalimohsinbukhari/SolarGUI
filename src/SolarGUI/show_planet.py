@@ -23,9 +23,11 @@ except ImportError:
 star_list = ['Sun']
 planet_list = ['Mercury', 'Venus', 'Mars', 'Jupiter', 'Saturn', 'Uranus', 'Neptune',
                'Pluto']
-moon_list = ['Moon']
+moon_list = ['Moon', 'Phobos', 'Deimos']
 
-planet_moon = {'Moon': 'Earth'}
+planet_moon = {'Moon': 'Earth',
+               'Phobos': 'Mars',
+               'Deimos': 'Mars'}
 
 
 class GetParameterSelection:
