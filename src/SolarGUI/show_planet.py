@@ -448,7 +448,7 @@ def show_observational_parameters(window: Union[tk.Tk, tk.Toplevel, tk.Frame],
                                                                  column=4), row=0,
                        column=4, sticky='nsew', width=25)
 
-    tk_f.place_object_properties(window=planet_window, text='Apparent Magnitude',
+    tk_f.place_object_properties(window=planet_window, text='Mean Apparent Magnitude',
                                  value=object_class.apparent_magnitude, function=convert,
                                  row=1, column=0, options=tuple(), default='')
 
@@ -465,7 +465,7 @@ def show_observational_parameters(window: Union[tk.Tk, tk.Toplevel, tk.Frame],
                                  value=object_class.absolute_magnitude, function=convert,
                                  row=4, column=0, options=tuple(), default='')
 
-    tk_f.place_object_properties(window=planet_window, text='Average angular size',
+    tk_f.place_object_properties(window=planet_window, text='Mean angular size',
                                  value=object_class.average_angular_size,
                                  function=convert, row=5, column=0,
                                  options=('arcsec', 'arcmin', 'deg', 'rad'),
