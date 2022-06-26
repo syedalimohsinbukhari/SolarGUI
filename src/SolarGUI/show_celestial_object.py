@@ -21,13 +21,54 @@ except ImportError:
     from utilities import convert
 
 star_list = ['Sun']
+
 planet_list = ['Mercury', 'Venus', 'Mars', 'Jupiter', 'Saturn', 'Uranus', 'Neptune',
                'Pluto']
-moon_list = ['Moon', 'Phobos', 'Deimos']
+
+moon_list = ['Moon',
+             'Phobos', 'Deimos',
+             'Io', 'Europa', 'Ganymede', 'Callisto', 'Metis', 'Adrastea', 'Amalthea',
+             'Thebe',
+             'Mimas', 'Enceladus', 'Tethys', 'Dione', 'Rhea', 'Titan', 'Hyperion',
+             'Iapetus',
+             'Miranda', 'Umbrial', 'Ariel', 'Titania', 'Oberon',
+             'Naiad', 'Thalassa', 'Despina', 'Galatea', 'Larissa', 'Hippocamp', 'Proteus',
+             'Triton',
+             'Charon']
 
 planet_moon = {'Moon': 'Earth',
                'Phobos': 'Mars',
-               'Deimos': 'Mars'}
+               'Deimos': 'Mars',
+               'Io': 'Jupiter',
+               'Europa': 'Jupiter',
+               'Ganymede': 'Jupiter',
+               'Callisto': 'Jupiter',
+               'Metis': 'Jupiter',
+               'Adrastea': 'Jupiter',
+               'Amalthea': 'Jupiter',
+               'Thebe': 'Jupiter',
+               'Mimas': 'Saturn',
+               'Enceladus': 'Saturn',
+               'Tethys': 'Saturn',
+               'Dione': 'Saturn',
+               'Rhea': 'Saturn',
+               'Titan': 'Saturn',
+               'Hyperion': 'Saturn',
+               'Iapetus': 'Saturn',
+               'Miranda': 'Uranus',
+               'Umbrial': 'Uranus',
+               'Ariel': 'Uranus',
+               'Titania': 'Uranus',
+               'Oberon': 'Uranus',
+               'Naiad': 'Neptune',
+               'Thalassa': 'Neptune',
+               'Despina': 'Neptune',
+               'Galatea': 'Neptune',
+               'Larissa': 'Neptune',
+               'Hippocamp': 'Neptune',
+               'Proteus': 'Neptune',
+               'Triton': 'Neptune',
+               'Charon': 'Pluto'}
 
 
 class GetParameterSelection:
@@ -94,11 +135,12 @@ class GetParameterSelection:
                                          object_class=object_class))
             self.obs.grid(row=0, column=2, sticky='news')
 
-        # Image button
-        img = tk.Button(master=self.button_frame, text='Images',
-                        command=lambda: Images_(window=window, object_name=object_name,
-                                                object_class=object_class).adjustments())
-        img.grid(row=0, column=3, sticky='news')
+        if object_name not in moon_list or object_name == 'Moon':
+            img = tk.Button(master=self.button_frame, text='Images',
+                            command=lambda: Images_(window=window,
+                                                    object_name=object_name,
+                                                    object_class=object_class).adjustments())
+            img.grid(row=0, column=3, sticky='news')
 
 
 class Images_:

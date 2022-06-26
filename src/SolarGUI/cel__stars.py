@@ -29,13 +29,10 @@ class Sun(c_):
         def __init__(self):
             ang_min, ang_max = Q(0.527, 'deg'), Q(0.545, 'deg')
 
-            self.apparent_magnitude = -26.74
-            self.geom_albedo = 0.0001
-            self.distance_from_earth = SOL_EARTH_DISTANCE
+            d_ = SOL_EARTH_DISTANCE
 
-            super(
-                    Sun().ObservationalParameters, self
-                    ).__init__(ang_min=ang_min,
-                               ang_max=ang_max,
-                               apparent_magnitude=self.apparent_magnitude,
-                               distance_from_earth=self.distance_from_earth)
+            super(Sun().ObservationalParameters, self).__init__(dist_from_earth=d_,
+                                                                apparent_mag=-26.74,
+                                                                geom_albedo=0.0001,
+                                                                ang_min=ang_min,
+                                                                ang_max=ang_max)

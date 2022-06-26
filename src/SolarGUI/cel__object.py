@@ -2,8 +2,9 @@
 Created on Jun 25 23:53:34 2022
 """
 
-from typing import Union
+from typing import Optional, Union
 
+import numpy as np
 from astropy.units import Quantity
 from numpy import ndarray
 
@@ -16,7 +17,7 @@ except ImportError:
 class CelestialObject:
     """
     Base class for the celestial objects and the calculations for their parameters.
-    
+
     """
 
     class PhysicalParameters:
@@ -55,7 +56,15 @@ class CelestialObject:
 
         """
 
-        def __init__(self, a_0: Quantity, ecc: float):
+        def __init__(self, a_0: Quantity,
+                     ecc: float,
+                     orbital_period: Optional[float] = None,
+                     av_orbital_speed: Optional[float] = None,
+                     mean_anom: Optional[float] = None,
+                     inclination: Optional[float] = None,
+                     long_asc: Optional[float] = None,
+                     arg_peri: Optional[float] = None,
+                     axial_tilt: Optional[float] = None):
             """
             Initialization method for OrbitalParameters class
 
@@ -72,7 +81,15 @@ class CelestialObject:
 
             """
 
-            self.apo, self.peri = utils.GetOrbitalParameters(a_0=a_0, ecc=ecc).get()
+            self.apo, self.peri = a_0 * (1 - ecc), a_0 * (1 + ecc)
+
+            self.orbital_period = utils.ifNone(val=orbital_period, unit='day')
+            self.av_orbital_speed = utils.ifNone(val=av_orbital_speed, unit='km/s')
+            self.mean_anomaly = utils.ifNone(val=mean_anom, unit='deg')
+            self.inclination = utils.ifNone(val=inclination, unit='deg')
+            self.longitude_of_ascending_node = utils.ifNone(val=long_asc, unit='deg')
+            self.argument_of_perihelion = utils.ifNone(val=arg_peri, unit='deg')
+            self.axial_tilt = utils.ifNone(val=axial_tilt, unit='deg')
 
     class ObservationalParameters:
         """
@@ -81,12 +98,18 @@ class CelestialObject:
 
         """
 
-        def __init__(self, ang_min: Quantity, ang_max: Quantity,
-                     apparent_magnitude: Union[float, ndarray],
-                     distance_from_earth: Quantity):
+        def __init__(self,
+                     dist_from_earth: Quantity,
+                     ap_mag_min: Optional[float] = None,
+                     ap_mag_max: Optional[float] = None,
+                     apparent_mag: Union[float, ndarray] = None,
+                     geom_albedo: Optional[float] = None,
+                     ang_min: Optional[Quantity] = None,
+                     ang_max: Optional[Quantity] = None,
+                     av_ang_size: Optional[Quantity] = None):
             """
-            Initialization method for ObservationalParameter class.
-            
+            Initialization method for ObservationalParameters class.
+
 
             Parameters
             ----------
@@ -94,9 +117,9 @@ class CelestialObject:
                 Minimum angular size of the celestial object.
             ang_max : Quantity
                 Maximum angular size of the celestial object.
-            apparent_magnitude : Union[float, ndarray]
+            apparent_mag : Union[float, ndarray]
                 Apparent magnitude of the celestial object.
-            distance_from_earth : Quantity
+            dist_from_earth : Quantity
                 Distance of the celestial object from the Earth.
 
             Returns
@@ -105,11 +128,32 @@ class CelestialObject:
 
             """
 
-            (self.absolute_magnitude,
-             self.average_angular_size) = utils.GetObservationalParameters(
-                    angular_size=tuple([ang_min, ang_max]),
-                    apparent_magnitude=apparent_magnitude,
-                    distance=distance_from_earth).get()
+            if np.logical_and(apparent_mag is not None,
+                              np.logical_and(ap_mag_min is None, ap_mag_max is None)):
+                self.apparent_magnitude = apparent_mag
+            elif None not in [ap_mag_min, ap_mag_max]:
+                self.apparent_magnitude = np.mean([ap_mag_min, ap_mag_max])
+            else:
+                self.apparent_magnitude = None
+
+            self.geom_albedo = geom_albedo
+            self.distance_from_earth = dist_from_earth
+
+            if np.logical_and(av_ang_size is not None,
+                              np.logical_and(ang_min is None, ang_max is None)):
+                self.average_angular_size = av_ang_size
+            elif None not in [ang_min, ang_max]:
+                av_ = np.mean([ang_min.si.value, ang_max.si.value])
+                self.average_angular_size = utils.Q(av_, 'rad').to('arcsec')
+            else:
+                self.average_angular_size = None
+
+            if None not in [self.apparent_magnitude, self.distance_from_earth]:
+                self.absolute_magnitude = utils.get_absolute_magnitude(
+                        apparent_magnitude=self.apparent_magnitude,
+                        distance=self.distance_from_earth)
+            else:
+                self.absolute_magnitude = None
 
 
 c_ = CelestialObject
