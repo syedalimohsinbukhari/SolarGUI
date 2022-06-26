@@ -3,10 +3,9 @@ Created on May 26 01:47:13 2022
 """
 
 import tkinter as tk
-from typing import Any, Union
+from typing import Any, Optional, Union
 
 import numpy as np
-from astropy import units as u
 from astropy.constants import codata2018 as c_2018
 from astropy.units.quantity import Quantity
 
@@ -38,124 +37,25 @@ def convert(parameter: Quantity, change_to: str) -> Quantity:
     return parameter.to(change_to) if not change_to == '' else parameter
 
 
-class GetObservationalParameters:
+def get_absolute_magnitude(apparent_magnitude: float, distance: Quantity) -> float:
     """
-    Class to determine the observational parameters for the celestial object.
+    Calculates the absolute magnitude for the celestial object.
+
+    Parameters
+    -------
+    apparent_magnitude: float
+        Apparent magnitude of the celestial object.
+    distance: Quantity
+        Distance of the celestial object from the Earth.
+
+    Returns
+    -------
+    float:
+        Absolute magnitude of the celestial object.
+
     """
-
-    def __init__(self, angular_size: tuple, apparent_magnitude: N_float,
-                 distance: Quantity):
-        """
-        Initialization function for GetObservationalParameters class
-
-        Parameters
-        ----------
-        angular_size: tuple
-            A pair of angular sizes for calculation of average angular size for the
-            celestial object.
-        apparent_magnitude : N_float
-            Apparent magnitude of the celestial object.
-        distance : Quantity
-            Distance between Earth and the celestial object.
-
-        Returns
-        ----------
-        None.
-
-        """
-        self.angular_size = angular_size
-        self.apparent_magnitude = apparent_magnitude
-        self.distance = distance
-
-    def get_average_angular_size(self) -> Quantity:
-        """
-        Calculates the average angular size for the celestial object.
-
-        Returns
-        -------
-        Quantity:
-            Average angular size of the celestial object.
-
-        """
-        ang_min, ang_max = [i.si.value for i in self.angular_size]
-        return (np.mean([ang_min, ang_max]) * u.rad).to('arcsec')
-
-    def get_absolute_magnitude(self):
-        """
-        Calculates the absolute magnitude for the celestial object.
-
-        Returns
-        -------
-        float:
-            Absolute magnitude of the celestial object.
-
-        """
-        distance = self.distance.to('pc')
-        return self.apparent_magnitude - 5 * np.log10(distance.value) + 5
-
-    def get(self):
-        """
-        Get the values for average angular size and absolute magnitude for the
-        celestial object.
-
-        """
-        return self.get_absolute_magnitude(), self.get_average_angular_size()
-
-
-class GetOrbitalParameters:
-    """
-    Class to determine the orbital parameters for the celestial objects.
-    """
-
-    def __init__(self, a_0: Quantity, ecc: float):
-        """
-        Initialization function for GetOrbitalParameter class
-
-        Parameters
-        ----------
-        a_0 : Quantity
-            Semi-major axis of the celestial object.
-        ecc : float
-            Eccentricity of the celestial object.
-
-        Returns
-        -------
-        None.
-
-        """
-        self.semi_major_axis = a_0
-        self.eccentricity = ecc
-
-    def get_apo_distance(self) -> Quantity:
-        """
-        Calculates the farthest approach of a celestial object in orbit.
-
-        Returns
-        -------
-        Quantity
-            Apo-distance of a celestial object.
-
-        """
-        return self.semi_major_axis * (1 - self.eccentricity)
-
-    def get_peri_distance(self) -> Quantity:
-        """
-        Calculates the closest approach of a celestial object in orbit.
-
-        Returns
-        -------
-        Quantity
-            Peri-distance of a celestial object.
-
-        """
-        return self.semi_major_axis * (1 + self.eccentricity)
-
-    def get(self):
-        """
-        Get the values of apo and peri distances for the celestial objects.
-
-        """
-        return self.get_apo_distance(), self.get_peri_distance()
+    distance = distance.to('pc')
+    return apparent_magnitude - 5 * np.log10(distance.value) + 5
 
 
 class GetPhysicalParameters:
@@ -298,8 +198,8 @@ def comparison(c_win: Union[tk.Tk, tk.Toplevel, tk.Frame], primary_obj: Any, sec
 
     out = []
     for attr in attributes:
-        if primary_obj.__getattribute__(attr) == 'NA':
-            ratio = 'NA'
+        if primary_obj.__getattribute__(attr) is None:
+            ratio = None
         else:
             ratio = primary_obj.__getattribute__(attr) / sec_obj.__getattribute__(attr)
             if attr in ['apparent_magnitude', 'absolute_magnitude']:
@@ -310,8 +210,8 @@ def comparison(c_win: Union[tk.Tk, tk.Toplevel, tk.Frame], primary_obj: Any, sec
 
     # place the entries on the comparison window or reset them
     for value, num in zip(out, range(1, num_attributes + 1)):
-        if value == 'NA':
-            value = 'NA'
+        if value is None:
+            value = None
         elif 0 < value <= 0.001:
             value = f'{abs(value):.5e} × {sec_lbl}'
         elif value > int(1e9):
@@ -324,7 +224,7 @@ def comparison(c_win: Union[tk.Tk, tk.Toplevel, tk.Frame], primary_obj: Any, sec
         tk_f.entry_placement(window=c_win, value=value, row=num, columns=column, width=25)
 
 
-def Q(value: float, unit: str) -> Quantity:
+def Q(value: Union[float, np.ndarray], unit: str) -> Quantity:
     """
     This function initializes the value, unit pair of physical quantities.
 
@@ -342,3 +242,7 @@ def Q(value: float, unit: str) -> Quantity:
 
     """
     return Quantity(value=value, unit=unit)
+
+
+def ifNone(val: Optional[float] = None, unit: Optional[str] = None):
+    return None if None in [val, unit] else Q(value=val, unit=unit)
