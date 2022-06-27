@@ -827,3 +827,302 @@ class Oberon(c_):
             super(Oberon().ObservationalParameters, self).__init__(dist_from_earth=s_,
                                                                    apparent_mag=14.1,
                                                                    geom_albedo=0.31)
+
+
+class Naiad(c_):
+
+    class PhysicalParameters(c_phy):
+
+        def __init__(self):
+            self.age = None
+            self.mass = utils.Q(9.2e16, 'kg')
+            self.radius = utils.Q(30.2, 'km')
+
+            super(Naiad().PhysicalParameters, self).__init__(mass=self.mass,
+                                                             radius=self.radius)
+
+    class OrbitalParameters(c_orb):
+
+        def __init__(self):
+            self.semi_major_axis = utils.Q(48224.41, 'km').to('AU')
+            self.eccentricity = 0.0047
+
+            super(Naiad().OrbitalParameters, self).__init__(a_0=self.semi_major_axis,
+                                                            ecc=self.eccentricity,
+                                                            orbital_period=0.2943958,
+                                                            inclination=4.75,
+                                                            axial_tilt=0)
+
+    class ObservationalParameters(c_obs):
+
+        def __init__(self):
+            super(Naiad().ObservationalParameters, self).__init__(dist_from_earth=s_,
+                                                                  apparent_mag=23.91,
+                                                                  geom_albedo=0.072)
+
+
+class Thalassa(c_):
+
+    class PhysicalParameters(c_phy):
+
+        def __init__(self):
+            self.age = None
+            self.mass = utils.Q(3.5e17, 'kg')
+            self.radius = utils.Q(40.7, 'km')
+
+            super(Thalassa().PhysicalParameters, self).__init__(mass=self.mass,
+                                                                radius=self.radius)
+
+    class OrbitalParameters(c_orb):
+
+        def __init__(self):
+            self.semi_major_axis = utils.Q(50074.44, 'km').to('AU')
+            self.eccentricity = 0.00176
+
+            super(Thalassa().OrbitalParameters, self).__init__(a_0=self.semi_major_axis,
+                                                               ecc=self.eccentricity,
+                                                               orbital_period=0.31148444,
+                                                               inclination=0.21,
+                                                               axial_tilt=0)
+
+    class ObservationalParameters(c_obs):
+
+        def __init__(self):
+            super(Thalassa().ObservationalParameters, self).__init__(dist_from_earth=s_,
+                                                                     apparent_mag=23.32,
+                                                                     geom_albedo=0.091)
+
+
+class Despina(c_):
+
+    class PhysicalParameters(c_phy):
+
+        def __init__(self):
+            self.age = None
+            self.mass = utils.Q(2.2e18, 'kg')
+            self.radius = utils.Q(78, 'km')
+
+            super(Despina().PhysicalParameters, self).__init__(mass=self.mass,
+                                                               radius=self.radius)
+
+    class OrbitalParameters(c_orb):
+
+        def __init__(self):
+            self.semi_major_axis = utils.Q(52525.95, 'km').to('AU')
+            self.eccentricity = 0.00038
+
+            super(Despina().OrbitalParameters, self).__init__(a_0=self.semi_major_axis,
+                                                              ecc=self.eccentricity,
+                                                              orbital_period=0.33465551,
+                                                              inclination=0.216,
+                                                              axial_tilt=0)
+
+    class ObservationalParameters(c_obs):
+
+        def __init__(self):
+            super(Despina().ObservationalParameters, self).__init__(dist_from_earth=s_,
+                                                                    apparent_mag=22.0,
+                                                                    geom_albedo=0.09)
+
+
+class Galatea(c_):
+
+    class PhysicalParameters(c_phy):
+
+        def __init__(self):
+            self.age = None
+            self.mass = utils.Q(2.12e18, 'kg')
+            self.radius = utils.Q(87.4, 'km')
+
+            super(Galatea().PhysicalParameters, self).__init__(mass=self.mass,
+                                                               radius=self.radius)
+
+    class OrbitalParameters(c_orb):
+
+        def __init__(self):
+            self.semi_major_axis = utils.Q(61952.57, 'km').to('AU')
+            self.eccentricity = 0.00022
+
+            super(Galatea().OrbitalParameters, self).__init__(a_0=self.semi_major_axis,
+                                                              ecc=self.eccentricity,
+                                                              orbital_period=0.42874431,
+                                                              inclination=0.052,
+                                                              axial_tilt=0)
+
+    class ObservationalParameters(c_obs):
+
+        def __init__(self):
+            super(Galatea().ObservationalParameters, self).__init__(dist_from_earth=s_,
+                                                                    apparent_mag=21.9,
+                                                                    geom_albedo=0.08)
+
+
+class Larissa(c_):
+
+    class PhysicalParameters(c_phy):
+
+        def __init__(self):
+            self.age = None
+            self.mass = utils.Q(4.2e18, 'kg')
+            self.radius = utils.Q(97, 'km')
+
+            super(Larissa().PhysicalParameters, self).__init__(mass=self.mass,
+                                                               radius=self.radius)
+
+    class OrbitalParameters(c_orb):
+
+        def __init__(self):
+            self.semi_major_axis = utils.Q(73548.26, 'km').to('AU')
+            self.eccentricity = 0.001393
+
+            super(Larissa().OrbitalParameters, self).__init__(a_0=self.semi_major_axis,
+                                                              ecc=self.eccentricity,
+                                                              orbital_period=0.55465332,
+                                                              inclination=0.251,
+                                                              axial_tilt=0)
+
+    class ObservationalParameters(c_obs):
+
+        def __init__(self):
+            super(Larissa().ObservationalParameters, self).__init__(dist_from_earth=s_,
+                                                                    apparent_mag=21.5,
+                                                                    geom_albedo=0.09)
+
+
+class Hippocamp(c_):
+
+    class PhysicalParameters(c_phy):
+
+        def __init__(self):
+            self.age = None
+            self.mass = utils.Q(15.9495e15, 'kg')
+            self.radius = utils.Q(17.4, 'km')
+
+            super(Hippocamp().PhysicalParameters, self).__init__(mass=self.mass,
+                                                                 radius=self.radius)
+
+    class OrbitalParameters(c_orb):
+
+        def __init__(self):
+            self.semi_major_axis = utils.Q(105283, 'km').to('AU')
+            self.eccentricity = 0.00084
+
+            super(Hippocamp().OrbitalParameters, self).__init__(a_0=self.semi_major_axis,
+                                                                ecc=self.eccentricity,
+                                                                orbital_period=0.95,
+                                                                mean_anom=329.901,
+                                                                inclination=0.0641,
+                                                                long_asc=110.467,
+                                                                arg_peri=305.446)
+
+    class ObservationalParameters(c_obs):
+
+        def __init__(self):
+            super(Hippocamp().ObservationalParameters, self).__init__(dist_from_earth=s_,
+                                                                      apparent_mag=26.5,
+                                                                      geom_albedo=0.09)
+
+
+class Proteus(c_):
+
+    class PhysicalParameters(c_phy):
+
+        def __init__(self):
+            self.age = None
+            self.mass = utils.Q(4.4e19, 'kg')
+            self.radius = utils.Q(210, 'km')
+
+            super(Proteus().PhysicalParameters, self).__init__(mass=self.mass,
+                                                               radius=self.radius)
+
+    class OrbitalParameters(c_orb):
+
+        def __init__(self):
+            self.semi_major_axis = utils.Q(117647, 'km').to('AU')
+            self.eccentricity = 0.00053
+
+            super(Proteus().OrbitalParameters, self).__init__(a_0=self.semi_major_axis,
+                                                              ecc=self.eccentricity,
+                                                              orbital_period=1.12231477,
+                                                              av_orbital_speed=7.623,
+                                                              inclination=0.524,
+                                                              axial_tilt=0)
+
+    class ObservationalParameters(c_obs):
+
+        def __init__(self):
+            super(Proteus().ObservationalParameters, self).__init__(dist_from_earth=s_,
+                                                                    apparent_mag=19.7,
+                                                                    geom_albedo=0.096)
+
+
+class Triton(c_):
+
+    class PhysicalParameters(c_phy):
+
+        def __init__(self):
+            self.age = None
+            self.mass = utils.Q(2.139e22, 'kg')
+            self.radius = utils.Q(1353.4, 'km')
+
+            super(Triton().PhysicalParameters, self).__init__(mass=self.mass,
+                                                              radius=self.radius)
+
+    class OrbitalParameters(c_orb):
+
+        def __init__(self):
+            self.semi_major_axis = utils.Q(354759, 'km').to('AU')
+            self.eccentricity = 0.000016
+
+            super(Triton().OrbitalParameters, self).__init__(a_0=self.semi_major_axis,
+                                                             ecc=self.eccentricity,
+                                                             orbital_period=5.876854,
+                                                             av_orbital_speed=4.39,
+                                                             inclination=156.885,
+                                                             axial_tilt=0)
+
+    class ObservationalParameters(c_obs):
+
+        def __init__(self):
+            super(Triton().ObservationalParameters, self).__init__(dist_from_earth=s_,
+                                                                   apparent_mag=13.47,
+                                                                   absolute_mag=-1.2,
+                                                                   geom_albedo=0.76, )
+
+
+class Charon(c_):
+
+    class PhysicalParameters(c_phy):
+
+        def __init__(self):
+            self.age = None
+            self.mass = utils.Q(1.586e21, 'kg')
+            self.radius = utils.Q(606, 'km')
+
+            super(Charon().PhysicalParameters, self).__init__(mass=self.mass,
+                                                              radius=self.radius)
+
+    class OrbitalParameters(c_orb):
+
+        def __init__(self):
+            self.semi_major_axis = utils.Q(19591.4, 'km').to('AU')
+            self.eccentricity = 0.0002
+
+            super(Charon().OrbitalParameters, self).__init__(a_0=self.semi_major_axis,
+                                                             ecc=self.eccentricity,
+                                                             orbital_period=6.3872304,
+                                                             av_orbital_speed=0.21,
+                                                             inclination=0.080,
+                                                             long_asc=223.046,
+                                                             axial_tilt=0)
+
+    class ObservationalParameters(c_obs):
+
+        def __init__(self):
+            av_ = utils.Q(0.055, 'arcsec')
+
+            super(Charon().ObservationalParameters, self).__init__(dist_from_earth=s_,
+                                                                   av_ang_size=av_,
+                                                                   apparent_mag=16.8,
+                                                                   absolute_mag=1,
+                                                                   geom_albedo=0.35)
