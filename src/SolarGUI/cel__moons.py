@@ -96,7 +96,9 @@ class Phobos(c_):
         def __init__(self):
             ang_min, ang_max = utils.Q(0.14, 'deg'), utils.Q(0.20, 'deg')
 
-            super(Phobos().ObservationalParameters, self).__init__(dist_from_earth=m_,
+            d_ = m_ - Phobos().OrbitalParameters().semi_major_axis
+
+            super(Phobos().ObservationalParameters, self).__init__(dist_from_earth=d_,
                                                                    apparent_mag=11.8,
                                                                    geom_albedo=0.071,
                                                                    ang_min=ang_min,
@@ -130,9 +132,11 @@ class Deimos(c_):
     class ObservationalParameters(c_obs):
 
         def __init__(self):
-            av_ = utils.Q(2.5, 'arcmin')
+            av_ = utils.Q(2.5, 'arcmin').to('arcsec')
 
-            super(Deimos().ObservationalParameters, self).__init__(dist_from_earth=m_,
+            d_ = m_ - Deimos().OrbitalParameters().semi_major_axis
+
+            super(Deimos().ObservationalParameters, self).__init__(dist_from_earth=d_,
                                                                    apparent_mag=12.89,
                                                                    geom_albedo=0.068,
                                                                    av_ang_size=av_)
@@ -167,7 +171,9 @@ class Io(c_):
         def __init__(self):
             av_ = utils.Q(1.2, 'arcsec')
 
-            super(Io().ObservationalParameters, self).__init__(dist_from_earth=j_,
+            d_ = j_ - Io().OrbitalParameters().semi_major_axis
+
+            super(Io().ObservationalParameters, self).__init__(dist_from_earth=d_,
                                                                apparent_mag=5.02,
                                                                geom_albedo=0.63,
                                                                av_ang_size=av_)
@@ -201,7 +207,9 @@ class Europa(c_):
     class ObservationalParameters(c_obs):
 
         def __init__(self):
-            super(Europa().ObservationalParameters, self).__init__(dist_from_earth=j_,
+            d_ = j_ - Europa().OrbitalParameters().semi_major_axis
+
+            super(Europa().ObservationalParameters, self).__init__(dist_from_earth=d_,
                                                                    apparent_mag=5.29,
                                                                    geom_albedo=0.67)
 
@@ -236,7 +244,9 @@ class Ganymede(c_):
         def __init__(self):
             ang_min, ang_max = utils.Q(1.2, 'arcsec'), utils.Q(1.8, 'arcsec')
 
-            super(Ganymede().ObservationalParameters, self).__init__(dist_from_earth=j_,
+            d_ = j_ - Ganymede().OrbitalParameters().semi_major_axis
+
+            super(Ganymede().ObservationalParameters, self).__init__(dist_from_earth=d_,
                                                                      apparent_mag=4.61,
                                                                      geom_albedo=0.43,
                                                                      ang_min=ang_min,
@@ -271,7 +281,9 @@ class Callisto(c_):
     class ObservationalParameters(c_obs):
 
         def __init__(self):
-            super(Callisto().ObservationalParameters, self).__init__(dist_from_earth=j_,
+            d_ = j_ - Callisto().OrbitalParameters().semi_major_axis
+
+            super(Callisto().ObservationalParameters, self).__init__(dist_from_earth=d_,
                                                                      apparent_mag=5.65,
                                                                      geom_albedo=0.22)
 
@@ -304,7 +316,9 @@ class Metis(c_):
     class ObservationalParameters(c_obs):
 
         def __init__(self):
-            super(Metis().ObservationalParameters, self).__init__(dist_from_earth=j_,
+            d_ = j_ - Metis().OrbitalParameters().semi_major_axis
+
+            super(Metis().ObservationalParameters, self).__init__(dist_from_earth=d_,
                                                                   geom_albedo=0.061)
 
 
@@ -336,7 +350,9 @@ class Adrastea(c_):
     class ObservationalParameters(c_obs):
 
         def __init__(self):
-            super(Adrastea().ObservationalParameters, self).__init__(dist_from_earth=j_,
+            d_ = j_ - Adrastea().OrbitalParameters().semi_major_axis
+
+            super(Adrastea().ObservationalParameters, self).__init__(dist_from_earth=d_,
                                                                      geom_albedo=0.1)
 
 
@@ -368,7 +384,9 @@ class Amalthea(c_):
     class ObservationalParameters(c_obs):
 
         def __init__(self):
-            super(Amalthea().ObservationalParameters, self).__init__(dist_from_earth=j_,
+            d_ = j_ - Amalthea().OrbitalParameters().semi_major_axis
+
+            super(Amalthea().ObservationalParameters, self).__init__(dist_from_earth=d_,
                                                                      apparent_mag=14.1,
                                                                      geom_albedo=0.09)
 
@@ -401,7 +419,9 @@ class Thebe(c_):
     class ObservationalParameters(c_obs):
 
         def __init__(self):
-            super(Thebe().ObservationalParameters, self).__init__(dist_from_earth=j_,
+            d_ = j_ - Thebe().OrbitalParameters().semi_major_axis
+
+            super(Thebe().ObservationalParameters, self).__init__(dist_from_earth=d_,
                                                                   geom_albedo=0.047)
 
 
@@ -433,7 +453,9 @@ class Mimas(c_):
     class ObservationalParameters(c_obs):
 
         def __init__(self):
-            super(Mimas().ObservationalParameters, self).__init__(dist_from_earth=s_,
+            d_ = s_ - Mimas().OrbitalParameters().semi_major_axis
+
+            super(Mimas().ObservationalParameters, self).__init__(dist_from_earth=d_,
                                                                   apparent_mag=12.9,
                                                                   geom_albedo=0.962)
 
@@ -465,7 +487,9 @@ class Enceladus(c_):
     class ObservationalParameters(c_obs):
 
         def __init__(self):
-            super(Enceladus().ObservationalParameters, self).__init__(dist_from_earth=s_,
+            d_ = s_ - Enceladus().OrbitalParameters().semi_major_axis
+
+            super(Enceladus().ObservationalParameters, self).__init__(dist_from_earth=d_,
                                                                       apparent_mag=11.7,
                                                                       geom_albedo=1.375)
 
@@ -498,7 +522,9 @@ class Tethys(c_):
     class ObservationalParameters(c_obs):
 
         def __init__(self):
-            super(Tethys().ObservationalParameters, self).__init__(dist_from_earth=s_,
+            d_ = s_ - Tethys().OrbitalParameters().semi_major_axis
+
+            super(Tethys().ObservationalParameters, self).__init__(dist_from_earth=d_,
                                                                    apparent_mag=10.2,
                                                                    geom_albedo=1.229)
 
@@ -530,7 +556,9 @@ class Dione(c_):
     class ObservationalParameters(c_obs):
 
         def __init__(self):
-            super(Dione().ObservationalParameters, self).__init__(dist_from_earth=s_,
+            d_ = s_ - Dione().OrbitalParameters().semi_major_axis
+
+            super(Dione().ObservationalParameters, self).__init__(dist_from_earth=d_,
                                                                   apparent_mag=10.4,
                                                                   geom_albedo=0.998)
 
@@ -563,7 +591,9 @@ class Rhea(c_):
     class ObservationalParameters(c_obs):
 
         def __init__(self):
-            super(Rhea().ObservationalParameters, self).__init__(dist_from_earth=s_,
+            d_ = s_ - Rhea().OrbitalParameters().semi_major_axis
+
+            super(Rhea().ObservationalParameters, self).__init__(dist_from_earth=d_,
                                                                  apparent_mag=10,
                                                                  geom_albedo=0.949)
 
@@ -596,7 +626,9 @@ class Titan(c_):
     class ObservationalParameters(c_obs):
 
         def __init__(self):
-            super(Titan().ObservationalParameters, self).__init__(dist_from_earth=s_,
+            d_ = s_ - Titan().OrbitalParameters().semi_major_axis
+
+            super(Titan().ObservationalParameters, self).__init__(dist_from_earth=d_,
                                                                   ap_mag_min=9,
                                                                   ap_mag_max=8.2,
                                                                   geom_albedo=0.949)
@@ -628,7 +660,9 @@ class Hyperion(c_):
     class ObservationalParameters(c_obs):
 
         def __init__(self):
-            super(Hyperion().ObservationalParameters, self).__init__(dist_from_earth=s_,
+            d_ = s_ - Hyperion().OrbitalParameters().semi_major_axis
+
+            super(Hyperion().ObservationalParameters, self).__init__(dist_from_earth=d_,
                                                                      apparent_mag=14.1,
                                                                      geom_albedo=0.949)
 
@@ -661,7 +695,9 @@ class Iapetus(c_):
     class ObservationalParameters(c_obs):
 
         def __init__(self):
-            super(Iapetus().ObservationalParameters, self).__init__(dist_from_earth=s_,
+            d_ = s_ - Iapetus().OrbitalParameters().semi_major_axis
+
+            super(Iapetus().ObservationalParameters, self).__init__(dist_from_earth=d_,
                                                                     ap_mag_min=11.9,
                                                                     ap_mag_max=10.2,
                                                                     geom_albedo=0.949)
@@ -695,7 +731,9 @@ class Miranda(c_):
     class ObservationalParameters(c_obs):
 
         def __init__(self):
-            super(Miranda().ObservationalParameters, self).__init__(dist_from_earth=s_,
+            d_ = u_ - Miranda().OrbitalParameters().semi_major_axis
+
+            super(Miranda().ObservationalParameters, self).__init__(dist_from_earth=d_,
                                                                     apparent_mag=15.8,
                                                                     geom_albedo=0.32)
 
@@ -728,7 +766,9 @@ class Umbriel(c_):
     class ObservationalParameters(c_obs):
 
         def __init__(self):
-            super(Umbriel().ObservationalParameters, self).__init__(dist_from_earth=s_,
+            d_ = u_ - Umbriel().OrbitalParameters().semi_major_axis
+
+            super(Umbriel().ObservationalParameters, self).__init__(dist_from_earth=d_,
                                                                     apparent_mag=14.5,
                                                                     geom_albedo=0.26)
 
@@ -760,7 +800,9 @@ class Ariel(c_):
     class ObservationalParameters(c_obs):
 
         def __init__(self):
-            super(Ariel().ObservationalParameters, self).__init__(dist_from_earth=s_,
+            d_ = u_ - Ariel().OrbitalParameters().semi_major_axis
+
+            super(Ariel().ObservationalParameters, self).__init__(dist_from_earth=d_,
                                                                   apparent_mag=14.4,
                                                                   geom_albedo=0.53)
 
@@ -792,7 +834,9 @@ class Titania(c_):
     class ObservationalParameters(c_obs):
 
         def __init__(self):
-            super(Titania().ObservationalParameters, self).__init__(dist_from_earth=s_,
+            d_ = u_ - Titania().OrbitalParameters().semi_major_axis
+
+            super(Titania().ObservationalParameters, self).__init__(dist_from_earth=d_,
                                                                     apparent_mag=13.9,
                                                                     geom_albedo=0.35)
 
@@ -824,7 +868,9 @@ class Oberon(c_):
     class ObservationalParameters(c_obs):
 
         def __init__(self):
-            super(Oberon().ObservationalParameters, self).__init__(dist_from_earth=s_,
+            d_ = u_ - Oberon().OrbitalParameters().semi_major_axis
+
+            super(Oberon().ObservationalParameters, self).__init__(dist_from_earth=d_,
                                                                    apparent_mag=14.1,
                                                                    geom_albedo=0.31)
 
@@ -856,7 +902,9 @@ class Naiad(c_):
     class ObservationalParameters(c_obs):
 
         def __init__(self):
-            super(Naiad().ObservationalParameters, self).__init__(dist_from_earth=s_,
+            d_ = n_ - Naiad().OrbitalParameters().semi_major_axis
+
+            super(Naiad().ObservationalParameters, self).__init__(dist_from_earth=d_,
                                                                   apparent_mag=23.91,
                                                                   geom_albedo=0.072)
 
@@ -888,7 +936,9 @@ class Thalassa(c_):
     class ObservationalParameters(c_obs):
 
         def __init__(self):
-            super(Thalassa().ObservationalParameters, self).__init__(dist_from_earth=s_,
+            d_ = n_ = Thalassa().OrbitalParameters().semi_major_axis
+
+            super(Thalassa().ObservationalParameters, self).__init__(dist_from_earth=d_,
                                                                      apparent_mag=23.32,
                                                                      geom_albedo=0.091)
 
@@ -920,7 +970,9 @@ class Despina(c_):
     class ObservationalParameters(c_obs):
 
         def __init__(self):
-            super(Despina().ObservationalParameters, self).__init__(dist_from_earth=s_,
+            d_ = n_ - Despina().OrbitalParameters().semi_major_axis
+
+            super(Despina().ObservationalParameters, self).__init__(dist_from_earth=d_,
                                                                     apparent_mag=22.0,
                                                                     geom_albedo=0.09)
 
@@ -952,7 +1004,9 @@ class Galatea(c_):
     class ObservationalParameters(c_obs):
 
         def __init__(self):
-            super(Galatea().ObservationalParameters, self).__init__(dist_from_earth=s_,
+            d_ = n_ - Galatea().OrbitalParameters().semi_major_axis
+
+            super(Galatea().ObservationalParameters, self).__init__(dist_from_earth=d_,
                                                                     apparent_mag=21.9,
                                                                     geom_albedo=0.08)
 
@@ -984,7 +1038,9 @@ class Larissa(c_):
     class ObservationalParameters(c_obs):
 
         def __init__(self):
-            super(Larissa().ObservationalParameters, self).__init__(dist_from_earth=s_,
+            d_ = n_ - Larissa().OrbitalParameters().semi_major_axis
+
+            super(Larissa().ObservationalParameters, self).__init__(dist_from_earth=d_,
                                                                     apparent_mag=21.5,
                                                                     geom_albedo=0.09)
 
@@ -1018,7 +1074,9 @@ class Hippocamp(c_):
     class ObservationalParameters(c_obs):
 
         def __init__(self):
-            super(Hippocamp().ObservationalParameters, self).__init__(dist_from_earth=s_,
+            d_ = n_ - Hippocamp().OrbitalParameters().semi_major_axis
+
+            super(Hippocamp().ObservationalParameters, self).__init__(dist_from_earth=d_,
                                                                       apparent_mag=26.5,
                                                                       geom_albedo=0.09)
 
@@ -1051,7 +1109,9 @@ class Proteus(c_):
     class ObservationalParameters(c_obs):
 
         def __init__(self):
-            super(Proteus().ObservationalParameters, self).__init__(dist_from_earth=s_,
+            d_ = n_ - Proteus().OrbitalParameters().semi_major_axis
+
+            super(Proteus().ObservationalParameters, self).__init__(dist_from_earth=d_,
                                                                     apparent_mag=19.7,
                                                                     geom_albedo=0.096)
 
@@ -1084,9 +1144,11 @@ class Triton(c_):
     class ObservationalParameters(c_obs):
 
         def __init__(self):
-            super(Triton().ObservationalParameters, self).__init__(dist_from_earth=s_,
+            d_ = n_ - Triton().OrbitalParameters().semi_major_axis
+
+            super(Triton().ObservationalParameters, self).__init__(dist_from_earth=d_,
                                                                    apparent_mag=13.47,
-                                                                   absolute_mag=-1.2,
+                                                                   # absolute_mag=-1.2,
                                                                    geom_albedo=0.76, )
 
 
@@ -1121,8 +1183,10 @@ class Charon(c_):
         def __init__(self):
             av_ = utils.Q(0.055, 'arcsec')
 
-            super(Charon().ObservationalParameters, self).__init__(dist_from_earth=s_,
+            d_ = p_ - Charon().OrbitalParameters().semi_major_axis
+
+            super(Charon().ObservationalParameters, self).__init__(dist_from_earth=d_,
                                                                    av_ang_size=av_,
                                                                    apparent_mag=16.8,
-                                                                   absolute_mag=1,
+                                                                   # absolute_mag=1,
                                                                    geom_albedo=0.35)
