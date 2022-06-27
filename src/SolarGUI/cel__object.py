@@ -103,6 +103,7 @@ class CelestialObject:
                      ap_mag_min: Optional[float] = None,
                      ap_mag_max: Optional[float] = None,
                      apparent_mag: Union[float, ndarray] = None,
+                     absolute_mag: Union[float, ndarray] = None,
                      geom_albedo: Optional[float] = None,
                      ang_min: Optional[Quantity] = None,
                      ang_max: Optional[Quantity] = None,
@@ -119,6 +120,8 @@ class CelestialObject:
                 Maximum angular size of the celestial object.
             apparent_mag : Union[float, ndarray]
                 Apparent magnitude of the celestial object.
+            absolute_mag : Union[float, ndarray]
+                Absolute magnitude of the celestial object.
             dist_from_earth : Quantity
                 Distance of the celestial object from the Earth.
 
@@ -148,7 +151,9 @@ class CelestialObject:
             else:
                 self.average_angular_size = None
 
-            if None not in [self.apparent_magnitude, self.distance_from_earth]:
+            if absolute_mag is not None:
+                self.absolute_magnitude = absolute_mag
+            elif None not in [self.apparent_magnitude, self.distance_from_earth]:
                 self.absolute_magnitude = utils.get_absolute_magnitude(
                         apparent_magnitude=self.apparent_magnitude,
                         distance=self.distance_from_earth)

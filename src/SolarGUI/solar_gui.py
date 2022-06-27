@@ -280,42 +280,42 @@ class Main:
         tk_f.object_button(window=self.moons_frame, text='Naiad',
                            function=lambda: sco.GetParameterSelection(
                                    window=self.root_window, object_name='Naiad',
-                                   object_class=moons_.Europa), row=6, column=1)
+                                   object_class=moons_.Naiad), row=6, column=1)
 
         tk_f.object_button(window=self.moons_frame, text='Thalassa',
                            function=lambda: sco.GetParameterSelection(
                                    window=self.root_window, object_name='Thalassa',
-                                   object_class=moons_.Europa), row=6, column=2)
+                                   object_class=moons_.Thalassa), row=6, column=2)
 
         tk_f.object_button(window=self.moons_frame, text='Despina',
                            function=lambda: sco.GetParameterSelection(
                                    window=self.root_window, object_name='Despina',
-                                   object_class=moons_.Europa), row=6, column=3)
+                                   object_class=moons_.Despina), row=6, column=3)
 
         tk_f.object_button(window=self.moons_frame, text='Galatea',
                            function=lambda: sco.GetParameterSelection(
                                    window=self.root_window, object_name='Galatea',
-                                   object_class=moons_.Europa), row=6, column=4)
+                                   object_class=moons_.Galatea), row=6, column=4)
 
         tk_f.object_button(window=self.moons_frame, text='Larissa',
                            function=lambda: sco.GetParameterSelection(
                                    window=self.root_window, object_name='Larissa',
-                                   object_class=moons_.Europa), row=6, column=5)
+                                   object_class=moons_.Larissa), row=6, column=5)
 
         tk_f.object_button(window=self.moons_frame, text='Hippocamp',
                            function=lambda: sco.GetParameterSelection(
                                    window=self.root_window, object_name='Hippocamp',
-                                   object_class=moons_.Europa), row=6, column=6)
+                                   object_class=moons_.Hippocamp), row=6, column=6)
 
         tk_f.object_button(window=self.moons_frame, text='Proteus',
                            function=lambda: sco.GetParameterSelection(
                                    window=self.root_window, object_name='Proteus',
-                                   object_class=moons_.Europa), row=6, column=7)
+                                   object_class=moons_.Proteus), row=6, column=7)
 
         tk_f.object_button(window=self.moons_frame, text='Triton',
                            function=lambda: sco.GetParameterSelection(
                                    window=self.root_window, object_name='Triton',
-                                   object_class=moons_.Europa), row=6, column=8)
+                                   object_class=moons_.Triton), row=6, column=8)
 
         tk.Label(master=self.moons_frame, text='Pluto: ').grid(row=7,
                                                                column=0,
@@ -324,7 +324,7 @@ class Main:
         tk_f.object_button(window=self.moons_frame, text='Charon',
                            function=lambda: sco.GetParameterSelection(
                                    window=self.root_window, object_name='Charon',
-                                   object_class=moons_.Europa), row=7, column=1)
+                                   object_class=moons_.Charon), row=7, column=1)
 
         tk_f.object_button(window=self.others_frame, text='Pluto',
                            function=lambda: sco.GetParameterSelection(
