@@ -251,27 +251,27 @@ class Main:
         tk_f.object_button(window=self.moons_frame, text='Miranda',
                            function=lambda: sco.GetParameterSelection(
                                    window=self.root_window, object_name='Miranda',
-                                   object_class=moons_.Europa), row=5, column=1)
+                                   object_class=moons_.Miranda), row=5, column=1)
 
-        tk_f.object_button(window=self.moons_frame, text='Umbrial',
+        tk_f.object_button(window=self.moons_frame, text='Umbriel',
                            function=lambda: sco.GetParameterSelection(
-                                   window=self.root_window, object_name='Umbrial',
-                                   object_class=moons_.Europa), row=5, column=2)
+                                   window=self.root_window, object_name='Umbriel',
+                                   object_class=moons_.Umbriel), row=5, column=2)
 
         tk_f.object_button(window=self.moons_frame, text='Ariel',
                            function=lambda: sco.GetParameterSelection(
                                    window=self.root_window, object_name='Ariel',
-                                   object_class=moons_.Europa), row=5, column=3)
+                                   object_class=moons_.Ariel), row=5, column=3)
 
         tk_f.object_button(window=self.moons_frame, text='Titania',
                            function=lambda: sco.GetParameterSelection(
                                    window=self.root_window, object_name='Titania',
-                                   object_class=moons_.Europa), row=5, column=4)
+                                   object_class=moons_.Titania), row=5, column=4)
 
         tk_f.object_button(window=self.moons_frame, text='Oberon',
                            function=lambda: sco.GetParameterSelection(
                                    window=self.root_window, object_name='Oberon',
-                                   object_class=moons_.Europa), row=5, column=5)
+                                   object_class=moons_.Oberon), row=5, column=5)
 
         tk.Label(master=self.moons_frame, text='Neptune: ').grid(row=6,
                                                                  column=0,
