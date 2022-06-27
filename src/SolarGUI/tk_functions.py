@@ -4,7 +4,7 @@ Created on May 24 22:08:46 2022
 
 import tkinter as tk
 from tkinter import ttk
-from typing import Callable, Optional, Tuple, Union
+from typing import Callable, Tuple, Union
 
 from astropy.units.quantity import Quantity
 
@@ -23,9 +23,9 @@ except ImportError:
     from utilities import comparison
 
 
-def object_button(window: Union[tk.Tk, tk.Toplevel, tk.Frame], text: str,
-                  function: Callable, row: int = 1, column: int = 0,
-                  sticky: str = 'news', width: Optional[int] = None):
+def object_button(window: Union[tk.Tk, tk.Toplevel, tk.Frame], function: Callable,
+                  text: str, row: int = 1, column: int = 0, sticky: str = 'news',
+                  width: int = None):
     """
     Displays a button for a celestial object.
 
@@ -33,10 +33,10 @@ def object_button(window: Union[tk.Tk, tk.Toplevel, tk.Frame], text: str,
     ----------
     window : Union[tk.Tk, tk.Toplevel, tk.Frame]
         tk.Tk, tk.Toplevel window or tk.Frame to build the object inside.
-    text : str
-        Text to display on the button.
     function : Callable
         A function/method to apply on click of the button.
+    text : str
+        Text to display on the button.
     row : int, optional
         The row number to place the object in a tkinter grid. The default is 1.
     column : int, optional
@@ -57,9 +57,9 @@ def object_button(window: Union[tk.Tk, tk.Toplevel, tk.Frame], text: str,
                                                             pady=5)
 
 
-def place_object_properties(window: Union[tk.Tk, tk.Toplevel, tk.Frame], text: str,
-                            value: str, function: Callable, row: int, column: int,
-                            options: Tuple, default: str):
+def place_object_properties(window: Union[tk.Tk, tk.Toplevel, tk.Frame],
+                            function: Callable, text: str, value: str, row: int,
+                            column: int, options: Tuple, default: str):
     """
     Place the dropdown menu in the tkinter window grid.
 
@@ -67,12 +67,12 @@ def place_object_properties(window: Union[tk.Tk, tk.Toplevel, tk.Frame], text: s
     ----------
     window : Union[tk.Tk, tk.Toplevel]
         tk.Tk, tk.Toplevel window or tk.Frame to build the object inside.
+    function : Callable
+        A function/method to apply on selection of the dropdown item.
     text : str
         Value name for the celestial object property.
     value : str
         Value that the `get()` method will receive upon selection.
-    function : Callable
-        A function/method to apply on selection of the dropdown item.
     row : int
         The row number to place the dropdown menu object in a tkinter grid.
     column: int
@@ -125,10 +125,7 @@ def place_object_properties(window: Union[tk.Tk, tk.Toplevel, tk.Frame], text: s
     get_var = tk.StringVar()
 
     # taken from https://stackoverflow.com/a/68128312/3212945
-
-    state = 'readonly' if text.lower() not in ['eccentricity', 'geometric albedo',
-                                               'apparent magnitude',
-                                               'absolute magnitude'] else 'disabled'
+    state = 'disabled' if default == '' else 'readonly'
 
     dropdown = ttk.Combobox(master=window, textvariable=get_var, values=options,
                             state=state)
@@ -144,8 +141,8 @@ def place_object_properties(window: Union[tk.Tk, tk.Toplevel, tk.Frame], text: s
 
 
 def label_placement(window: Union[tk.Tk, tk.Toplevel, tk.Frame], text: str, row: float,
-                    column: float = 0, columnspan: Optional[int] = None,
-                    pad_y: Optional[int] = None, sticky: Optional[str] = 'news'):
+                    column: float = 0, columnspan: int = None, pad_y: int = None,
+                    sticky: str = 'news'):
     """
     Places a label on specified tkinter window.
 
@@ -161,7 +158,7 @@ def label_placement(window: Union[tk.Tk, tk.Toplevel, tk.Frame], text: str, row:
         The column number to place the object label in a tkinter grid. The default is 0.
     columnspan : int, optional
         The number of columns to adjust the width of label.
-    pad_y : Optional[int], optional
+    pad_y : int, optional
         Padding for the label in y direction. The default is None.
     sticky : str, optional
         Alignment of the text within the button. The default is 'news'.
@@ -176,8 +173,8 @@ def label_placement(window: Union[tk.Tk, tk.Toplevel, tk.Frame], text: str, row:
                columnspan=columnspan)
 
 
-def entry_placement(window: Union[tk.Tk, tk.Toplevel, tk.Frame], value: str, row: float,
-                    columns: float, width: Optional[int] = None) -> tk.Entry:
+def entry_placement(window: Union[tk.Tk, tk.Toplevel, tk.Frame], value: str, row: int,
+                    columns: int, width: int = None) -> tk.Entry:
     """
     Places the `tk.Entry` widget in the tkinter window.
 
@@ -187,11 +184,11 @@ def entry_placement(window: Union[tk.Tk, tk.Toplevel, tk.Frame], value: str, row
         tk.Tk, tk.Toplevel window or tk.Frame to build the object inside.
     value : str
         The value for given celestial object's property.
-    row : float
+    row : int
         The row number to place the tk.Entry in a tkinter grid.
-    columns : float
+    columns : int
         The column number to place the tk.Entry in a tkinter grid.
-    width : Optional[int], optional
+    width : int, optional
         Width of the tk.Entry widget. The default is None.
 
     Returns

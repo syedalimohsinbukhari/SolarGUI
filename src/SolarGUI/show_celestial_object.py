@@ -5,7 +5,7 @@ Created on May 24 22:12:45 2022
 import itertools
 import os
 import tkinter as tk
-from typing import Any, Callable, Union
+from typing import Any, Union
 
 from PIL import Image, ImageTk
 
@@ -15,10 +15,10 @@ img_path = f'{os.getcwd()}/src/SolarGUI/images/'
 # added try/except because pip bundle and main file do not work with same imports
 try:
     from . import tk_functions as tk_f
-    from .utilities import convert
+    from .utilities import convert, get_options
 except ImportError:
     import tk_functions as tk_f
-    from utilities import convert
+    from utilities import convert, get_options
 
 star_list = ['Sun']
 
@@ -78,7 +78,7 @@ class GetParameterSelection:
     """
 
     def __init__(self, window: Union[tk.Tk, tk.Toplevel, tk.Frame], object_name: str,
-                 object_class: Callable):
+                 object_class: Any):
         """
         Initialization function for GetParameterSelection class
 
@@ -88,7 +88,7 @@ class GetParameterSelection:
             tk.Tk, tk.Toplevel window or tk.Frame to build the object inside.
         object_name : str
             Name of the celestial object.
-        object_class : Callable
+        object_class : Any
             The python class for the celestial object.
 
         Returns
@@ -149,7 +149,7 @@ class Images_:
     """
 
     def __init__(self, window: Union[tk.Tk, tk.Toplevel, tk.Frame], object_name: str,
-                 object_class: Callable):
+                 object_class: Any):
         """
         Initialization function for Images_ class.
 
@@ -159,7 +159,7 @@ class Images_:
             tk.Tk, tk.Toplevel window or tk.Frame to build the object inside.
         object_name : str
             Name of the celestial object.
-        object_class : Callable
+        object_class : Any
             The python class for the celestial object.
 
         Returns
@@ -239,8 +239,8 @@ class Images_:
 
         tk_f.label_placement(window=self.img_frame, text='', row=4, column=0)
 
-        tk_f.object_button(window=self.img_frame, text='Next Image',
-                           function=lambda: next_image(), row=6, column=0, sticky='')
+        tk_f.object_button(window=self.img_frame, function=lambda: next_image(),
+                           text='Next Image', row=6, column=0, sticky='')
 
 
 def show_physical_parameters(window: Union[tk.Tk, tk.Toplevel, tk.Frame],
@@ -282,52 +282,59 @@ def show_physical_parameters(window: Union[tk.Tk, tk.Toplevel, tk.Frame],
     tk_f.label_placement(window=planet_window, text='Reset', row=0, column=3, pad_y=5)
 
     # placing the equivalency button
-    tk_f.object_button(window=planet_window, text='Equivalences',
+    tk_f.object_button(window=planet_window,
                        function=lambda: tk_f.place_equivalencies(window=planet_window,
                                                                  cel_object=object_class,
                                                                  equiv_type='physical',
                                                                  column=4),
-                       row=0, column=4, sticky='nsew', width=25)
+                       text='Equivalences', row=0, column=4, sticky='nsew', width=25)
 
     # placing the details of celestial objects one by one
-    tk_f.place_object_properties(window=planet_window, text='Age', value=object_class.age,
-                                 function=convert, row=1, column=0,
-                                 options=('s', 'yr', 'Myr', 'Gyr'), default='Gyr')
 
-    tk_f.place_object_properties(window=planet_window, text='Mass',
-                                 value=object_class.mass, function=convert, row=2,
-                                 column=0, options=('g', 'kg', 'M_earth', 'M_jupiter',
-                                                    'M_sun'), default='kg')
+    if object_class.age is None:
+        age_opt = tuple()
+        def_ = ''
+    else:
+        age_opt = ('s', 'yr', 'Myr', 'Gyr')
+        def_ = 'Gyr'
 
-    tk_f.place_object_properties(window=planet_window, text='Radius',
-                                 value=object_class.radius, function=convert, row=3,
-                                 column=0, options=('cm', 'm', 'km', 'R_earth',
-                                                    'R_jupiter', 'R_sun'), default='km')
+    tk_f.place_object_properties(window=planet_window, function=convert, text='Age',
+                                 value=object_class.age, row=1, column=0,
+                                 options=age_opt, default=def_)
 
-    tk_f.place_object_properties(window=planet_window, text='Volume',
-                                 value=object_class.volume, function=convert, row=4,
-                                 column=0, options=('cm^3', 'm^3', 'km^3'),
-                                 default='km^3')
+    tk_f.place_object_properties(window=planet_window, function=convert, text='Mass',
+                                 value=object_class.mass, row=2, column=0,
+                                 options=('g', 'kg', 'M_earth', 'M_jupiter',
+                                          'M_sun'), default='kg')
 
-    tk_f.place_object_properties(window=planet_window, text='Density',
-                                 value=object_class.density, function=convert, row=5,
-                                 column=0, options=('g/cm^3', 'kg/cm^3', 'kg/m^3'),
+    tk_f.place_object_properties(window=planet_window, function=convert, text='Radius',
+                                 value=object_class.radius, row=3, column=0,
+                                 options=('cm', 'm', 'km', 'R_earth',
+                                          'R_jupiter', 'R_sun'), default='km')
+
+    tk_f.place_object_properties(window=planet_window, function=convert, text='Volume',
+                                 value=object_class.volume, row=4, column=0,
+                                 options=('cm^3', 'm^3', 'km^3'), default='km^3')
+
+    tk_f.place_object_properties(window=planet_window, function=convert, text='Density',
+                                 value=object_class.density, row=5, column=0,
+                                 options=('g/cm^3', 'kg/cm^3', 'kg/m^3'),
                                  default='g/cm^3')
 
-    tk_f.place_object_properties(window=planet_window, text='Surface area',
-                                 value=object_class.surface_area, function=convert, row=6,
-                                 column=0, options=('cm^2', 'm^2', 'km^2'),
+    tk_f.place_object_properties(window=planet_window, function=convert,
+                                 text='Surface area', value=object_class.surface_area,
+                                 row=6, column=0, options=('cm^2', 'm^2', 'km^2'),
                                  default='km^2')
 
-    tk_f.place_object_properties(window=planet_window, text='Surface gravity',
-                                 value=object_class.surface_gravity, function=convert,
-                                 row=7, column=0, options=('cm/s^2', 'm/s^2', 'km/s^2'),
-                                 default='m/s^2')
+    tk_f.place_object_properties(window=planet_window, function=convert,
+                                 text='Surface gravity',
+                                 value=object_class.surface_gravity, row=7, column=0,
+                                 options=('cm/s^2', 'm/s^2', 'km/s^2'), default='m/s^2')
 
-    tk_f.place_object_properties(window=planet_window, text='Escape velocity',
-                                 value=object_class.escape_velocity, function=convert,
-                                 row=8, column=0, options=('cm/s', 'm/s', 'km/s', 'km/h'),
-                                 default='km/s')
+    tk_f.place_object_properties(window=planet_window, function=convert,
+                                 text='Escape velocity',
+                                 value=object_class.escape_velocity, row=8, column=0,
+                                 options=('cm/s', 'm/s', 'km/s', 'km/h'), default='km/s')
 
 
 def show_orbital_parameters(window: Union[tk.Tk, tk.Toplevel, tk.Frame], object_name: str,
@@ -380,64 +387,78 @@ def show_orbital_parameters(window: Union[tk.Tk, tk.Toplevel, tk.Frame], object_
     tk_f.label_placement(window=planet_window, text='Reset', row=0, column=3, pad_y=5)
 
     # placing the equivalency button
-    tk_f.object_button(window=planet_window, text='Equivalences',
+    tk_f.object_button(window=planet_window,
                        function=lambda: tk_f.place_equivalencies(window=planet_window,
                                                                  cel_object=object_class,
                                                                  equiv_type='orbital',
                                                                  column=4),
-                       row=0, column=4, sticky='nsew', width=25)
+                       text='Equivalences', row=0, column=4, sticky='nsew', width=25)
 
     # placing the details of celestial objects one by one
-    tk_f.place_object_properties(window=planet_window, text='Semi Major Axis',
-                                 value=object_class.semi_major_axis, function=convert,
-                                 row=1, column=0, options=('cm', 'm', 'km', 'Gm', 'AU',
-                                                           'lyr', 'pc'), default='AU')
+    tk_f.place_object_properties(window=planet_window, function=convert,
+                                 text='Semi Major Axis',
+                                 value=object_class.semi_major_axis, row=1, column=0,
+                                 options=('cm', 'm', 'km', 'Gm', 'AU',
+                                          'lyr', 'pc'), default='AU')
 
-    tk_f.place_object_properties(window=planet_window, text='Eccentricity',
-                                 value=object_class.eccentricity, function=convert, row=2,
-                                 column=0, options=tuple(), default='')
+    tk_f.place_object_properties(window=planet_window, function=convert,
+                                 text='Eccentricity', value=object_class.eccentricity,
+                                 row=2, column=0, options=tuple(), default='')
 
-    tk_f.place_object_properties(window=planet_window, text='Closest approach',
-                                 value=object_class.apo, function=convert, row=3,
+    tk_f.place_object_properties(window=planet_window, function=convert,
+                                 text='Closest approach', value=object_class.apo, row=3,
                                  column=0, options=('cm', 'm', 'km', 'Gm', 'AU',
                                                     'lyr', 'pc'), default='AU')
 
-    tk_f.place_object_properties(window=planet_window, text='Farthest approach',
-                                 value=object_class.peri, function=convert, row=4,
+    tk_f.place_object_properties(window=planet_window, function=convert,
+                                 text='Farthest approach', value=object_class.peri, row=4,
                                  column=0, options=('cm', 'm', 'km', 'Gm', 'AU', 'lyr',
                                                     'pc'), default='AU')
 
-    tk_f.place_object_properties(window=planet_window, text='Orbital Period',
-                                 value=object_class.orbital_period, function=convert,
-                                 row=5, column=0, options=('s', 'hr', 'day', 'yr', 'Myr'),
-                                 default='day')
+    t_orb_ = get_options(object_class.orbital_period, 't_orb')
 
-    tk_f.place_object_properties(window=planet_window, text='Av. Orbital Speed',
-                                 value=object_class.av_orbital_speed, function=convert,
-                                 row=6, column=0, options=('cm/s', 'm/s', 'km/s', 'km/h'),
-                                 default='km/s')
+    tk_f.place_object_properties(window=planet_window, function=convert,
+                                 text='Orbital Period', value=object_class.orbital_period,
+                                 row=5, column=0, options=t_orb_[0], default=t_orb_[1])
 
-    tk_f.place_object_properties(window=planet_window, text='Mean anomaly',
-                                 value=object_class.mean_anomaly, function=convert, row=7,
-                                 column=0, options=('deg', 'rad'), default='deg')
+    v_orb_ = get_options(object_class.av_orbital_speed, 'v_orb')
 
-    tk_f.place_object_properties(window=planet_window, text='Inclination',
-                                 value=object_class.inclination, function=convert, row=8,
-                                 column=0, options=('deg', 'rad'), default='deg')
+    tk_f.place_object_properties(window=planet_window, function=convert,
+                                 text='Av. Orbital Speed',
+                                 value=object_class.av_orbital_speed, row=6, column=0,
+                                 options=v_orb_[0], default=v_orb_[1])
 
-    tk_f.place_object_properties(window=planet_window, text='Longitude of Asc. node',
-                                 value=object_class.longitude_of_ascending_node,
-                                 function=convert, row=9, column=0,
-                                 options=('deg', 'rad'), default='deg')
+    anom_ = get_options(object_class.mean_anomaly, 'm_anom')
 
-    tk_f.place_object_properties(window=planet_window, text='Argument of peri.',
-                                 value=object_class.argument_of_perihelion,
-                                 function=convert, row=10, column=0,
-                                 options=('deg', 'rad'), default='deg')
+    tk_f.place_object_properties(window=planet_window, function=convert,
+                                 text='Mean anomaly', value=object_class.mean_anomaly,
+                                 row=7, column=0, options=anom_[0], default=anom_[1])
 
-    tk_f.place_object_properties(window=planet_window, text='Axial Tilt',
-                                 value=object_class.axial_tilt, function=convert, row=11,
-                                 column=0, options=('deg', 'rad'), default='deg')
+    incl_ = get_options(object_class.inclination, 'incl')
+
+    tk_f.place_object_properties(window=planet_window, function=convert,
+                                 text='Inclination', value=object_class.inclination,
+                                 row=8, column=0, options=incl_[0], default=incl_[1])
+
+    long_ = get_options(object_class.longitude_of_ascending_node, 'long')
+
+    tk_f.place_object_properties(window=planet_window, function=convert,
+                                 text='Longitude of Asc. node',
+                                 value=object_class.longitude_of_ascending_node, row=9,
+                                 column=0, options=long_[0], default=long_[1])
+
+    peri_ = get_options(object_class.argument_of_perihelion, 'arg')
+
+    tk_f.place_object_properties(window=planet_window, function=convert,
+                                 text='Argument of peri.',
+                                 value=object_class.argument_of_perihelion, row=10,
+                                 column=0, options=peri_[0], default=peri_[1])
+
+    tilt_ = get_options(object_class.axial_tilt, 'tilt')
+
+    tk_f.place_object_properties(window=planet_window, function=convert,
+                                 text='Axial Tilt', value=object_class.axial_tilt, row=11,
+                                 column=0, options=tilt_[0], default=tilt_[1])
 
 
 def show_observational_parameters(window: Union[tk.Tk, tk.Toplevel, tk.Frame],
@@ -485,35 +506,40 @@ def show_observational_parameters(window: Union[tk.Tk, tk.Toplevel, tk.Frame],
     tk_f.label_placement(window=planet_window, text='Reset', row=0, column=3, pad_y=5)
 
     # placing the equivalency button
-    tk_f.object_button(window=planet_window, text='Equivalences',
+    tk_f.object_button(window=planet_window,
                        function=lambda: tk_f.place_equivalencies(window=planet_window,
                                                                  cel_object=object_class,
                                                                  equiv_type='observation',
-                                                                 column=4), row=0,
-                       column=4, sticky='nsew', width=25)
+                                                                 column=4),
+                       text='Equivalences', row=0, column=4, sticky='nsew', width=25)
 
-    tk_f.place_object_properties(window=planet_window, text='Mean Apparent Magnitude',
-                                 value=object_class.apparent_magnitude, function=convert,
-                                 row=1, column=0, options=tuple(), default='')
+    tk_f.place_object_properties(window=planet_window, function=convert,
+                                 text='Mean Apparent Magnitude',
+                                 value=object_class.apparent_magnitude, row=1, column=0,
+                                 options=tuple(), default='')
 
-    tk_f.place_object_properties(window=planet_window, text='Geometric Albedo',
-                                 value=object_class.geom_albedo, function=convert, row=2,
-                                 column=0, options=tuple(), default='')
+    tk_f.place_object_properties(window=planet_window, function=convert,
+                                 text='Geometric Albedo', value=object_class.geom_albedo,
+                                 row=2, column=0, options=tuple(), default='')
 
-    tk_f.place_object_properties(window=planet_window, text='Distance from Earth',
-                                 value=object_class.distance_from_earth, function=convert,
-                                 row=3, column=0, options=('cm', 'm', 'km', 'Gm', 'AU',
-                                                           'lyr', 'pc'), default='km')
+    dist_ = get_options(object_class.distance_from_earth, 'dist')
 
-    tk_f.place_object_properties(window=planet_window, text='Absolute Magnitude',
-                                 value=object_class.absolute_magnitude, function=convert,
-                                 row=4, column=0, options=tuple(), default='')
+    tk_f.place_object_properties(window=planet_window, function=convert,
+                                 text='Distance from Earth',
+                                 value=object_class.distance_from_earth, row=3, column=0,
+                                 options=dist_[0], default=dist_[1])
 
-    tk_f.place_object_properties(window=planet_window, text='Mean angular size',
-                                 value=object_class.average_angular_size,
-                                 function=convert, row=5, column=0,
-                                 options=('arcsec', 'arcmin', 'deg', 'rad'),
-                                 default='arcsec')
+    tk_f.place_object_properties(window=planet_window, function=convert,
+                                 text='Absolute Magnitude',
+                                 value=object_class.absolute_magnitude, row=4, column=0,
+                                 options=tuple(), default='')
+
+    size_ = get_options(object_class.average_angular_size, 'size')
+
+    tk_f.place_object_properties(window=planet_window, function=convert,
+                                 text='Mean angular size',
+                                 value=object_class.average_angular_size, row=5, column=0,
+                                 options=size_[0], default=size_[1])
 
     if object_name not in star_list:
         if object_name in planet_list:
