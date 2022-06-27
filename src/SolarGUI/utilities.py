@@ -154,7 +154,7 @@ class GetPhysicalParameters:
 
 
 def comparison(c_win: Union[tk.Tk, tk.Toplevel, tk.Frame], primary_obj: Any, sec_obj: Any,
-               sec_lbl: str, comparison_type: str, column: float, reset: bool = False):
+               sec_lbl: str, comparison_type: str, column: int, reset: bool = False):
     """
     Compares the attributes of given celestial object (o_obj) with comparison celestial
     object (c_obj).
@@ -171,7 +171,7 @@ def comparison(c_win: Union[tk.Tk, tk.Toplevel, tk.Frame], primary_obj: Any, sec
         Text representing the comparison celestial object.
     comparison_type: str
         Whether the comparison should be of physical, orbital or observational parameters.
-    column: float
+    column: int
         Specify the column number where the equivalencies should be placed.
     reset : bool, optional
         Option to set the comparison entries to null. The default is False.
@@ -244,5 +244,58 @@ def Q(value: Union[float, np.ndarray], unit: str) -> Quantity:
     return Quantity(value=value, unit=unit)
 
 
-def ifNone(val: Optional[float] = None, unit: Optional[str] = None):
+def ifNone(val: float = None, unit: str = None) -> Optional[Quantity]:
+    """
+    Gives the output for input value and its units, or returns None
+
+    Parameters
+    ----------
+    val : float, optional
+        Magnitude of the physical quantity.
+    unit : str, optional
+        Unit of the physical quantity.
+
+    Returns
+    -------
+    Quantity or None
+
+    """
     return None if None in [val, unit] else Q(value=val, unit=unit)
+
+
+pars_ = {'t_orb': [('s', 'hr', 'day', 'yr', 'Myr'), 'day'],
+         'v_orb': [('cm/s', 'm/s', 'km/s', 'km/h'), 'km/s'],
+         'm_anom': [('deg', 'rad'), 'deg'],
+         'incl': [('deg', 'rad'), 'deg'],
+         'long': [('deg', 'rad'), 'deg'],
+         'arg': [('deg', 'rad'), 'deg'],
+         'tilt': [('deg', 'rad'), 'deg'],
+         'dist': [('cm', 'm', 'km', 'Gm', 'AU', 'lyr', 'pc'), 'km'],
+         'size': [('arcsec', 'arcmin', 'deg', 'rad'), 'arcsec']
+         }
+
+
+def get_options(value: Any, prop: str) -> tuple:
+    """
+    Chooses options and default values for the given physical quantity.
+
+    Parameters
+    ----------
+    value : Any
+        Physical quantity.
+    prop : str
+        String containing the property shortcode to check against.
+
+    Returns
+    -------
+    tuple
+        Tuple containing the options and the default value is returned
+
+    """
+    if value is None:
+        option_ = tuple()
+        default_ = ''
+    else:
+        option_, default_ = pars_[prop]
+
+    return option_, default_
