@@ -142,15 +142,6 @@ class CelestialObject:
             self.geom_albedo = geom_albedo
             self.distance_from_earth = dist_from_earth
 
-            if np.logical_and(av_ang_size is not None,
-                              np.logical_and(ang_min is None, ang_max is None)):
-                self.average_angular_size = av_ang_size
-            elif None not in [ang_min, ang_max]:
-                av_ = np.mean([ang_min.si.value, ang_max.si.value])
-                self.average_angular_size = utils.Q(av_, 'rad').to('arcsec')
-            else:
-                self.average_angular_size = None
-
             if absolute_mag is not None:
                 self.absolute_magnitude = absolute_mag
             elif None not in [self.apparent_magnitude, self.distance_from_earth]:
@@ -159,6 +150,15 @@ class CelestialObject:
                         distance=self.distance_from_earth)
             else:
                 self.absolute_magnitude = None
+
+            if np.logical_and(av_ang_size is not None,
+                              np.logical_and(ang_min is None, ang_max is None)):
+                self.average_angular_size = av_ang_size
+            elif None not in [ang_min, ang_max]:
+                av_ = np.mean([ang_min.si.value, ang_max.si.value])
+                self.average_angular_size = utils.Q(av_, 'rad').to('arcsec')
+            else:
+                self.average_angular_size = None
 
 
 c_ = CelestialObject
