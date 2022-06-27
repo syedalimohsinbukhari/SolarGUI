@@ -936,7 +936,7 @@ class Thalassa(c_):
     class ObservationalParameters(c_obs):
 
         def __init__(self):
-            d_ = n_ = Thalassa().OrbitalParameters().semi_major_axis
+            d_ = n_ - Thalassa().OrbitalParameters().semi_major_axis
 
             super(Thalassa().ObservationalParameters, self).__init__(dist_from_earth=d_,
                                                                      apparent_mag=23.32,
