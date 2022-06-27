@@ -95,7 +95,8 @@ as the value given.
 [^3]: The distance to Earth was found by subtracting the Planet-Moon distance from the Earth-Planet distance.
 [^4]: The absolute magnitude is calculated based on the following formula
 $M = m - 5\log10(d) + 5$
-which may not be appropriate for the calculation of absolute magnitude for planets.
+which may not be appropriate for the calculation of absolute magnitude for planets. This is planned to be fixed with the
+next release.
 [^5]: At times when only the angular size was provided, it was taken as the mean angular size of the object.
 
 ![img.png](images/SolarGUI__observationalParameters.png)
