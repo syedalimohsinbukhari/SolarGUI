@@ -10,7 +10,7 @@ from typing import Any, Union
 from PIL import Image, ImageTk
 
 # add path to images
-img_path = f'{os.getcwd()}/src/SolarGUI/images/'
+img_path = os.path.join(os.path.dirname(__file__), 'images/')
 
 # added try/except because pip bundle and main file do not work with same imports
 try:

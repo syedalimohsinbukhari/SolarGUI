@@ -30,7 +30,6 @@ except ImportError:
 # TODO: Random facts button.
 # TODO: Add citations
 # TODO: Add a section of papers that study different properties of the celestial objects.
-# TODO: Add more celestial bodies
 # TODO: See that no button opens more than one window
 
 
