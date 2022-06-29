@@ -30,7 +30,7 @@ The wheel can also be downloaded from
 this [wheel](https://github.com/AstrophysicsAndPython/SolarGUI/releases/download/v0.1.4/SolarGUI-0.1.4-py3-none-any.whl)
 link and installed via
 
-`pip install [download_directory]/SolarGUI-0.1.5-py3-none-any.whl`
+`pip install [download_directory]/SolarGUI-0.1.6-py3-none-any.whl`
 
 Once the SolarGUI has been installed, you can simply launch it from the terminal/installation environment via,
 
