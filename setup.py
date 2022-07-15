@@ -5,7 +5,7 @@ with open('README.md', 'r') as f:
 
 setup(
         name='SolarGUI',
-        version='0.1.6',
+        version='0.1.7',
         packages=find_packages(where="src"),
         url='https://github.com/AstrophysicsAndPython/SolarGUI',
         license='MIT',
@@ -16,8 +16,8 @@ setup(
         long_description=readme,
         long_description_content_type="text/markdown",
         python_requires=">=3.7.*, <3.10.*",
-        install_requires=["astropy>=4.3.1", "numpy>=1.21.6", "setuptools>=59.6.0",
-                          "pillow>=9.1.1"],
+        install_requires=["astropy~=4.3.1", "numpy~=1.21.6", "setuptools~=59.6.0",
+                          "pillow~=9.1.1"],
         include_package_data=True,
         classifiers=[
             "License :: OSI Approved :: MIT License",
