@@ -8,10 +8,7 @@ import numpy as np
 from astropy.units import Quantity
 from numpy import ndarray
 
-try:
-    from . import utilities as utils
-except ImportError:
-    import utilities as utils
+from . import utilities
 
 
 class CelestialObject:
@@ -47,8 +44,8 @@ class CelestialObject:
              self.density,
              self.surface_area,
              self.surface_gravity,
-             self.escape_velocity) = utils.GetPhysicalParameters(mass=mass,
-                                                                 radius=radius).get()
+             self.escape_velocity) = utilities.GetPhysicalParameters(mass=mass,
+                                                                     radius=radius).get()
 
     class OrbitalParameters:
         """
@@ -83,13 +80,13 @@ class CelestialObject:
 
             self.apo, self.peri = a_0 * (1 - ecc), a_0 * (1 + ecc)
 
-            self.orbital_period = utils.ifNone(val=orbital_period, unit='day')
-            self.av_orbital_speed = utils.ifNone(val=av_orbital_speed, unit='km/s')
-            self.mean_anomaly = utils.ifNone(val=mean_anom, unit='deg')
-            self.inclination = utils.ifNone(val=inclination, unit='deg')
-            self.longitude_of_ascending_node = utils.ifNone(val=long_asc, unit='deg')
-            self.argument_of_perihelion = utils.ifNone(val=arg_peri, unit='deg')
-            self.axial_tilt = utils.ifNone(val=axial_tilt, unit='deg')
+            self.orbital_period = utilities.ifNone(val=orbital_period, unit='day')
+            self.av_orbital_speed = utilities.ifNone(val=av_orbital_speed, unit='km/s')
+            self.mean_anomaly = utilities.ifNone(val=mean_anom, unit='deg')
+            self.inclination = utilities.ifNone(val=inclination, unit='deg')
+            self.longitude_of_ascending_node = utilities.ifNone(val=long_asc, unit='deg')
+            self.argument_of_perihelion = utilities.ifNone(val=arg_peri, unit='deg')
+            self.axial_tilt = utilities.ifNone(val=axial_tilt, unit='deg')
 
     class ObservationalParameters:
         """
@@ -145,7 +142,7 @@ class CelestialObject:
             if absolute_mag is not None:
                 self.absolute_magnitude = absolute_mag
             elif None not in [self.apparent_magnitude, self.distance_from_earth]:
-                self.absolute_magnitude = utils.get_absolute_magnitude(
+                self.absolute_magnitude = utilities.get_absolute_magnitude(
                         apparent_magnitude=self.apparent_magnitude,
                         distance=self.distance_from_earth)
             else:
@@ -156,7 +153,7 @@ class CelestialObject:
                 self.average_angular_size = av_ang_size
             elif None not in [ang_min, ang_max]:
                 av_ = np.mean([ang_min.si.value, ang_max.si.value])
-                self.average_angular_size = utils.Q(av_, 'rad').to('arcsec')
+                self.average_angular_size = utilities.Q(av_, 'rad').to('arcsec')
             else:
                 self.average_angular_size = None
 

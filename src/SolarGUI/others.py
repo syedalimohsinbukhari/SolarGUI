@@ -2,34 +2,27 @@
 Created on Jun 12 12:12:54 2022
 """
 
-try:
-    from .cel__CONSTANTS import SOL_EARTH_DISTANCE
-    from .cel__object import c_, c_phy, c_orb, c_obs
-    from .utilities import Q
-except ImportError:
-    from cel__CONSTANTS import SOL_EARTH_DISTANCE
-    from cel__object import c_, c_phy, c_orb, c_obs
-    from utilities import Q
+from . import CONSTANTS, _CelestialObject, utilities
 
 
-class Pluto(c_):
+class Pluto(_CelestialObject.c_):
 
-    class PhysicalParameters(c_phy):
+    class PhysicalParameters(_CelestialObject.c_phy):
 
         def __init__(self):
-            self.age = Q(4.603, 'Gyr')
-            self.mass = Q(1.303e22, 'kg')
-            self.radius = Q(1188.3, 'km')
+            self.age = utilities.Q(4.603, 'Gyr')
+            self.mass = utilities.Q(1.303e22, 'kg')
+            self.radius = utilities.Q(1188.3, 'km')
 
             super(Pluto().PhysicalParameters, self).__init__(mass=self.mass,
                                                              radius=self.radius)
 
-    class OrbitalParameters(c_orb):
+    class OrbitalParameters(_CelestialObject.c_orb):
 
         def __init__(self):
-            t_orb = Q(247.94, 'yr').to('day').value
+            t_orb = utilities.Q(247.94, 'yr').to('day').value
 
-            self.semi_major_axis = Q(39.482, 'AU')
+            self.semi_major_axis = utilities.Q(39.482, 'AU')
             self.eccentricity = 0.2488
 
             super(Pluto().OrbitalParameters, self).__init__(a_0=self.semi_major_axis,
@@ -42,12 +35,12 @@ class Pluto(c_):
                                                             arg_peri=113.834,
                                                             axial_tilt=122.53)
 
-    class ObservationalParameters(c_obs):
+    class ObservationalParameters(_CelestialObject.c_obs):
 
         def __init__(self):
-            ang_min, ang_max = Q(0.06, 'arcsec'), Q(0.11, 'arcsec')
+            ang_min, ang_max = utilities.Q(0.06, 'arcsec'), utilities.Q(0.11, 'arcsec')
 
-            d_ = (39.48 * SOL_EARTH_DISTANCE) - SOL_EARTH_DISTANCE
+            d_ = (39.48 * CONSTANTS.SOL_EARTH_DISTANCE) - CONSTANTS.SOL_EARTH_DISTANCE
 
             super(Pluto().ObservationalParameters, self).__init__(dist_from_earth=d_,
                                                                   ap_mag_min=16.3,

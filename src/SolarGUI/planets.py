@@ -2,34 +2,25 @@
 Created on Jun 12 12:12:24 2022
 """
 
-try:
-    from .cel__CONSTANTS import (EARTH_MASS, EARTH_RADIUS, JUPITER_MASS, JUPITER_RADIUS,
-                                 SOL_EARTH_DISTANCE, SOL_EARTH_PERIOD)
-    from .cel__object import c_, c_obs, c_orb, c_phy
-    from .utilities import Q
-except ImportError:
-    from cel__CONSTANTS import (EARTH_MASS, EARTH_RADIUS, JUPITER_MASS, JUPITER_RADIUS,
-                                SOL_EARTH_DISTANCE, SOL_EARTH_PERIOD)
-    from cel__object import c_, c_obs, c_orb, c_phy
-    from utilities import Q
+from . import CONSTANTS, _CelestialObject, utilities
 
 
-class Mercury(c_):
+class Mercury(_CelestialObject.c_):
 
-    class PhysicalParameters(c_phy):
+    class PhysicalParameters(_CelestialObject.c_phy):
 
         def __init__(self):
-            self.age = Q(4.503, 'Gyr')
-            self.mass = Q(3.3011e23, 'kg')
-            self.radius = Q(2439.8, 'km')
+            self.age = utilities.Q(4.503, 'Gyr')
+            self.mass = utilities.Q(3.3011e23, 'kg')
+            self.radius = utilities.Q(2439.8, 'km')
 
             super(Mercury().PhysicalParameters, self).__init__(mass=self.mass,
                                                                radius=self.radius)
 
-    class OrbitalParameters(c_orb):
+    class OrbitalParameters(_CelestialObject.c_orb):
 
         def __init__(self):
-            self.semi_major_axis = Q(0.387098, 'AU')
+            self.semi_major_axis = utilities.Q(0.387098, 'AU')
             self.eccentricity = 0.205630
 
             super(Mercury().OrbitalParameters, self).__init__(a_0=self.semi_major_axis,
@@ -42,12 +33,12 @@ class Mercury(c_):
                                                               arg_peri=29.124,
                                                               axial_tilt=2.04 / 60.)
 
-    class ObservationalParameters(c_obs):
+    class ObservationalParameters(_CelestialObject.c_obs):
 
         def __init__(self):
-            ang_min, ang_max = Q(4.5, 'arcmin'), Q(13, 'arcmin')
+            ang_min, ang_max = utilities.Q(4.5, 'arcmin'), utilities.Q(13, 'arcmin')
 
-            d_ = SOL_EARTH_DISTANCE - (0.387 * SOL_EARTH_DISTANCE)
+            d_ = CONSTANTS.SOL_EARTH_DISTANCE - (0.387 * CONSTANTS.SOL_EARTH_DISTANCE)
 
             super(Mercury().ObservationalParameters, self).__init__(dist_from_earth=d_,
                                                                     ap_mag_min=7.25,
@@ -57,22 +48,22 @@ class Mercury(c_):
                                                                     ang_max=ang_max)
 
 
-class Venus(c_):
+class Venus(_CelestialObject.c_):
 
-    class PhysicalParameters(c_phy):
+    class PhysicalParameters(_CelestialObject.c_phy):
 
         def __init__(self):
-            self.age = Q(4.503, 'Gyr')
-            self.mass = Q(4.8675e24, 'kg')
-            self.radius = Q(6051.8, 'km')
+            self.age = utilities.Q(4.503, 'Gyr')
+            self.mass = utilities.Q(4.8675e24, 'kg')
+            self.radius = utilities.Q(6051.8, 'km')
 
             super(Venus().PhysicalParameters, self).__init__(mass=self.mass,
                                                              radius=self.radius)
 
-    class OrbitalParameters(c_orb):
+    class OrbitalParameters(_CelestialObject.c_orb):
 
         def __init__(self):
-            self.semi_major_axis = Q(0.728213, 'AU')
+            self.semi_major_axis = utilities.Q(0.728213, 'AU')
             self.eccentricity = 0.006772
 
             super(Venus().OrbitalParameters, self).__init__(a_0=self.semi_major_axis,
@@ -85,13 +76,13 @@ class Venus(c_):
                                                             arg_peri=54.884,
                                                             axial_tilt=177.36)
 
-    class ObservationalParameters(c_obs):
+    class ObservationalParameters(_CelestialObject.c_obs):
 
         def __init__(self):
-            ang_min = Q(0, 'arcmin') + Q(9.7, 'arcsec')
-            ang_max = Q(1, 'arcmin') + Q(6, 'arcsec')
+            ang_min = utilities.Q(0, 'arcmin') + utilities.Q(9.7, 'arcsec')
+            ang_max = utilities.Q(1, 'arcmin') + utilities.Q(6, 'arcsec')
 
-            d_ = SOL_EARTH_DISTANCE - (0.723 * SOL_EARTH_DISTANCE)
+            d_ = CONSTANTS.SOL_EARTH_DISTANCE - (0.723 * CONSTANTS.SOL_EARTH_DISTANCE)
 
             super(Venus().ObservationalParameters, self).__init__(dist_from_earth=d_,
                                                                   ap_mag_min=-2.98,
@@ -101,24 +92,24 @@ class Venus(c_):
                                                                   ang_max=ang_max)
 
 
-class Earth(c_):
+class Earth(_CelestialObject.c_):
 
-    class PhysicalParameters(c_phy):
+    class PhysicalParameters(_CelestialObject.c_phy):
 
         def __init__(self):
-            self.age = Q(4.5682, 'Gyr')
-            self.mass = EARTH_MASS
-            self.radius = EARTH_RADIUS
+            self.age = utilities.Q(4.5682, 'Gyr')
+            self.mass = CONSTANTS.EARTH_MASS
+            self.radius = CONSTANTS.EARTH_RADIUS
 
             super(Earth().PhysicalParameters, self).__init__(mass=self.mass,
                                                              radius=self.radius)
 
-    class OrbitalParameters(c_orb):
+    class OrbitalParameters(_CelestialObject.c_orb):
 
         def __init__(self):
-            t_orb = SOL_EARTH_PERIOD.value
+            t_orb = CONSTANTS.SOL_EARTH_PERIOD.value
 
-            self.semi_major_axis = Q(1.0, 'AU')
+            self.semi_major_axis = utilities.Q(1.0, 'AU')
             self.eccentricity = 0.0167086
 
             super(Earth().OrbitalParameters, self).__init__(a_0=self.semi_major_axis,
@@ -132,22 +123,22 @@ class Earth(c_):
                                                             axial_tilt=23.4392811)
 
 
-class Mars(c_):
+class Mars(_CelestialObject.c_):
 
-    class PhysicalParameters(c_phy):
+    class PhysicalParameters(_CelestialObject.c_phy):
 
         def __init__(self):
-            self.age = Q(4.603, 'Gyr')
-            self.mass = Q(6.4171e23, 'kg')
-            self.radius = Q(3398.5, 'km')
+            self.age = utilities.Q(4.603, 'Gyr')
+            self.mass = utilities.Q(6.4171e23, 'kg')
+            self.radius = utilities.Q(3398.5, 'km')
 
             super(Mars().PhysicalParameters, self).__init__(mass=self.mass,
                                                             radius=self.radius)
 
-    class OrbitalParameters(c_orb):
+    class OrbitalParameters(_CelestialObject.c_orb):
 
         def __init__(self):
-            self.semi_major_axis = Q(1.52368055, 'AU')
+            self.semi_major_axis = utilities.Q(1.52368055, 'AU')
             self.eccentricity = 0.0934
 
             super(Mars().OrbitalParameters, self).__init__(a_0=self.semi_major_axis,
@@ -160,12 +151,12 @@ class Mars(c_):
                                                            arg_peri=286.5,
                                                            axial_tilt=25.19)
 
-    class ObservationalParameters(c_obs):
+    class ObservationalParameters(_CelestialObject.c_obs):
 
         def __init__(self):
-            ang_min, ang_max = Q(3.5, 'arcsec'), Q(25.1, 'arcsec')
+            ang_min, ang_max = utilities.Q(3.5, 'arcsec'), utilities.Q(25.1, 'arcsec')
 
-            d_ = (1.52 * SOL_EARTH_DISTANCE) - SOL_EARTH_DISTANCE
+            d_ = (1.52 * CONSTANTS.SOL_EARTH_DISTANCE) - CONSTANTS.SOL_EARTH_DISTANCE
 
             super(Mars().ObservationalParameters, self).__init__(dist_from_earth=d_,
                                                                  ap_mag_min=1.86,
@@ -175,24 +166,24 @@ class Mars(c_):
                                                                  ang_max=ang_max)
 
 
-class Jupiter(c_):
+class Jupiter(_CelestialObject.c_):
 
-    class PhysicalParameters(c_phy):
+    class PhysicalParameters(_CelestialObject.c_phy):
 
         def __init__(self):
-            self.age = Q(4.603, 'Gyr')
-            self.mass = JUPITER_MASS
-            self.radius = JUPITER_RADIUS
+            self.age = utilities.Q(4.603, 'Gyr')
+            self.mass = CONSTANTS.JUPITER_MASS
+            self.radius = CONSTANTS.JUPITER_RADIUS
 
             super(Jupiter().PhysicalParameters, self).__init__(mass=self.mass,
                                                                radius=self.radius)
 
-    class OrbitalParameters(c_orb):
+    class OrbitalParameters(_CelestialObject.c_orb):
 
         def __init__(self):
-            t_orb = Q(11.862, 'yr').to('day').value
+            t_orb = utilities.Q(11.862, 'yr').to('day').value
 
-            self.semi_major_axis = Q(5.2038, 'AU')
+            self.semi_major_axis = utilities.Q(5.2038, 'AU')
             self.eccentricity = 0.0489
 
             super(Jupiter().OrbitalParameters, self).__init__(a_0=self.semi_major_axis,
@@ -205,12 +196,12 @@ class Jupiter(c_):
                                                               arg_peri=273.867,
                                                               axial_tilt=3.13)
 
-    class ObservationalParameters(c_obs):
+    class ObservationalParameters(_CelestialObject.c_obs):
 
         def __init__(self):
-            ang_min, ang_max = Q(29.8, 'arcsec'), Q(50.1, 'arcsec')
+            ang_min, ang_max = utilities.Q(29.8, 'arcsec'), utilities.Q(50.1, 'arcsec')
 
-            d_ = (5.20 * SOL_EARTH_DISTANCE) - SOL_EARTH_DISTANCE
+            d_ = (5.20 * CONSTANTS.SOL_EARTH_DISTANCE) - CONSTANTS.SOL_EARTH_DISTANCE
 
             super(Jupiter().ObservationalParameters, self).__init__(dist_from_earth=d_,
                                                                     ap_mag_min=-1.66,
@@ -220,24 +211,24 @@ class Jupiter(c_):
                                                                     ang_max=ang_max)
 
 
-class Saturn(c_):
+class Saturn(_CelestialObject.c_):
 
-    class PhysicalParameters(c_phy):
+    class PhysicalParameters(_CelestialObject.c_phy):
 
         def __init__(self):
-            self.age = Q(4.503, 'Gyr')
-            self.mass = Q(5.6834e26, 'kg')
-            self.radius = Q(58232, 'km')
+            self.age = utilities.Q(4.503, 'Gyr')
+            self.mass = utilities.Q(5.6834e26, 'kg')
+            self.radius = utilities.Q(58232, 'km')
 
             super(Saturn().PhysicalParameters, self).__init__(mass=self.mass,
                                                               radius=self.radius)
 
-    class OrbitalParameters(c_orb):
+    class OrbitalParameters(_CelestialObject.c_orb):
 
         def __init__(self):
-            t_orb = Q(29.4571, 'yr').to('day').value
+            t_orb = utilities.Q(29.4571, 'yr').to('day').value
 
-            self.semi_major_axis = Q(9.5826, 'AU')
+            self.semi_major_axis = utilities.Q(9.5826, 'AU')
             self.eccentricity = 0.0565
 
             super(Saturn().OrbitalParameters, self).__init__(a_0=self.semi_major_axis,
@@ -250,12 +241,12 @@ class Saturn(c_):
                                                              arg_peri=339.392,
                                                              axial_tilt=26.73)
 
-    class ObservationalParameters(c_obs):
+    class ObservationalParameters(_CelestialObject.c_obs):
 
         def __init__(self):
-            ang_min, ang_max = Q(14.5, 'arcsec'), Q(20.1, 'arcsec')
+            ang_min, ang_max = utilities.Q(14.5, 'arcsec'), utilities.Q(20.1, 'arcsec')
 
-            d_ = (9.57 * SOL_EARTH_DISTANCE) - SOL_EARTH_DISTANCE
+            d_ = (9.57 * CONSTANTS.SOL_EARTH_DISTANCE) - CONSTANTS.SOL_EARTH_DISTANCE
 
             super(Saturn().ObservationalParameters, self).__init__(dist_from_earth=d_,
                                                                    ap_mag_min=1.17,
@@ -265,24 +256,24 @@ class Saturn(c_):
                                                                    ang_max=ang_max)
 
 
-class Uranus(c_):
+class Uranus(_CelestialObject.c_):
 
-    class PhysicalParameters(c_phy):
+    class PhysicalParameters(_CelestialObject.c_phy):
 
         def __init__(self):
-            self.age = Q(4.503, 'Gyr')
-            self.mass = Q(8.6810e25, 'kg')
-            self.radius = Q(25362, 'km')
+            self.age = utilities.Q(4.503, 'Gyr')
+            self.mass = utilities.Q(8.6810e25, 'kg')
+            self.radius = utilities.Q(25362, 'km')
 
             super(Uranus().PhysicalParameters, self).__init__(mass=self.mass,
                                                               radius=self.radius)
 
-    class OrbitalParameters(c_orb):
+    class OrbitalParameters(_CelestialObject.c_orb):
 
         def __init__(self):
-            t_orb = Q(84.0205, 'yr').to('day').value
+            t_orb = utilities.Q(84.0205, 'yr').to('day').value
 
-            self.semi_major_axis = Q(19.19126, 'AU')
+            self.semi_major_axis = utilities.Q(19.19126, 'AU')
             self.eccentricity = 0.04717
 
             super(Uranus().OrbitalParameters, self).__init__(a_0=self.semi_major_axis,
@@ -295,12 +286,12 @@ class Uranus(c_):
                                                              arg_peri=96.998857,
                                                              axial_tilt=97.77)
 
-    class ObservationalParameters(c_obs):
+    class ObservationalParameters(_CelestialObject.c_obs):
 
         def __init__(self):
-            ang_min, ang_max = Q(3.3, 'arcsec'), Q(4.1, 'arcsec')
+            ang_min, ang_max = utilities.Q(3.3, 'arcsec'), utilities.Q(4.1, 'arcsec')
 
-            d_ = (19.17 * SOL_EARTH_DISTANCE) - SOL_EARTH_DISTANCE
+            d_ = (19.17 * CONSTANTS.SOL_EARTH_DISTANCE) - CONSTANTS.SOL_EARTH_DISTANCE
 
             super(Uranus().ObservationalParameters, self).__init__(dist_from_earth=d_,
                                                                    ap_mag_min=6.03,
@@ -310,24 +301,24 @@ class Uranus(c_):
                                                                    ang_max=ang_max)
 
 
-class Neptune(c_):
+class Neptune(_CelestialObject.c_):
 
-    class PhysicalParameters(c_phy):
+    class PhysicalParameters(_CelestialObject.c_phy):
 
         def __init__(self):
-            self.age = Q(4.503, 'Gyr')
-            self.mass = Q(1.02413e26, 'kg')
-            self.radius = Q(24622, 'km')
+            self.age = utilities.Q(4.503, 'Gyr')
+            self.mass = utilities.Q(1.02413e26, 'kg')
+            self.radius = utilities.Q(24622, 'km')
 
             super(Neptune().PhysicalParameters, self).__init__(mass=self.mass,
                                                                radius=self.radius)
 
-    class OrbitalParameters(c_orb):
+    class OrbitalParameters(_CelestialObject.c_orb):
 
         def __init__(self):
-            t_orb = Q(164.8, 'yr').to('day').value
+            t_orb = utilities.Q(164.8, 'yr').to('day').value
 
-            self.semi_major_axis = Q(30.07, 'AU')
+            self.semi_major_axis = utilities.Q(30.07, 'AU')
             self.eccentricity = 0.008678
 
             super(Neptune().OrbitalParameters, self).__init__(a_0=self.semi_major_axis,
@@ -340,12 +331,12 @@ class Neptune(c_):
                                                               arg_peri=273.187,
                                                               axial_tilt=28.32)
 
-    class ObservationalParameters(c_obs):
+    class ObservationalParameters(_CelestialObject.c_obs):
 
         def __init__(self):
-            ang_min, ang_max = Q(2.2, 'arcsec'), Q(2.4, 'arcsec')
+            ang_min, ang_max = utilities.Q(2.2, 'arcsec'), utilities.Q(2.4, 'arcsec')
 
-            d_ = (30.18 * SOL_EARTH_DISTANCE) - SOL_EARTH_DISTANCE
+            d_ = (30.18 * CONSTANTS.SOL_EARTH_DISTANCE) - CONSTANTS.SOL_EARTH_DISTANCE
 
             super(Neptune().ObservationalParameters, self).__init__(dist_from_earth=d_,
                                                                     ap_mag_min=8,
