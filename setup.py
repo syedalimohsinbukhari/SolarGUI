@@ -1,4 +1,5 @@
-from setuptools import find_packages, setup
+from setuptools import find_packages
+from setuptools import setup
 
 with open('README.md', 'r') as f:
     readme = f.read()
@@ -7,10 +8,10 @@ setup(
         name='SolarGUI',
         version='0.1.7',
         packages=find_packages(where="src"),
-        url='https://github.com/AstrophysicsAndPython/SolarGUI',
+        url='https://github.com/syedalimohsinbukhari/SolarGUI',
         license='MIT',
-        author='Astrophysics and Python, Syed Ali Mohsin Bukhari',
-        author_email='astrophysicsandpython@gmail.com, syedali.b@outlook.com',
+        author='Syed Ali Mohsin Bukhari, Astrophysics and Python',
+        author_email='syedali.b@outlook.com, astrophysicsandpython@gmail.com',
         description='A program which contains information about the solar system '
                     'planets, moon, pluto, Sun, and more.',
         long_description=readme,

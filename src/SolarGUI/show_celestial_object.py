@@ -5,11 +5,14 @@ Created on May 24 22:12:45 2022
 import itertools
 import os
 import tkinter as tk
-from typing import Any, Union
+from typing import Any
+from typing import Union
 
-from PIL import Image, ImageTk
+from PIL import Image
+from PIL import ImageTk
 
-from . import tk_functions, utilities
+from . import tk_functions
+from . import utilities
 
 # add path to images
 img_path = os.path.join(os.path.dirname(__file__), 'images/')
@@ -131,21 +134,21 @@ class GetParameterSelection:
 
         if object_name not in moon_list or object_name == 'Moon':
             img = tk.Button(master=self.button_frame, text='Images',
-                            command=lambda: Images_(window=window,
+                            command=lambda: _Images(window=window,
                                                     object_name=object_name,
                                                     object_class=object_class).adjustments())
             img.grid(row=0, column=3, sticky='news')
 
 
-class Images_:
+class _Images:
     """
-    Images_ class holds the code for displaying images of the celestial objects.
+    _Images class holds the code for displaying images of the celestial objects.
     """
 
     def __init__(self, window: Union[tk.Tk, tk.Toplevel, tk.Frame], object_name: str,
                  object_class: Any):
         """
-        Initialization function for Images_ class.
+        Initialization function for _Images class.
 
         Parameters
         ----------
