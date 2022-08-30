@@ -4,12 +4,18 @@ Created on May 24 22:08:46 2022
 
 import tkinter as tk
 from tkinter import ttk
-from typing import Any, Callable, Tuple, Union
+from typing import Any
+from typing import Callable
+from typing import Tuple
+from typing import Union
 
 import numpy as np
 from astropy.units.quantity import Quantity
 
-from . import moons, others, planets, stars
+from . import moons
+from . import others
+from . import planets
+from . import stars
 
 
 def object_button(window: Union[tk.Tk, tk.Toplevel, tk.Frame], function: Callable,
@@ -402,36 +408,36 @@ def change_value(entry: tk.Entry, value: Union[Quantity, str], change_to: str,
     entry.insert(index=0, string=function(parameter=value, change_to=change_to))
 
 
-def image_placement(window: Union[tk.Tk, tk.Toplevel, tk.Frame], text: str, row: int,
-                    column: int = 0, wraplength: int = 1550, justify: str = tk.CENTER,
-                    sticky: str = 'news'):
-    """
-    Places images and their descriptions in one of tk.Tk, tk.Toplevel, or tk.Frame
-
-    Parameters
-    ----------
-    window : Union[tk.Tk, tk.Toplevel, tk.Frame]
-        tk.Tk, tk.Toplevel window or tk.Frame to build the object inside.
-    text : str
-        Text to display with the image.
-    row : int
-        The row number to place the image in a tkinter widget.
-    column : int, optional
-        The column number to place the image in a tkinter widget. The default is 0.
-    wraplength : int, optional
-        Length after which the text is to be wrapped. The default is 1550.
-    justify : str, optional
-        Justification of text placement in the tkinter widget. The default is tk.CENTER.
-    sticky : str, optional
-        Alignment of the text within the label. The default is 'news'.
-
-    Returns
-    -------
-    None.
-
-    """
-    tk.Label(master=window, text=text, wraplength=wraplength,
-             justify=justify).grid(row=row, column=column, sticky=sticky)
+# def image_placement(window: Union[tk.Tk, tk.Toplevel, tk.Frame], text: str, row: int,
+#                     column: int = 0, wraplength: int = 1550, justify: str = tk.CENTER,
+#                     sticky: str = 'news'):
+#     """
+#     Places images and their descriptions in one of tk.Tk, tk.Toplevel, or tk.Frame
+#
+#     Parameters
+#     ----------
+#     window : Union[tk.Tk, tk.Toplevel, tk.Frame]
+#         tk.Tk, tk.Toplevel window or tk.Frame to build the object inside.
+#     text : str
+#         Text to display with the image.
+#     row : int
+#         The row number to place the image in a tkinter widget.
+#     column : int, optional
+#         The column number to place the image in a tkinter widget. The default is 0.
+#     wraplength : int, optional
+#         Length after which the text is to be wrapped. The default is 1550.
+#     justify : str, optional
+#         Justification of text placement in the tkinter widget. The default is tk.CENTER.
+#     sticky : str, optional
+#         Alignment of the text within the label. The default is 'news'.
+#
+#     Returns
+#     -------
+#     None.
+#
+#     """
+#     tk.Label(master=window, text=text, wraplength=wraplength,
+#              justify=justify).grid(row=row, column=column, sticky=sticky)
 
 
 def comparison(c_win: Union[tk.Tk, tk.Toplevel, tk.Frame], primary_obj: Any, sec_obj: Any,

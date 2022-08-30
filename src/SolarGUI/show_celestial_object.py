@@ -2,20 +2,15 @@
 Created on May 24 22:12:45 2022
 """
 
-import itertools
-import os
 import tkinter as tk
 from typing import Any
 from typing import Union
-
-from PIL import Image
-from PIL import ImageTk
 
 from . import tk_functions
 from . import utilities
 
 # add path to images
-img_path = os.path.join(os.path.dirname(__file__), 'images/')
+# img_path = os.path.join(os.path.dirname(__file__), 'images/')
 
 star_list = ['Sun']
 
@@ -132,112 +127,112 @@ class GetParameterSelection:
                                          object_class=object_class))
             self.obs.grid(row=0, column=2, sticky='news')
 
-        if object_name not in moon_list or object_name == 'Moon':
-            img = tk.Button(master=self.button_frame, text='Images',
-                            command=lambda: _Images(window=window,
-                                                    object_name=object_name,
-                                                    object_class=object_class).adjustments())
-            img.grid(row=0, column=3, sticky='news')
+        # if object_name not in moon_list or object_name == 'Moon':
+        #     img = tk.Button(master=self.button_frame, text='Images',
+        #                     command=lambda: _Images(window=window,
+        #                                             object_name=object_name,
+        #                                             object_class=object_class).adjustments())
+        #     img.grid(row=0, column=3, sticky='news')
 
 
-class _Images:
-    """
-    _Images class holds the code for displaying images of the celestial objects.
-    """
-
-    def __init__(self, window: Union[tk.Tk, tk.Toplevel, tk.Frame], object_name: str,
-                 object_class: Any):
-        """
-        Initialization function for _Images class.
-
-        Parameters
-        ----------
-        window : Union[tk.Tk, tk.Toplevel, tk.Frame]
-            tk.Tk, tk.Toplevel window or tk.Frame to build the object inside.
-        object_name : str
-            Name of the celestial object.
-        object_class : Any
-            The python class for the celestial object.
-
-        Returns
-        -------
-        None.
-
-        """
-
-        screen_w, screen_h = window.winfo_screenwidth(), window.winfo_screenheight()
-        self.w, self.h = int(screen_w * 0.8), int(screen_h * 0.8)
-        self.img_win = tk.Toplevel(master=window)
-        self.object_class = object_class
-        self.object_name = object_name
-        self.img_frame = None
-        self.img_win.resizable(False, False)
-
-    def adjustments(self):
-        """
-        Adjusts the image in the provided tkinter widget
-
-        Returns
-        -------
-        None.
-
-        """
-
-        self.img_win.geometry(newGeometry=f'{self.w}x{self.h}')
-        self.img_win.title(f'{self.object_name} images')
-
-        self.img_frame = tk.Frame(master=self.img_win)
-        self.img_frame.pack()
-
-        # iter and next_image() ideas taken from
-        # https://stackoverflow.com/a/49919635/3212945
-        path = f'{img_path}{self.object_name.lower()}/'
-        img_list = [f for f in os.listdir(path) if
-                    f.endswith('.png') or f.endswith('.jpg')]
-        img_ = itertools.cycle(img_list)
-
-        def next_image():
-            """
-            Iterator function to get the next image on button click
-
-            Returns
-            -------
-            None.
-
-            """
-
-            img = next(img_)
-            img_name = img.title()
-            img_title = img_name.split(' : ')[0]
-            img_descr = f"{img_name.split(' : ')[1].split(' ~ ')[0]}.".capitalize()
-            img_credits = f"{img_name.split(' ~ ')[1].split('.Jp')[0]}.".upper()
-
-            # thumbnail idea taken from https://stackoverflow.com/a/66506713
-            img = Image.open(f'{path}{img}')
-            img.thumbnail((self.w, self.h - 120))
-            img = ImageTk.PhotoImage(img)
-
-            self.img_frame.picture = img
-            self.img_frame.label = tk.Label(master=self.img_frame,
-                                            image=self.img_frame.picture)
-            self.img_frame.label.grid(row=0, column=0, sticky='news')
-
-            tk_functions.image_placement(window=self.img_frame, text=img_title, row=1)
-
-            tk_functions.label_placement(window=self.img_frame, text='', row=2)
-
-            tk_functions.image_placement(window=self.img_frame, text=img_descr, row=3)
-
-            tk_functions.label_placement(window=self.img_frame, text='', row=4)
-
-            tk_functions.image_placement(window=self.img_frame, text=img_credits, row=5)
-
-        next_image()
-
-        tk_functions.label_placement(window=self.img_frame, text='', row=4, column=0)
-
-        tk_functions.object_button(window=self.img_frame, function=lambda: next_image(),
-                                   text='Next Image', row=6, column=0, sticky='')
+# class _Images:
+#     """
+#     _Images class holds the code for displaying images of the celestial objects.
+#     """
+#
+#     def __init__(self, window: Union[tk.Tk, tk.Toplevel, tk.Frame], object_name: str,
+#                  object_class: Any):
+#         """
+#         Initialization function for _Images class.
+#
+#         Parameters
+#         ----------
+#         window : Union[tk.Tk, tk.Toplevel, tk.Frame]
+#             tk.Tk, tk.Toplevel window or tk.Frame to build the object inside.
+#         object_name : str
+#             Name of the celestial object.
+#         object_class : Any
+#             The python class for the celestial object.
+#
+#         Returns
+#         -------
+#         None.
+#
+#         """
+#
+#         screen_w, screen_h = window.winfo_screenwidth(), window.winfo_screenheight()
+#         self.w, self.h = int(screen_w * 0.8), int(screen_h * 0.8)
+#         self.img_win = tk.Toplevel(master=window)
+#         self.object_class = object_class
+#         self.object_name = object_name
+#         self.img_frame = None
+#         self.img_win.resizable(False, False)
+#
+#     def adjustments(self):
+#         """
+#         Adjusts the image in the provided tkinter widget
+#
+#         Returns
+#         -------
+#         None.
+#
+#         """
+#
+#         self.img_win.geometry(newGeometry=f'{self.w}x{self.h}')
+#         self.img_win.title(f'{self.object_name} images')
+#
+#         self.img_frame = tk.Frame(master=self.img_win)
+#         self.img_frame.pack()
+#
+#         # iter and next_image() ideas taken from
+#         # https://stackoverflow.com/a/49919635/3212945
+#         path = f'{img_path}{self.object_name.lower()}/'
+#         img_list = [f for f in os.listdir(path) if
+#                     f.endswith('.png') or f.endswith('.jpg')]
+#         img_ = itertools.cycle(img_list)
+#
+#         def next_image():
+#             """
+#             Iterator function to get the next image on button click
+#
+#             Returns
+#             -------
+#             None.
+#
+#             """
+#
+#             img = next(img_)
+#             img_name = img.title()
+#             img_title = img_name.split(' : ')[0]
+#             img_descr = f"{img_name.split(' : ')[1].split(' ~ ')[0]}.".capitalize()
+#             img_credits = f"{img_name.split(' ~ ')[1].split('.Jp')[0]}.".upper()
+#
+#             # thumbnail idea taken from https://stackoverflow.com/a/66506713
+#             img = Image.open(f'{path}{img}')
+#             img.thumbnail((self.w, self.h - 120))
+#             img = ImageTk.PhotoImage(img)
+#
+#             self.img_frame.picture = img
+#             self.img_frame.label = tk.Label(master=self.img_frame,
+#                                             image=self.img_frame.picture)
+#             self.img_frame.label.grid(row=0, column=0, sticky='news')
+#
+#             tk_functions.image_placement(window=self.img_frame, text=img_title, row=1)
+#
+#             tk_functions.label_placement(window=self.img_frame, text='', row=2)
+#
+#             tk_functions.image_placement(window=self.img_frame, text=img_descr, row=3)
+#
+#             tk_functions.label_placement(window=self.img_frame, text='', row=4)
+#
+#             tk_functions.image_placement(window=self.img_frame, text=img_credits, row=5)
+#
+#         next_image()
+#
+#         tk_functions.label_placement(window=self.img_frame, text='', row=4, column=0)
+#
+#         tk_functions.object_button(window=self.img_frame, function=lambda: next_image(),
+#                                    text='Next Image', row=6, column=0, sticky='')
 
 
 def show_physical_parameters(window: Union[tk.Tk, tk.Toplevel, tk.Frame],

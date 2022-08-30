@@ -2,10 +2,10 @@
 
 A program which contains information about the solar system planets, moon, pluto, Sun, and more.
 
-![GitHub top language](https://img.shields.io/github/languages/top/AstrophysicsAndPython/SolarGUI)
-![Lines of code](https://img.shields.io/tokei/lines/github/AstrophysicsAndPython/SolarGUI)
-![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/AstrophysicsAndPython/SolarGUI)
-![GitHub](https://img.shields.io/github/license/AstrophysicsAndPython/SolarGUI)
+![GitHub top language](https://img.shields.io/github/languages/top/AstrophysicsAndPython/SolarGUI?style=for-the-badge)
+![Lines of code](https://img.shields.io/tokei/lines/github/AstrophysicsAndPython/SolarGUI?style=for-the-badge)
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/AstrophysicsAndPython/SolarGUI?style=for-the-badge)
+![GitHub](https://img.shields.io/github/license/AstrophysicsAndPython/SolarGUI?style=for-the-badge)
 
 ## What it is?
 
@@ -106,7 +106,10 @@ see the equivalent values for other celestial objects.
 
 ![img.png](images/SolarGUI__equivalencies.png)
 
-The images button contains a few selected images for the celestial objects (for now, only Sun and the planets including
-Pluto)
+### Note: The images feature is currently disabled as it makes the package quite heavy
 
-![img.png](images/SolarGUI__images.png)
+~~The images button contains a few selected images for the celestial objects (for now, only Sun and the planets
+including
+Pluto)~~
+
+[//]: # (![img.png]&#40;images/SolarGUI__images.png&#41;)

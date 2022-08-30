@@ -2,7 +2,9 @@
 Created on May 26 01:47:13 2022
 """
 
-from typing import Any, Optional, Union
+from typing import Any
+from typing import Optional
+from typing import Union
 
 import numpy as np
 from astropy.constants import codata2018 as c_2018
@@ -167,7 +169,7 @@ def Q(value: Union[float, np.ndarray], unit: str) -> Quantity:
     return Quantity(value=value, unit=unit)
 
 
-def ifNone(val: float = None, unit: str = None) -> Optional[Quantity]:
+def if_none(val: float = None, unit: str = None) -> Optional[Quantity]:
     """
     Gives the output for input value and its units, or returns None
 

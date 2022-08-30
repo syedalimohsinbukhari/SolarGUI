@@ -2,7 +2,8 @@
 Created on Jun 25 23:53:34 2022
 """
 
-from typing import Optional, Union
+from typing import Optional
+from typing import Union
 
 import numpy as np
 from astropy.units import Quantity
@@ -80,13 +81,13 @@ class CelestialObject:
 
             self.apo, self.peri = a_0 * (1 - ecc), a_0 * (1 + ecc)
 
-            self.orbital_period = utilities.ifNone(val=orbital_period, unit='day')
-            self.av_orbital_speed = utilities.ifNone(val=av_orbital_speed, unit='km/s')
-            self.mean_anomaly = utilities.ifNone(val=mean_anom, unit='deg')
-            self.inclination = utilities.ifNone(val=inclination, unit='deg')
-            self.longitude_of_ascending_node = utilities.ifNone(val=long_asc, unit='deg')
-            self.argument_of_perihelion = utilities.ifNone(val=arg_peri, unit='deg')
-            self.axial_tilt = utilities.ifNone(val=axial_tilt, unit='deg')
+            self.orbital_period = utilities.if_none(val=orbital_period, unit='day')
+            self.av_orbital_speed = utilities.if_none(val=av_orbital_speed, unit='km/s')
+            self.mean_anomaly = utilities.if_none(val=mean_anom, unit='deg')
+            self.inclination = utilities.if_none(val=inclination, unit='deg')
+            self.longitude_of_ascending_node = utilities.if_none(val=long_asc, unit='deg')
+            self.argument_of_perihelion = utilities.if_none(val=arg_peri, unit='deg')
+            self.axial_tilt = utilities.if_none(val=axial_tilt, unit='deg')
 
     class ObservationalParameters:
         """
