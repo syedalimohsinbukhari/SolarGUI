@@ -2,8 +2,7 @@
 Created on Jun 25 23:53:34 2022
 """
 
-from typing import Optional
-from typing import Union
+from typing import Optional, Union
 
 import numpy as np
 from astropy.units import Quantity
@@ -144,8 +143,8 @@ class CelestialObject:
                 self.absolute_magnitude = absolute_mag
             elif None not in [self.apparent_magnitude, self.distance_from_earth]:
                 self.absolute_magnitude = utilities.get_absolute_magnitude(
-                        apparent_magnitude=self.apparent_magnitude,
-                        distance=self.distance_from_earth)
+                    apparent_magnitude=self.apparent_magnitude,
+                    distance=self.distance_from_earth)
             else:
                 self.absolute_magnitude = None
 

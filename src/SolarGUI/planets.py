@@ -2,7 +2,7 @@
 Created on Jun 12 12:12:24 2022
 """
 
-from . import CONSTANTS, _CelestialObject, utilities
+from . import _CelestialObject, CONSTANTS, utilities
 
 
 class Mercury(_CelestialObject.c_):

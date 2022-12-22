@@ -2,9 +2,7 @@
 Created on May 26 01:47:13 2022
 """
 
-from typing import Any
-from typing import Optional
-from typing import Union
+from typing import Any, Optional, Tuple, Union
 
 import numpy as np
 from astropy.constants import codata2018 as c_2018
@@ -79,7 +77,7 @@ class GetPhysicalParameters:
         self.mass = mass
         self.radius = radius
 
-    def volume(self):
+    def volume(self) -> Quantity:
         """
         Calculate the volume of the celestial object assuming the object in spherical.
 
@@ -91,7 +89,7 @@ class GetPhysicalParameters:
         """
         return (4 / 3) * np.pi * self.radius**3
 
-    def density(self):
+    def density(self) -> Quantity:
         """
         Calculate the mass density of the celestial object.
 
@@ -103,7 +101,7 @@ class GetPhysicalParameters:
         """
         return (self.mass / self.volume()).to('g/cm^3')
 
-    def surface_area(self):
+    def surface_area(self) -> Quantity:
         """
         Calculate the surface area of the celestial object.
 
@@ -115,7 +113,7 @@ class GetPhysicalParameters:
         """
         return 4 * np.pi * self.radius**2
 
-    def surface_gravity(self):
+    def surface_gravity(self) -> Quantity:
         """
         Calculate the surface gravity of the celestial object.
 
@@ -127,7 +125,7 @@ class GetPhysicalParameters:
         """
         return (c_2018.G * (self.mass / self.radius**2)).si
 
-    def escape_velocity(self):
+    def escape_velocity(self) -> Quantity:
         """
         Calculate the escape velocity of the celestial object.
 
@@ -139,14 +137,12 @@ class GetPhysicalParameters:
         """
         return (np.sqrt(2 * c_2018.G * self.mass * self.radius**-1)).to('km/s')
 
-    def get(self):
+    def get(self) -> Tuple[Quantity, Quantity, Quantity, Quantity, Quantity]:
         """
-        Get the values of volume, density, surface area, and surface gravity of the
-        celestial object.
+        Get the values of volume, density, surface area, and surface gravity of the celestial object.
 
         """
-        return (self.volume(), self.density(), self.surface_area(),
-                self.surface_gravity(), self.escape_velocity())
+        return self.volume(), self.density(), self.surface_area(), self.surface_gravity(), self.escape_velocity()
 
 
 def Q(value: Union[float, np.ndarray], unit: str) -> Quantity:

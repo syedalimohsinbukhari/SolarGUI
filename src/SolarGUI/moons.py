@@ -2,7 +2,7 @@
 Created on Jun 12 12:12:36 2022
 """
 
-from . import CONSTANTS, _CelestialObject, others, planets, utilities
+from . import _CelestialObject, CONSTANTS, others, planets, utilities
 
 m_ = planets.Mars().ObservationalParameters().distance_from_earth
 j_ = planets.Jupiter().ObservationalParameters().distance_from_earth
