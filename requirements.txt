@@ -1,7 +1,7 @@
-astropy>=4.3.1
+astropy==4.3.1
 
-numpy>=1.21.6
+numpy==1.21.6
 
-setuptools>=59.6.0
+setuptools==65.6.3
 
-pillow>=9.1.1
+pillow==9.3.0

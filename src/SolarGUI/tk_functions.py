@@ -4,23 +4,18 @@ Created on May 24 22:08:46 2022
 
 import tkinter as tk
 from tkinter import ttk
-from typing import Callable, Tuple, Union
+from typing import Any
+from typing import Callable
+from typing import Tuple
+from typing import Union
 
+import numpy as np
 from astropy.units.quantity import Quantity
 
-try:
-    from .cel__moons import Moon
-    from .cel__others import Pluto
-    from .cel__planets import (Mercury, Venus, Earth, Mars, Jupiter, Saturn, Uranus,
-                               Neptune)
-    from .cel__stars import Sun
-    from .utilities import comparison
-except ImportError:
-    from cel__moons import Moon
-    from cel__others import Pluto
-    from cel__planets import Mercury, Venus, Earth, Mars, Jupiter, Saturn, Uranus, Neptune
-    from cel__stars import Sun
-    from utilities import comparison
+from . import moons
+from . import others
+from . import planets
+from . import stars
 
 
 def object_button(window: Union[tk.Tk, tk.Toplevel, tk.Frame], function: Callable,
@@ -244,7 +239,7 @@ def place_equivalencies(window: Union[tk.Tk, tk.Toplevel, tk.Frame], cel_object:
     equiv_radio_buttons(window=equiv_window,
                         function=lambda: comparison(c_win=parent_window,
                                                     primary_obj=cel_object,
-                                                    sec_obj=Sun, sec_lbl='Sun',
+                                                    sec_obj=stars.Sun, sec_lbl='Sun',
                                                     comparison_type=equiv_type,
                                                     column=column), text='Sun',
                         value='Sun', radio_val=get_val, row=0, column=0, state=state)
@@ -252,7 +247,7 @@ def place_equivalencies(window: Union[tk.Tk, tk.Toplevel, tk.Frame], cel_object:
     equiv_radio_buttons(window=equiv_window,
                         function=lambda: comparison(c_win=parent_window,
                                                     primary_obj=cel_object,
-                                                    sec_obj=Mercury,
+                                                    sec_obj=planets.Mercury,
                                                     sec_lbl='Mercury',
                                                     comparison_type=equiv_type,
                                                     column=column), text='Mercury',
@@ -261,7 +256,7 @@ def place_equivalencies(window: Union[tk.Tk, tk.Toplevel, tk.Frame], cel_object:
     equiv_radio_buttons(window=equiv_window,
                         function=lambda: comparison(c_win=parent_window,
                                                     primary_obj=cel_object,
-                                                    sec_obj=Venus, sec_lbl='Venus',
+                                                    sec_obj=planets.Venus, sec_lbl='Venus',
                                                     comparison_type=equiv_type,
                                                     column=column), text='Venus',
                         value='Venus', radio_val=get_val, row=0, column=2)
@@ -271,7 +266,7 @@ def place_equivalencies(window: Union[tk.Tk, tk.Toplevel, tk.Frame], cel_object:
     equiv_radio_buttons(window=equiv_window,
                         function=lambda: comparison(c_win=parent_window,
                                                     primary_obj=cel_object,
-                                                    sec_obj=Earth, sec_lbl='Earth',
+                                                    sec_obj=planets.Earth, sec_lbl='Earth',
                                                     comparison_type=equiv_type,
                                                     column=column), text='Earth',
                         value='Earth', radio_val=get_val, row=0, column=3, state=state)
@@ -281,7 +276,7 @@ def place_equivalencies(window: Union[tk.Tk, tk.Toplevel, tk.Frame], cel_object:
     equiv_radio_buttons(window=equiv_window,
                         function=lambda: comparison(c_win=parent_window,
                                                     primary_obj=cel_object,
-                                                    sec_obj=Moon, sec_lbl='Moon',
+                                                    sec_obj=moons.Moon, sec_lbl='Moon',
                                                     comparison_type=equiv_type,
                                                     column=column), text='Moon',
                         value='Moon', radio_val=get_val, row=1, column=0, state=state)
@@ -289,7 +284,7 @@ def place_equivalencies(window: Union[tk.Tk, tk.Toplevel, tk.Frame], cel_object:
     equiv_radio_buttons(window=equiv_window,
                         function=lambda: comparison(c_win=parent_window,
                                                     primary_obj=cel_object,
-                                                    sec_obj=Mars, sec_lbl='Mars',
+                                                    sec_obj=planets.Mars, sec_lbl='Mars',
                                                     comparison_type=equiv_type,
                                                     column=column), text='Mars',
                         value='Mars', radio_val=get_val, row=1, column=1)
@@ -297,7 +292,7 @@ def place_equivalencies(window: Union[tk.Tk, tk.Toplevel, tk.Frame], cel_object:
     equiv_radio_buttons(window=equiv_window,
                         function=lambda: comparison(c_win=parent_window,
                                                     primary_obj=cel_object,
-                                                    sec_obj=Jupiter,
+                                                    sec_obj=planets.Jupiter,
                                                     sec_lbl='Jupiter',
                                                     comparison_type=equiv_type,
                                                     column=column), text='Jupiter',
@@ -306,7 +301,7 @@ def place_equivalencies(window: Union[tk.Tk, tk.Toplevel, tk.Frame], cel_object:
     equiv_radio_buttons(window=equiv_window,
                         function=lambda: comparison(c_win=parent_window,
                                                     primary_obj=cel_object,
-                                                    sec_obj=Saturn,
+                                                    sec_obj=planets.Saturn,
                                                     sec_lbl='Saturn',
                                                     comparison_type=equiv_type,
                                                     column=column), text='Saturn',
@@ -315,7 +310,7 @@ def place_equivalencies(window: Union[tk.Tk, tk.Toplevel, tk.Frame], cel_object:
     equiv_radio_buttons(window=equiv_window,
                         function=lambda: comparison(c_win=parent_window,
                                                     primary_obj=cel_object,
-                                                    sec_obj=Uranus,
+                                                    sec_obj=planets.Uranus,
                                                     sec_lbl='Uranus',
                                                     comparison_type=equiv_type,
                                                     column=column), text='Uranus',
@@ -324,7 +319,7 @@ def place_equivalencies(window: Union[tk.Tk, tk.Toplevel, tk.Frame], cel_object:
     equiv_radio_buttons(window=equiv_window,
                         function=lambda: comparison(c_win=parent_window,
                                                     primary_obj=cel_object,
-                                                    sec_obj=Neptune,
+                                                    sec_obj=planets.Neptune,
                                                     sec_lbl='Neptune',
                                                     comparison_type=equiv_type,
                                                     column=column), text='Neptune',
@@ -333,7 +328,7 @@ def place_equivalencies(window: Union[tk.Tk, tk.Toplevel, tk.Frame], cel_object:
     equiv_radio_buttons(window=equiv_window,
                         function=lambda: comparison(c_win=parent_window,
                                                     primary_obj=cel_object,
-                                                    sec_obj=Pluto, sec_lbl='Pluto',
+                                                    sec_obj=others.Pluto, sec_lbl='Pluto',
                                                     comparison_type=equiv_type,
                                                     column=column), text='Pluto',
                         value='Pluto', radio_val=get_val, row=2, column=2)
@@ -341,7 +336,7 @@ def place_equivalencies(window: Union[tk.Tk, tk.Toplevel, tk.Frame], cel_object:
     reset_button = tk.Button(master=equiv_window, text='Reset',
                              command=lambda: comparison(c_win=parent_window,
                                                         primary_obj=cel_object,
-                                                        sec_obj=Pluto,
+                                                        sec_obj=others.Pluto,
                                                         sec_lbl='Reset',
                                                         comparison_type=equiv_type,
                                                         column=column, reset=True))
@@ -413,33 +408,106 @@ def change_value(entry: tk.Entry, value: Union[Quantity, str], change_to: str,
     entry.insert(index=0, string=function(parameter=value, change_to=change_to))
 
 
-def image_placement(window: Union[tk.Tk, tk.Toplevel, tk.Frame], text: str, row: int,
-                    column: int = 0, wraplength: int = 1550, justify: str = tk.CENTER,
-                    sticky: str = 'news'):
+# def image_placement(window: Union[tk.Tk, tk.Toplevel, tk.Frame], text: str, row: int,
+#                     column: int = 0, wraplength: int = 1550, justify: str = tk.CENTER,
+#                     sticky: str = 'news'):
+#     """
+#     Places images and their descriptions in one of tk.Tk, tk.Toplevel, or tk.Frame
+#
+#     Parameters
+#     ----------
+#     window : Union[tk.Tk, tk.Toplevel, tk.Frame]
+#         tk.Tk, tk.Toplevel window or tk.Frame to build the object inside.
+#     text : str
+#         Text to display with the image.
+#     row : int
+#         The row number to place the image in a tkinter widget.
+#     column : int, optional
+#         The column number to place the image in a tkinter widget. The default is 0.
+#     wraplength : int, optional
+#         Length after which the text is to be wrapped. The default is 1550.
+#     justify : str, optional
+#         Justification of text placement in the tkinter widget. The default is tk.CENTER.
+#     sticky : str, optional
+#         Alignment of the text within the label. The default is 'news'.
+#
+#     Returns
+#     -------
+#     None.
+#
+#     """
+#     tk.Label(master=window, text=text, wraplength=wraplength,
+#              justify=justify).grid(row=row, column=column, sticky=sticky)
+
+
+def comparison(c_win: Union[tk.Tk, tk.Toplevel, tk.Frame], primary_obj: Any, sec_obj: Any,
+               sec_lbl: str, comparison_type: str, column: int, reset: bool = False):
     """
-    Places images and their descriptions in one of tk.Tk, tk.Toplevel, or tk.Frame
+    Compares the attributes of given celestial object (o_obj) with comparison celestial
+    object (c_obj).
 
     Parameters
     ----------
-    window : Union[tk.Tk, tk.Toplevel, tk.Frame]
+    c_win : Union[tk.Tk, tk.Toplevel, tk.Frame]
         tk.Tk, tk.Toplevel window or tk.Frame to build the object inside.
-    text : str
-        Text to display with the image.
-    row : int
-        The row number to place the image in a tkinter widget.
-    column : int, optional
-        The column number to place the image in a tkinter widget. The default is 0.
-    wraplength : int, optional
-        Length after which the text is to be wrapped. The default is 1550.
-    justify : str, optional
-        Justification of text placement in the tkinter widget. The default is tk.CENTER.
-    sticky : str, optional
-        Alignment of the text within the label. The default is 'news'.
+    primary_obj : Any
+        The object clas to which the comparison is being done.
+    sec_obj : Any
+        The object class with which the comparison is being done.
+    sec_lbl : str
+        Text representing the comparison celestial object.
+    comparison_type: str
+        Whether the comparison should be of physical, orbital or observational parameters.
+    column: int
+        Specify the column number where the equivalencies should be placed.
+    reset : bool, optional
+        Option to set the comparison entries to null. The default is False.
 
     Returns
     -------
     None.
 
     """
-    tk.Label(master=window, text=text, wraplength=wraplength,
-             justify=justify).grid(row=row, column=column, sticky=sticky)
+    # get all the class attributes
+    attributes = primary_obj.__dict__.keys()
+    # get their number
+    num_attributes = len(attributes)
+
+    if comparison_type == 'physical':
+        sec_obj = sec_obj.PhysicalParameters()
+    elif comparison_type == 'orbital':
+        sec_obj = sec_obj.OrbitalParameters()
+    else:
+        sec_obj = sec_obj.ObservationalParameters()
+
+    # divide the celestial object attribute values to that of comparison celestial
+    # object attributes
+
+    out = []
+    for attr in attributes:
+        if primary_obj.__getattribute__(attr) is None:
+            ratio = None
+        elif attr in ['apparent_magnitude', 'absolute_magnitude']:
+            ratio = sec_obj.__getattribute__(attr)
+            ratio -= primary_obj.__getattribute__(attr)
+
+            ratio = 100**(ratio / 5)
+        else:
+            ratio = primary_obj.__getattribute__(attr) / sec_obj.__getattribute__(attr)
+
+        out.append(ratio)
+
+    # place the entries on the comparison window or reset them
+    for value, num in zip(out, range(1, num_attributes + 1)):
+        if value is None:
+            value = None
+        elif 0 < value <= 0.001:
+            value = f'{abs(value):.5e} × {sec_lbl}'
+        elif value > int(1e9):
+            value = f'{np.round(abs(value), 9):.5E} × {sec_lbl}'
+        else:
+            value = f'{np.round(abs(value), 9)} × {sec_lbl}'
+
+        value = value if not reset else ''
+
+        entry_placement(window=c_win, value=value, row=num, columns=column, width=25)
