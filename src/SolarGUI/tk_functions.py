@@ -245,7 +245,7 @@ def entry_placement(window, value, row, columns, width=None):
         highlightbackground=COLORS['bg_light'],
         highlightcolor=COLORS['accent']
     )
-    entry_widget.insert(index=0, string='{}'.format(value))
+    entry_widget.insert(index=0, string=str(value))
     entry_widget.grid(row=int(row), column=int(columns), padx=5, sticky='news')
 
     return entry_widget
