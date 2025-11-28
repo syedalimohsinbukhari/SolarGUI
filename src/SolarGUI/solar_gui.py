@@ -65,20 +65,20 @@ class Main:
     def _build_layout(self):
         """Build the main window layout."""
         # Stars section
-        stars_buttons = [sg.Button(name, key=f'STAR_{name}') for name, _ in self.stars_data]
+        stars_buttons = [sg.Button(name, key='STAR_{}'.format(name)) for name, _ in self.stars_data]
         
         # Planets section
-        planets_buttons = [sg.Button(name, key=f'PLANET_{name}') for name, _ in self.planets_data]
+        planets_buttons = [sg.Button(name, key='PLANET_{}'.format(name)) for name, _ in self.planets_data]
         
         # Moons section - organized by parent planet
         moons_rows = []
         for planet, moon_list in self.moons_data.items():
-            row = [sg.Text(f'{planet}:', size=(8, 1))]
-            row.extend([sg.Button(name, key=f'MOON_{name}') for name, _ in moon_list])
+            row = [sg.Text('{}:'.format(planet), size=(8, 1))]
+            row.extend([sg.Button(name, key='MOON_{}'.format(name)) for name, _ in moon_list])
             moons_rows.append(row)
         
         # Others section
-        others_buttons = [sg.Button(name, key=f'OTHER_{name}') for name, _ in self.others_data]
+        others_buttons = [sg.Button(name, key='OTHER_{}'.format(name)) for name, _ in self.others_data]
         
         layout = [
             [sg.Text('Welcome to Solar Explorer. Please select a button.', justification='center', expand_x=True)],
