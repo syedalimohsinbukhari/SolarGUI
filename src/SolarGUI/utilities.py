@@ -28,7 +28,7 @@ def convert(parameter: Quantity, change_to: str) -> Quantity:
         The celestial object parameter with changed unit.
 
     """
-    return parameter.to(change_to) if not change_to == '' else parameter
+    return parameter.to(change_to) if not change_to == "" else parameter
 
 
 def get_absolute_magnitude(apparent_magnitude: float, distance: Quantity) -> float:
@@ -48,7 +48,7 @@ def get_absolute_magnitude(apparent_magnitude: float, distance: Quantity) -> flo
         Absolute magnitude of the celestial object.
 
     """
-    distance = distance.to('pc')
+    distance = distance.to("pc")
     return apparent_magnitude - 5 * np.log10(distance.value) + 5
 
 
@@ -99,7 +99,7 @@ class GetPhysicalParameters:
             Density of the celestial object.
 
         """
-        return (self.mass / self.volume()).to('g/cm^3')
+        return (self.mass / self.volume()).to("g/cm^3")
 
     def surface_area(self) -> Quantity:
         """
@@ -135,7 +135,7 @@ class GetPhysicalParameters:
             Escape velocity of the celestial object.
 
         """
-        return (np.sqrt(2 * c_2018.G * self.mass * self.radius**-1)).to('km/s')
+        return (np.sqrt(2 * c_2018.G * self.mass * self.radius ** -1)).to("km/s")
 
     def get(self) -> Tuple[Quantity, Quantity, Quantity, Quantity, Quantity]:
         """
@@ -184,16 +184,17 @@ def if_none(val: float = None, unit: str = None) -> Optional[Quantity]:
     return None if None in [val, unit] else Q(value=val, unit=unit)
 
 
-pars_ = {'t_orb': [('s', 'hr', 'day', 'yr', 'Myr'), 'day'],
-         'v_orb': [('cm/s', 'm/s', 'km/s', 'km/h'), 'km/s'],
-         'm_anom': [('deg', 'rad'), 'deg'],
-         'incl': [('deg', 'rad'), 'deg'],
-         'long': [('deg', 'rad'), 'deg'],
-         'arg': [('deg', 'rad'), 'deg'],
-         'tilt': [('deg', 'rad'), 'deg'],
-         'dist': [('cm', 'm', 'km', 'Gm', 'AU', 'lyr', 'pc'), 'km'],
-         'size': [('arcsec', 'arcmin', 'deg', 'rad'), 'arcsec']
-         }
+pars_ = {
+    "t_orb": [("s", "hr", "day", "yr", "Myr"), "day"],
+    "v_orb": [("cm/s", "m/s", "km/s", "km/h"), "km/s"],
+    "m_anom": [("deg", "rad"), "deg"],
+    "incl": [("deg", "rad"), "deg"],
+    "long": [("deg", "rad"), "deg"],
+    "arg": [("deg", "rad"), "deg"],
+    "tilt": [("deg", "rad"), "deg"],
+    "dist": [("cm", "m", "km", "Gm", "AU", "lyr", "pc"), "km"],
+    "size": [("arcsec", "arcmin", "deg", "rad"), "arcsec"],
+}
 
 
 def get_options(value: Any, prop: str) -> tuple:
@@ -215,7 +216,7 @@ def get_options(value: Any, prop: str) -> tuple:
     """
     if value is None:
         option_ = tuple()
-        default_ = ''
+        default_ = ""
     else:
         option_, default_ = pars_[prop]
 
