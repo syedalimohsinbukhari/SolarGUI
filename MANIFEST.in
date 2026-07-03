@@ -1,12 +1,1 @@
 include README.md
-
-include src/SolarGUI/images/sun/*
-include src/SolarGUI/images/mercury/*
-include src/SolarGUI/images/venus/*
-include src/SolarGUI/images/earth/*
-include src/SolarGUI/images/mars/*
-include src/SolarGUI/images/jupiter/*
-include src/SolarGUI/images/saturn/*
-include src/SolarGUI/images/uranus/*
-include src/SolarGUI/images/neptune/*
-include src/SolarGUI/images/pluto/*
